@@ -1,5 +1,5 @@
 import { getExampleSketch, ExampleVariables } from "./Example.sketch";
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { SketchDiv } from "components/StyledUI";
 import { ExampleMenu } from "./Example.menu";
 import { useP5 } from "utils/hooks";
@@ -11,12 +11,10 @@ const variables: ExampleVariables = {
   ELLIPSE_OPACITY: 20,
 };
 
+/**
+ * Component showing an example of using live-updating p5.js variables controlled by react components
+ */
 export const Example = () => {
-  const [posVariance, setPosVariance] = useState(20);
-  const [colorVariance, setColorVariance] = useState(60);
-  const [radius, setRadius] = useState(30);
-  const [opacity, setOpacity] = useState(60);
-
   const sketch = getExampleSketch(variables);
   const { ref, p5Instance } = useP5(sketch);
 
