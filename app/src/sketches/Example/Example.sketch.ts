@@ -48,7 +48,7 @@ export const getExampleSketch = (constants: ExampleConstants) => {
     };
 
     p.setup = () => {
-      p.createCanvas(window.innerWidth, window.innerHeight);
+      p.createCanvas(p.windowWidth, p.windowHeight);
       drawBackground();
       setupPosition();
     };
