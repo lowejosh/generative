@@ -1,26 +1,22 @@
 import p5 from "p5";
 
-export type ExampleConstants = {
+export type ExampleVariables = {
   POS_VARIANCE: number;
   COLOR_VARIANCE: number;
   ELLIPSE_RADIUS: number;
   ELLIPSE_OPACITY: number;
 };
 
-export const getExampleSketch = (constants: ExampleConstants) => {
-  const {
-    POS_VARIANCE,
-    COLOR_VARIANCE,
-    ELLIPSE_RADIUS,
-    ELLIPSE_OPACITY,
-  } = constants;
-
+export const getExampleSketch = (variables: ExampleVariables) => {
   return (p: p5) => {
     let x = 0;
     let y = 0;
     let r = 255;
     let g = 255;
     let b = 255;
+
+    // storing the variabl
+    p.storeItem("variables", variables);
 
     const drawBackground = () => {
       p.background(0);
@@ -60,6 +56,14 @@ export const getExampleSketch = (constants: ExampleConstants) => {
     };
 
     p.draw = () => {
+      // get variables
+      const {
+        POS_VARIANCE,
+        COLOR_VARIANCE,
+        ELLIPSE_RADIUS,
+        ELLIPSE_OPACITY,
+      } = p.getItem("variables") as ExampleVariables;
+
       // draw an ellipse
       p.fill(r, g, b, p.map(ELLIPSE_OPACITY, 0, 100, 0, 255));
       p.noStroke();

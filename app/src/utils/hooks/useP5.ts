@@ -1,17 +1,20 @@
 import { SketchInstance } from "utils/types/p5";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import p5 from "p5";
 
 export const useP5 = (sketch: SketchInstance) => {
   const ref = useRef<HTMLDivElement | null>(null);
+  const [p5Instance, setP5Instance] = useState<p5 | null>(null);
 
   useEffect(() => {
-    const p5Instance = new p5(sketch, ref.current || undefined);
+    if (!p5Instance) {
+      setP5Instance(new p5(sketch, ref.current || undefined));
+    }
 
     return () => {
-      p5Instance.remove();
+      p5Instance && p5Instance.remove();
     };
-  }, [sketch]);
+  }, [sketch, p5Instance]);
 
-  return ref;
+  return { ref, p5Instance };
 };

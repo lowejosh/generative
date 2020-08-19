@@ -6,3 +6,5 @@ export const MenuItemWrapper = styled(FlexRowBetween)(({ theme }) => ({
     marginRight: theme.spacing(2),
   },
 }));
+
+export const SketchDiv = styled("div")({});

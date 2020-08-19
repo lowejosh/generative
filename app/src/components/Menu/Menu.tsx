@@ -1,5 +1,5 @@
 import { MenuContainer, MenuCard } from "./Menu.styled";
-import { useIdle } from "utils/hooks/useIdle";
+import { useIdle } from "utils/hooks";
 import { Fade } from "@material-ui/core";
 import React from "react";
 

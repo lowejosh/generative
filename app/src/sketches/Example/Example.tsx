@@ -1,12 +1,15 @@
-import { getExampleSketch, ExampleConstants } from "./Example.sketch";
-import React, { useMemo, Fragment, useState } from "react";
-import { Sketch } from "components/Sketch";
-import { Menu } from "components/Menu";
-import { Box } from "@material-ui/core";
-import { MenuSlider } from "components/MenuSlider/MenuSlider";
-import { FlexRowAround } from "components/StyledUI";
-import { MenuItemWrapper } from "components/StyledUI/Menu";
+import { getExampleSketch, ExampleVariables } from "./Example.sketch";
+import React, { Fragment, useState } from "react";
+import { SketchDiv } from "components/StyledUI";
 import { ExampleMenu } from "./Example.menu";
+import { useP5 } from "utils/hooks";
+
+const variables: ExampleVariables = {
+  POS_VARIANCE: 20,
+  COLOR_VARIANCE: 20,
+  ELLIPSE_RADIUS: 20,
+  ELLIPSE_OPACITY: 20,
+};
 
 export const Example = () => {
   const [posVariance, setPosVariance] = useState(20);
@@ -14,30 +17,13 @@ export const Example = () => {
   const [radius, setRadius] = useState(30);
   const [opacity, setOpacity] = useState(60);
 
-  const constants: ExampleConstants = useMemo(
-    () => ({
-      POS_VARIANCE: posVariance,
-      COLOR_VARIANCE: colorVariance,
-      ELLIPSE_RADIUS: radius,
-      ELLIPSE_OPACITY: opacity,
-    }),
-    [posVariance, colorVariance, radius, opacity]
-  );
+  const sketch = getExampleSketch(variables);
+  const { ref, p5Instance } = useP5(sketch);
 
-  console.log(posVariance);
   return (
     <Fragment>
-      <Sketch sketch={getExampleSketch(constants)} />
-      <ExampleMenu
-        posVariance={posVariance}
-        setPosVariance={setPosVariance}
-        colorVariance={colorVariance}
-        setColorVariance={setColorVariance}
-        radius={radius}
-        setRadius={setRadius}
-        opacity={opacity}
-        setOpacity={setOpacity}
-      />
+      <SketchDiv ref={ref} />
+      <ExampleMenu initialVariables={variables} p5Instance={p5Instance} />
     </Fragment>
   );
 };
