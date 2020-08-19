@@ -34,7 +34,6 @@ export const ExampleMenu = ({ initialVariables, p5Instance }: Props) => {
         ELLIPSE_OPACITY: opacity,
       } as ExampleVariables);
     }
-
     return () => (p5Instance ? p5Instance.clearStorage() : undefined);
   }, [posVariance, colorVariance, radius, opacity]);
 

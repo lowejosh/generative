@@ -12,7 +12,7 @@ export const MenuContainer = styled("div")({
 });
 
 export const MenuCard = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.background.default + "AA",
+  backgroundColor: theme.palette.background.default + "CC",
   borderRadius: theme.spacing(2),
   padding: theme.spacing(3),
   width: "100%",

@@ -15,7 +15,7 @@ export const getExampleSketch = (variables: ExampleVariables) => {
     let g = 255;
     let b = 255;
 
-    // storing the variabl
+    // storing the variables into the instance allows for react to manipulate it from the outside
     p.storeItem("variables", variables);
 
     const drawBackground = () => {
