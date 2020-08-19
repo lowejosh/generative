@@ -61,7 +61,7 @@ export const getExampleSketch = (constants: ExampleConstants) => {
 
     p.draw = () => {
       // draw an ellipse
-      p.fill(r, g, b, ELLIPSE_OPACITY);
+      p.fill(r, g, b, p.map(ELLIPSE_OPACITY, 0, 100, 0, 255));
       p.noStroke();
       p.ellipse(x, y, ELLIPSE_RADIUS, ELLIPSE_RADIUS);
 

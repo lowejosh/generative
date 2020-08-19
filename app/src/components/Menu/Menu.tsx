@@ -1,7 +1,7 @@
-import React from "react";
+import { MenuContainer, MenuCard } from "./Menu.styled";
 import { useIdle } from "utils/hooks/useIdle";
 import { Fade } from "@material-ui/core";
-import { MenuContainer } from "./Menu.styled";
+import React from "react";
 
 type Props = {
   children: JSX.Element;
@@ -9,12 +9,11 @@ type Props = {
 
 export const Menu = ({ children }: Props) => {
   const isIdle = useIdle(2000);
-  console.log(isIdle);
 
   return (
     <MenuContainer>
-      <Fade in>
-        <div>{children}</div>
+      <Fade in={!isIdle}>
+        <MenuCard>{children}</MenuCard>
       </Fade>
     </MenuContainer>
   );
