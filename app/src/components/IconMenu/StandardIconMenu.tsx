@@ -1,29 +1,26 @@
+import { FlexRowPadded } from "components/StyledUI/Flex";
+import { Refresh, ArrowBack } from "@material-ui/icons/";
+import { IconWrapper } from "./IconMenu.styled";
 import React, { MouseEvent } from "react";
 import { IconMenu } from "./IconMenu";
-import { FlexRow } from "components/StyledUI";
-import { IconButton } from "@material-ui/core";
-import { Refresh } from "@material-ui/icons/";
 
 type Props = {
   show: boolean;
   onRefresh: (event: MouseEvent) => void;
 };
 
-const params = {
-  size: "small",
-};
-
 /**
  *  Prebuilt icon menu for standard use case
  */
-export const StandardIconMenu = ({ show, onRefresh }: Props) => {
-  return (
-    <IconMenu show={show}>
-      <FlexRow>
-        <IconButton onClick={onRefresh}>
-          <Refresh color="primary" />
-        </IconButton>
-      </FlexRow>
-    </IconMenu>
-  );
-};
+export const StandardIconMenu = ({ show, onRefresh }: Props) => (
+  <IconMenu show={show}>
+    <FlexRowPadded>
+      <IconWrapper>
+        <ArrowBack color="primary" />
+      </IconWrapper>
+      <IconWrapper onClick={onRefresh}>
+        <Refresh color="primary" />
+      </IconWrapper>
+    </FlexRowPadded>
+  </IconMenu>
+);

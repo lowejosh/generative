@@ -39,7 +39,7 @@ export const FlexRowPadded = styled("div")(({ fullWidth, theme }: Props) => ({
   display: "flex",
   alignItems: "center",
   "& > *:not(:last-child)": {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(2),
   },
   ...(fullWidth && { width: "100%" }),
 }));
