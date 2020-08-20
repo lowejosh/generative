@@ -1,4 +1,4 @@
-import { SketchInstance } from "utils/types/p5";
+import { SketchInstance } from "types/p5";
 import { useP5 } from "utils/hooks";
 import React from "react";
 import { SketchDiv } from "components/StyledUI";

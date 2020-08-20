@@ -1,4 +1,4 @@
-import { SketchInstance } from "utils/types/p5";
+import { SketchInstance } from "types/p5";
 import { useRef, useEffect, useState } from "react";
 import p5 from "p5";
 

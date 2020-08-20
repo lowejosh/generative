@@ -1,22 +1,20 @@
-import p5 from "p5";
+import { P5Instance, P5Defaults } from "types/p5";
 
-export type ExampleVariables = {
+export interface ExampleVariables extends P5Defaults {
   POS_VARIANCE: number;
   COLOR_VARIANCE: number;
   ELLIPSE_RADIUS: number;
   ELLIPSE_OPACITY: number;
-};
+}
 
-export const getExampleSketch = (variables: ExampleVariables) => {
-  return (p: p5) => {
+export const getExampleSketch = (initialVariables: ExampleVariables) => {
+  return (p: P5Instance<ExampleVariables>) => {
+    p.variables = initialVariables;
     let x = 0;
     let y = 0;
     let r = 255;
     let g = 255;
     let b = 255;
-
-    // storing the variables into the instance allows for react to manipulate it from the outside
-    p.storeItem("variables", variables);
 
     const drawBackground = () => {
       p.background(0);
@@ -56,27 +54,29 @@ export const getExampleSketch = (variables: ExampleVariables) => {
     };
 
     p.draw = () => {
-      // get variables
-      const {
-        POS_VARIANCE,
-        COLOR_VARIANCE,
-        ELLIPSE_RADIUS,
-        ELLIPSE_OPACITY,
-      } = p.getItem("variables") as ExampleVariables;
+      if (p.variables) {
+        // get variables
+        const {
+          POS_VARIANCE,
+          COLOR_VARIANCE,
+          ELLIPSE_OPACITY,
+          ELLIPSE_RADIUS,
+        } = p.variables;
 
-      // draw an ellipse
-      p.fill(r, g, b, p.map(ELLIPSE_OPACITY, 0, 100, 0, 255));
-      p.noStroke();
-      p.ellipse(x, y, ELLIPSE_RADIUS, ELLIPSE_RADIUS);
+        // draw an ellipse
+        p.fill(r, g, b, p.map(ELLIPSE_OPACITY, 0, 100, 0, 255));
+        p.noStroke();
+        p.ellipse(x, y, ELLIPSE_RADIUS, ELLIPSE_RADIUS);
 
-      //increment pos randomly (max at end of screen - diameter)
-      x = incrementRandomlyMinMaxed(x, POS_VARIANCE, 0, p.windowWidth);
-      y = incrementRandomlyMinMaxed(y, POS_VARIANCE, 0, p.windowHeight);
+        //increment pos randomly (max at end of screen - diameter)
+        x = incrementRandomlyMinMaxed(x, POS_VARIANCE, 0, p.windowWidth);
+        y = incrementRandomlyMinMaxed(y, POS_VARIANCE, 0, p.windowHeight);
 
-      //increment color randomly (max at 255)
-      r = incrementRandomlyMinMaxed(r, COLOR_VARIANCE, 0, 255);
-      g = incrementRandomlyMinMaxed(g, COLOR_VARIANCE, 0, 255);
-      b = incrementRandomlyMinMaxed(b, COLOR_VARIANCE, 0, 255);
+        //increment color randomly (max at 255)
+        r = incrementRandomlyMinMaxed(r, COLOR_VARIANCE, 0, 255);
+        g = incrementRandomlyMinMaxed(g, COLOR_VARIANCE, 0, 255);
+        b = incrementRandomlyMinMaxed(b, COLOR_VARIANCE, 0, 255);
+      }
     };
   };
 };

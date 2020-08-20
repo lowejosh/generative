@@ -1,7 +1,7 @@
 import { theme } from "utils/constants/theme";
 import { styled } from "@material-ui/core";
 
-export const MenuContainer = styled("div")({
+export const BottomMenuContainer = styled("div")({
   paddingRight: theme.spacing(5),
   paddingLeft: theme.spacing(5),
   bottom: theme.spacing(5),

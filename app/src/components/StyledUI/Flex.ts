@@ -1,6 +1,7 @@
-import { styled } from "@material-ui/core";
+import { styled, Theme } from "@material-ui/core";
 
 type Props = {
+  theme: Theme;
   fullWidth?: boolean;
 };
 
@@ -31,5 +32,14 @@ export const FlexRowBetween = styled("div")(({ fullWidth }: Props) => ({
 export const FlexRowAround = styled("div")(({ fullWidth }: Props) => ({
   display: "flex",
   justifyContent: "space-around",
+  ...(fullWidth && { width: "100%" }),
+}));
+
+export const FlexRowPadded = styled("div")(({ fullWidth, theme }: Props) => ({
+  display: "flex",
+  alignItems: "center",
+  "& > *:not(:last-child)": {
+    marginRight: theme.spacing(1),
+  },
   ...(fullWidth && { width: "100%" }),
 }));
