@@ -1,4 +1,4 @@
-export const getComponentTemplate = (sketchName: string) => `
+const getComponentTemplate = (sketchName) => `
 import { get${sketchName}Sketch, ${sketchName}Variables } from "./${sketchName}.sketch";
 import { ${sketchName}Menu } from "./${sketchName}.menu";
 import { SketchDiv } from "components/StyledUI";
@@ -30,3 +30,5 @@ export const ${sketchName} = () => {
 };
 
 `;
+
+module.exports = getComponentTemplate;

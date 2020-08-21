@@ -18,6 +18,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
+    "run-func": "^1.0.5",
     "typescript": "~3.9.7"
   },
   "scripts": {
@@ -25,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "myScript": "npx babel-node ./src/tools/sketchInitializer/index.ts"
+    "initSketch": "run-func ./src/tools/sketchInitializer/index.js init"
   },
   "eslintConfig": {
     "extends": "react-app"

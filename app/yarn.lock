@@ -9343,6 +9343,11 @@ run-async@^2.2.0, run-async@^2.4.0:
   resolved "http://203.220.43.130:4873/run-async/-/run-async-2.4.1.tgz#8440eccf99ea3e70bd409d49aab88e10c189a455"
   integrity sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==
 
+run-func@^1.0.5:
+  version "1.0.5"
+  resolved "http://203.220.43.130:4873/run-func/-/run-func-1.0.5.tgz#f441a6dfcaccb2d53f9bdb9b747428dc45d1305b"
+  integrity sha512-v+Iopip1KE00OFRwIpLdLUsMXHDErktYAMYevTvCCwTBQWF+7z+vy886FUrOOBIwyX5OJC6tLdRKyzYHOfHQug==
+
 run-queue@^1.0.0, run-queue@^1.0.3:
   version "1.0.3"
   resolved "http://203.220.43.130:4873/run-queue/-/run-queue-1.0.3.tgz#e848396f057d223f24386924618e25694161ec47"

@@ -1,4 +1,4 @@
-export const getMenuTemplate = (sketchName: string) => `
+const getMenuTemplate = (sketchName) => `
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useState, useEffect } from "react";
@@ -65,3 +65,5 @@ export const ${sketchName}Menu = ({ initialVariables, p5Instance }: Props) => {
   );
 };
 `;
+
+module.exports = getMenuTemplate;

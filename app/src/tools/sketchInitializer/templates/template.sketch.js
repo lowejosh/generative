@@ -1,11 +1,9 @@
-export const getSketchTemplatea = (sketchName: string) => `
+const getSketchTemplate = (sketchName) => `
 import { P5Instance, P5Defaults } from "types/p5";
 
 export interface ${sketchName}Variables extends P5Defaults {
-  POS_VARIANCE: number;
-  COLOR_VARIANCE: number;
-  ELLIPSE_RADIUS: number;
-  ELLIPSE_OPACITY: number;
+  FOO: string;
+  BAR: string;
 }
 
 export const get${sketchName}Sketch = (initialVariables: ${sketchName}Variables) => {
@@ -40,3 +38,5 @@ export const get${sketchName}Sketch = (initialVariables: ${sketchName}Variables)
   };
 };
 `;
+
+module.exports = getSketchTemplate;
