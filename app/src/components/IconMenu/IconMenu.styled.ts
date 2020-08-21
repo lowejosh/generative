@@ -1,15 +1,14 @@
 import { styled, IconButton, darken, lighten } from "@material-ui/core";
-import { BACKGROUND_HEX_OPACITY } from "utils/constants/strings";
-import { theme } from "utils/constants/theme";
+import { BACKGROUND_HEX_OPACITY } from "constants/strings";
 
-export const IconMenuContainer = styled("div")({
+export const IconMenuContainer = styled("div")(({ theme }) => ({
   paddingRight: theme.spacing(5),
   paddingLeft: theme.spacing(5),
   top: theme.spacing(5),
   position: "absolute",
   display: "flex",
   width: "100%",
-});
+}));
 
 export const IconWrapper = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.background.default + BACKGROUND_HEX_OPACITY,

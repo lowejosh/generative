@@ -24,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "myScript": "npx babel-node ./src/tools/sketchInitializer/index.ts"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -4,9 +4,9 @@ import { MenuItemWrapper } from "components/StyledUI";
 import { ExampleVariables } from "./Example.sketch";
 import { BottomMenu } from "components/BottomMenu";
 import { P5Instance } from "types/p5";
-import { useIdle } from "utils/hooks";
-import { TIME_TO_IDLE } from "utils/constants/numbers";
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
+import { TIME_TO_IDLE } from "constants/numbers";
+import { useIdle } from "hooks";
 
 type Props = {
   initialVariables: ExampleVariables;

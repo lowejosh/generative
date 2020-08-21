@@ -1,8 +1,8 @@
 import { getExampleSketch, ExampleVariables } from "./Example.sketch";
-import React, { Fragment } from "react";
 import { SketchDiv } from "components/StyledUI";
 import { ExampleMenu } from "./Example.menu";
-import { useP5 } from "utils/hooks";
+import React, { Fragment } from "react";
+import { useP5 } from "hooks";
 import p5 from "p5";
 
 const initialVariables: ExampleVariables = {
