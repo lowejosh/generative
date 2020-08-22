@@ -1,5 +1,5 @@
-import { FormControlLabel, Checkbox, Typography } from "@material-ui/core";
-import { FlexColumn, FlexRow, FlexRowPadded } from "components/StyledUI";
+import { Checkbox, Typography } from "@material-ui/core";
+import { FlexRowPadded } from "components/StyledUI";
 import React from "react";
 
 type Props = {

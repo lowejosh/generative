@@ -1,9 +1,9 @@
 import { MultiplicativeEpicycloidVariables } from "./MultiplicativeEpicycloid";
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuCheckbox } from "components/MenuCheckbox/MenuCheckbox";
-import { MenuItemWrapper, FlexRow } from "components/StyledUI";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useState, useEffect } from "react";
+import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { P5Instance } from "types/p5";

@@ -39,9 +39,11 @@ export const getRandomWalkSketch = (initialVariables: RandomWalkVariables) => {
     };
 
     p.setup = () => {
-      p.createCanvas(p.windowWidth, p.windowHeight);
-      drawBackground();
-      setupPosition();
+      if (p.variables) {
+        p.variables.canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+        drawBackground();
+        setupPosition();
+      }
     };
 
     p.windowResized = () => {

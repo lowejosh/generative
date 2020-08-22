@@ -1,10 +1,10 @@
+import { getMultiplicativeEpicycloidSketch } from "./MultiplicativeEpicycloid.sketch";
 import { MultiplicativeEpicycloidMenu } from "./MultiplicativeEpicycloid.menu";
 import { SketchDiv } from "components/StyledUI";
 import React, { Fragment } from "react";
+import { P5Defaults } from "types/p5";
 import { useP5 } from "hooks";
 import p5 from "p5";
-import { P5Defaults } from "types/p5";
-import { getMultiplicativeEpicycloidSketch } from "./MultiplicativeEpicycloid.sketch";
 
 export interface MultiplicativeEpicycloidVariables extends P5Defaults {
   TOTAL_VERTICES: number;
