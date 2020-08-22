@@ -1,14 +1,8 @@
-import { P5Instance, P5Defaults } from "types/p5";
+import { RandomWalkVariables } from "./RandomWalk";
+import { P5Instance } from "types/p5";
 
-export interface ExampleVariables extends P5Defaults {
-  POS_VARIANCE: number;
-  COLOR_VARIANCE: number;
-  ELLIPSE_RADIUS: number;
-  ELLIPSE_OPACITY: number;
-}
-
-export const getExampleSketch = (initialVariables: ExampleVariables) => {
-  return (p: P5Instance<ExampleVariables>) => {
+export const getRandomWalkSketch = (initialVariables: RandomWalkVariables) => {
+  return (p: P5Instance<RandomWalkVariables>) => {
     p.variables = initialVariables;
     let x = 0;
     let y = 0;

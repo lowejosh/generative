@@ -9,6 +9,7 @@ type Props = {
   max: number;
   title?: string;
   step?: number;
+  disabled?: boolean;
 };
 
 export const MenuSlider = ({
@@ -18,6 +19,7 @@ export const MenuSlider = ({
   max,
   title,
   step,
+  disabled,
 }: Props) => {
   const handleChange = (e: React.ChangeEvent<{}>, val: number | number[]) => {
     setValue(Number(val));
@@ -27,6 +29,7 @@ export const MenuSlider = ({
     <FlexColumn fullWidth>
       {title && <Typography variant="caption">{title}</Typography>}
       <Slider
+        disabled={disabled}
         value={typeof value === "number" ? value : 0}
         onChange={handleChange}
         getAriaValueText={(val) => val.toString()}

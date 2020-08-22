@@ -1,10 +1,15 @@
 const getComponentTemplate = (sketchName) => `
-import { get${sketchName}Sketch, ${sketchName}Variables } from "./${sketchName}.sketch";
+import { get${sketchName}Sketch } from "./${sketchName}.sketch";
 import { ${sketchName}Menu } from "./${sketchName}.menu";
 import { SketchDiv } from "components/StyledUI";
 import React, { Fragment } from "react";
 import { useP5 } from "hooks";
 import p5 from "p5";
+
+export interface ${sketchName}Variables extends P5Defaults {
+  FOO: number;
+  BAR: number;
+}
 
 const initialVariables: ${sketchName}Variables = {
   FOO: 0,

@@ -2,7 +2,7 @@ const getMenuTemplate = (sketchName) => `
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useState, useEffect } from "react";
-import { ${sketchName}Variables } from "./${sketchName}.sketch";
+import { ${sketchName}Variables } from "./${sketchName}";
 import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";

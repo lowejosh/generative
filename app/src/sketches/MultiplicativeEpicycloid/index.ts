@@ -1,0 +1,1 @@
+export { MultiplicativeEpicycloid } from "./MultiplicativeEpicycloid";

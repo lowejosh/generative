@@ -1,16 +1,16 @@
+import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useState, useEffect } from "react";
 import { MenuItemWrapper } from "components/StyledUI";
-import { ExampleVariables } from "./Example.sketch";
 import { BottomMenu } from "components/BottomMenu";
-import { P5Instance } from "types/p5";
-import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
+import { RandomWalkVariables } from "./RandomWalk";
 import { TIME_TO_IDLE } from "constants/numbers";
+import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 
 type Props = {
-  initialVariables: ExampleVariables;
-  p5Instance: P5Instance<ExampleVariables> | null;
+  initialVariables: RandomWalkVariables;
+  p5Instance: P5Instance<RandomWalkVariables> | null;
 };
 
 const sliderParams = {
@@ -19,7 +19,7 @@ const sliderParams = {
   step: 1,
 };
 
-export const ExampleMenu = ({ initialVariables, p5Instance }: Props) => {
+export const RandomWalkMenu = ({ initialVariables, p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
 
   // variable state
