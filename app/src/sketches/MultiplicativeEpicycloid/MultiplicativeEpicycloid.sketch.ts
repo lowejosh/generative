@@ -65,7 +65,7 @@ export const getMultiplicativeEpicycloidSketch = (
         drawBackground();
         p.translate(p.windowWidth / 2, p.windowHeight / 2);
         p.circle(0, 0, RADIUS * 2);
-        p.strokeWeight(5);
+        p.strokeWeight(1);
 
         for (let i = 0; i < TOTAL_VERTICES; i++) {
           // vectors

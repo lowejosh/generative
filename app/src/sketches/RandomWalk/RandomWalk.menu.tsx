@@ -7,6 +7,7 @@ import { RandomWalkVariables } from "./RandomWalk";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
+import { formatPixelValue, formatPercentValue } from "utils/menu";
 
 type Props = {
   initialVariables: RandomWalkVariables;
@@ -44,10 +45,7 @@ export const RandomWalkMenu = ({ initialVariables, p5Instance }: Props) => {
 
   return (
     <Fragment>
-      <StandardIconMenu
-        show={!isIdle}
-        onRefresh={() => p5Instance?.variables?.refresh(p5Instance)}
-      />
+      <StandardIconMenu show={!isIdle} p5Instance={p5Instance} />
       <BottomMenu show={!isIdle}>
         <Fragment>
           <MenuItemWrapper>
@@ -73,6 +71,7 @@ export const RandomWalkMenu = ({ initialVariables, p5Instance }: Props) => {
             />
             <MenuSlider
               title="Circle Opacity"
+              labelFormat={formatPercentValue}
               value={opacity}
               setValue={setOpacity}
               {...sliderParams}

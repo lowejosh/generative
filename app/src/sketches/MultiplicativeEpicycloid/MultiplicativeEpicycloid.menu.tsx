@@ -8,6 +8,7 @@ import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
+import { formatTimesValue, formatPixelValue } from "utils/menu";
 
 type Props = {
   initialVariables: MultiplicativeEpicycloidVariables;
@@ -54,10 +55,7 @@ export const MultiplicativeEpicycloidMenu = ({
 
   return (
     <Fragment>
-      <StandardIconMenu
-        show={!isIdle}
-        onRefresh={() => p5Instance?.variables?.refresh(p5Instance)}
-      />
+      <StandardIconMenu show={!isIdle} p5Instance={p5Instance} />
       <BottomMenu show={!isIdle}>
         <Fragment>
           <MenuItemWrapper>
@@ -74,6 +72,7 @@ export const MultiplicativeEpicycloidMenu = ({
               title={`Factor${
                 isAutoplaying ? " (Disabled when autoplaying)" : ""
               }`}
+              labelFormat={formatTimesValue}
               value={factor}
               setValue={setFactor}
               {...sliderParams}
@@ -93,10 +92,12 @@ export const MultiplicativeEpicycloidMenu = ({
               title={`Autoplay Speed${
                 !isAutoplaying ? " (Disabled when not autoplaying)" : ""
               }`}
-              value={autoplaySpeed * 1000}
-              setValue={(newVal: number) => setAutoplaySpeed(newVal / 1000)}
+              labelFormat={formatTimesValue}
+              value={autoplaySpeed * 100}
+              setValue={(newVal: number) => setAutoplaySpeed(newVal / 100)}
               {...sliderParams}
-              max={100}
+              max={10}
+              step={0.1}
             />
           </MenuItemWrapper>
           <MenuCheckbox

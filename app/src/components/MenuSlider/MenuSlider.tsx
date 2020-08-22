@@ -10,6 +10,7 @@ type Props = {
   title?: string;
   step?: number;
   disabled?: boolean;
+  labelFormat?: string | ((value: number, index: number) => string) | undefined;
 };
 
 export const MenuSlider = ({
@@ -20,6 +21,7 @@ export const MenuSlider = ({
   title,
   step,
   disabled,
+  labelFormat,
 }: Props) => {
   const handleChange = (e: React.ChangeEvent<{}>, val: number | number[]) => {
     setValue(Number(val));
@@ -30,6 +32,7 @@ export const MenuSlider = ({
       {title && <Typography variant="caption">{title}</Typography>}
       <Slider
         disabled={disabled}
+        valueLabelFormat={labelFormat}
         value={typeof value === "number" ? value : 0}
         onChange={handleChange}
         getAriaValueText={(val) => val.toString()}

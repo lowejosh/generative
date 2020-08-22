@@ -1,20 +1,25 @@
+import { Refresh, ArrowBack, CameraAlt } from "@material-ui/icons/";
 import { FlexRowPadded } from "components/StyledUI/Flex";
-import { Refresh, ArrowBack } from "@material-ui/icons/";
 import { IconWrapper } from "./IconMenu.styled";
 import { useHistory } from "react-router-dom";
-import React, { MouseEvent } from "react";
 import { IconMenu } from "./IconMenu";
+import { P5Instance } from "types/p5";
+import React from "react";
 
 type Props = {
   show: boolean;
-  onRefresh: (event: MouseEvent) => void;
+  p5Instance: P5Instance<any> | null;
 };
 
 /**
  *  Prebuilt icon menu for standard use case
  */
-export const StandardIconMenu = ({ show, onRefresh }: Props) => {
+export const StandardIconMenu = ({ show, p5Instance }: Props) => {
   const history = useHistory();
+
+  const onRefresh = () => p5Instance?.variables?.refresh(p5Instance);
+
+  const onSave = () => p5Instance?.save("image");
 
   const onBack = () => {
     history.push("/");
@@ -28,6 +33,9 @@ export const StandardIconMenu = ({ show, onRefresh }: Props) => {
         </IconWrapper>
         <IconWrapper onClick={onRefresh}>
           <Refresh color="primary" />
+        </IconWrapper>
+        <IconWrapper onClick={onSave}>
+          <CameraAlt color="primary" />
         </IconWrapper>
       </FlexRowPadded>
     </IconMenu>
