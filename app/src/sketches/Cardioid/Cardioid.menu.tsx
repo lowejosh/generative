@@ -1,8 +1,8 @@
-const getMenuTemplate = (sketchName) => `
+
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useState, useEffect } from "react";
-import { ${sketchName}Variables } from "./${sketchName}.sketch";
+import { CardioidVariables } from "./Cardioid.sketch";
 import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
@@ -10,8 +10,8 @@ import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 
 type Props = {
-  initialVariables: ${sketchName}Variables;
-  p5Instance: P5Instance<${sketchName}Variables> | null;
+  initialVariables: CardioidVariables;
+  p5Instance: P5Instance<CardioidVariables> | null;
 };
 
 const sliderParams = {
@@ -20,7 +20,7 @@ const sliderParams = {
   step: 1,
 };
 
-export const ${sketchName}Menu = ({ initialVariables, p5Instance }: Props) => {
+export const CardioidMenu = ({ initialVariables, p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
 
   // variable state
@@ -64,6 +64,3 @@ export const ${sketchName}Menu = ({ initialVariables, p5Instance }: Props) => {
     </Fragment>
   );
 };
-`;
-
-module.exports = getMenuTemplate;

@@ -28,7 +28,7 @@ const init = (path) => {
 
     // read/write files
     Object.entries(inputs).forEach(([name, content]) => {
-      const suffix = name === "component" ? "tsx" : "ts";
+      const suffix = name === "component" || name === "menu" ? "tsx" : "ts";
       fs.writeFile(
         name === "index"
           ? folder.length

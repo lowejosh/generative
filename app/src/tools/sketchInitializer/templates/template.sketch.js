@@ -2,8 +2,8 @@ const getSketchTemplate = (sketchName) => `
 import { P5Instance, P5Defaults } from "types/p5";
 
 export interface ${sketchName}Variables extends P5Defaults {
-  FOO: string;
-  BAR: string;
+  FOO: number;
+  BAR: number;
 }
 
 export const get${sketchName}Sketch = (initialVariables: ${sketchName}Variables) => {
