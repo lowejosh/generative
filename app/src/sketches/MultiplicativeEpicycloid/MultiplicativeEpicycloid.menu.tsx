@@ -6,9 +6,13 @@ import React, { Fragment, useState, useEffect } from "react";
 import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
+import {
+  formatTimesValue,
+  formatPixelValue,
+  formatPercentValue,
+} from "utils/menu";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
-import { formatTimesValue, formatPixelValue } from "utils/menu";
 
 type Props = {
   initialVariables: MultiplicativeEpicycloidVariables;
@@ -33,6 +37,10 @@ export const MultiplicativeEpicycloidMenu = ({
   );
   const [radius, setRadius] = useState(initialVariables.RADIUS);
   const [factor, setFactor] = useState(initialVariables.FACTOR); // override
+  const [strokeWidth, setStrokeWidth] = useState(initialVariables.STROKE_WIDTH);
+  const [strokeOpacity, setStrokeOpacity] = useState(
+    initialVariables.STROKE_OPACITY
+  ); // override
   const [isAutoplaying, setIsAutoplaying] = useState(
     initialVariables.IS_AUTOPLAYING
   );
@@ -48,16 +56,58 @@ export const MultiplicativeEpicycloidMenu = ({
         FACTOR: factor,
         RADIUS: radius,
         IS_AUTOPLAYING: isAutoplaying,
+        STROKE_OPACITY: strokeOpacity,
+        STROKE_WIDTH: strokeWidth,
         AUTOPLAY_SPEED: autoplaySpeed,
       });
     }
-  }, [totalVertices, autoplaySpeed, isAutoplaying, factor, radius, p5Instance]);
+  }, [
+    totalVertices,
+    autoplaySpeed,
+    isAutoplaying,
+    factor,
+    radius,
+    strokeOpacity,
+    strokeWidth,
+    p5Instance,
+  ]);
 
   return (
     <Fragment>
-      <StandardIconMenu show={!isIdle} p5Instance={p5Instance} />
+      <StandardIconMenu
+        show={!isIdle}
+        p5Instance={p5Instance}
+        disableLoopControl={!isAutoplaying}
+        initialLoopControl
+      />
       <BottomMenu show={!isIdle}>
         <Fragment>
+          <MenuItemWrapper>
+            <MenuSlider
+              title="Radius"
+              value={radius}
+              setValue={setRadius}
+              {...sliderParams}
+              min={100}
+              max={800}
+            />
+            <MenuSlider
+              title="Stroke Width"
+              labelFormat={formatPixelValue}
+              value={strokeWidth}
+              setValue={setStrokeWidth}
+              step={1}
+              min={1}
+              max={5}
+            />
+            <MenuSlider
+              title="Stroke Opacity"
+              labelFormat={formatPercentValue}
+              value={strokeOpacity}
+              setValue={setStrokeOpacity}
+              {...sliderParams}
+            />
+          </MenuItemWrapper>
           <MenuItemWrapper>
             <MenuSlider
               title="Total Vertices"
@@ -77,16 +127,6 @@ export const MultiplicativeEpicycloidMenu = ({
               setValue={setFactor}
               {...sliderParams}
             />
-          </MenuItemWrapper>
-          <MenuItemWrapper>
-            <MenuSlider
-              title="Radius"
-              value={radius}
-              setValue={setRadius}
-              {...sliderParams}
-              min={100}
-              max={800}
-            />
             <MenuSlider
               disabled={!isAutoplaying}
               title={`Autoplay Speed${
@@ -102,7 +142,9 @@ export const MultiplicativeEpicycloidMenu = ({
           </MenuItemWrapper>
           <MenuCheckbox
             checked={isAutoplaying}
-            setChecked={setIsAutoplaying}
+            setChecked={(value: boolean) => {
+              setIsAutoplaying(value);
+            }}
             title="Autoplay"
           />
         </Fragment>

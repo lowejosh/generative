@@ -1,5 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { sketches } from "constants/sketches";
+import { Fade } from "@material-ui/core";
 import { Home } from "components/Home";
 import React from "react";
 
@@ -13,7 +14,11 @@ export const Routes = () => (
 
       {/* Sketches */}
       {sketches.map((sketch) => (
-        <Route path={`/${sketch.slug}`}>{sketch.component}</Route>
+        <Route path={`/${sketch.slug}`}>
+          <Fade in timeout={{ enter: 500 }}>
+            <div>{sketch.component}</div>
+          </Fade>
+        </Route>
       ))}
     </Switch>
   </BrowserRouter>

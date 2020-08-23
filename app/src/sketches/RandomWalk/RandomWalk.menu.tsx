@@ -5,9 +5,9 @@ import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { RandomWalkVariables } from "./RandomWalk";
 import { TIME_TO_IDLE } from "constants/numbers";
+import { formatPercentValue } from "utils/menu";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
-import { formatPixelValue, formatPercentValue } from "utils/menu";
 
 type Props = {
   initialVariables: RandomWalkVariables;
@@ -45,7 +45,11 @@ export const RandomWalkMenu = ({ initialVariables, p5Instance }: Props) => {
 
   return (
     <Fragment>
-      <StandardIconMenu show={!isIdle} p5Instance={p5Instance} />
+      <StandardIconMenu
+        show={!isIdle}
+        p5Instance={p5Instance}
+        initialLoopControl
+      />
       <BottomMenu show={!isIdle}>
         <Fragment>
           <MenuItemWrapper>

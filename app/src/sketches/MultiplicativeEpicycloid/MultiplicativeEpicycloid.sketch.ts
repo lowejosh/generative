@@ -47,6 +47,8 @@ export const getMultiplicativeEpicycloidSketch = (
           TOTAL_VERTICES,
           RADIUS,
           FACTOR,
+          STROKE_WIDTH,
+          STROKE_OPACITY,
           IS_AUTOPLAYING,
           AUTOPLAY_SPEED,
         } = p.variables;
@@ -65,7 +67,8 @@ export const getMultiplicativeEpicycloidSketch = (
         drawBackground();
         p.translate(p.windowWidth / 2, p.windowHeight / 2);
         p.circle(0, 0, RADIUS * 2);
-        p.strokeWeight(1);
+        p.strokeWeight(STROKE_WIDTH);
+        const opacity = p.map(STROKE_OPACITY, 0, 100, 0, 255);
 
         for (let i = 0; i < TOTAL_VERTICES; i++) {
           // vectors
@@ -73,7 +76,7 @@ export const getMultiplicativeEpicycloidSketch = (
           const endPos = getVector(i * localFactor);
 
           // colors
-          p.stroke(100, 200, 200);
+          p.stroke(100, 200, 200, opacity);
           if (startPos && endPos) {
             p.line(startPos.x, startPos.y, endPos.x, endPos.y);
           }
