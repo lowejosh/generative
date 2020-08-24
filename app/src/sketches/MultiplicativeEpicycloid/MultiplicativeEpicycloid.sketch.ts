@@ -70,12 +70,13 @@ export const getMultiplicativeEpicycloidSketch = (
         p.strokeWeight(STROKE_WIDTH);
         const opacity = p.map(STROKE_OPACITY, 0, 100, 0, 255);
 
+        // init vertices
         for (let i = 0; i < TOTAL_VERTICES; i++) {
           // vectors
           const startPos = getVector(i);
           const endPos = getVector(i * localFactor);
 
-          // colors
+          // draw
           p.stroke(100, 200, 200, opacity);
           if (startPos && endPos) {
             p.line(startPos.x, startPos.y, endPos.x, endPos.y);

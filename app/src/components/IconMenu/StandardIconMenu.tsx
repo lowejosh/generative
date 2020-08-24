@@ -37,24 +37,29 @@ export const StandardIconMenu = ({
 
   const onPlay = () => {
     setIsLooping(true);
-    p5Instance?.loop();
   };
 
   const onPause = () => {
     setIsLooping(false);
-    p5Instance?.noLoop();
   };
 
   const onBack = () => {
     history.push("/");
   };
 
-  // Re-enable looping when loop control is disabled
   useEffect(() => {
+    // Re-enable looping when loop control is disabled
     if (disableLoopControl) {
       p5Instance?.loop();
+    } else {
+      // Control the instance looping if loop control isnt disabled
+      if (!isLooping) {
+        p5Instance?.noLoop();
+      } else {
+        p5Instance?.loop();
+      }
     }
-  }, [disableLoopControl, p5Instance]);
+  }, [isLooping, disableLoopControl, p5Instance]);
 
   return (
     <IconMenu show={show}>
