@@ -11,6 +11,7 @@ export interface RandomWalkVariables extends P5Defaults {
   COLOR_VARIANCE: number;
   ELLIPSE_RADIUS: number;
   ELLIPSE_OPACITY: number;
+  SPEED: number;
 }
 
 const initialVariables: RandomWalkVariables = {
@@ -18,6 +19,7 @@ const initialVariables: RandomWalkVariables = {
   COLOR_VARIANCE: 20,
   ELLIPSE_RADIUS: 40,
   ELLIPSE_OPACITY: 80,
+  SPEED: 1,
   refresh: (p: p5) => {
     p.setup();
   },

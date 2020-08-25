@@ -5,7 +5,7 @@ import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { RandomWalkVariables } from "./RandomWalk";
 import { TIME_TO_IDLE } from "constants/numbers";
-import { formatPercentValue } from "utils/menu";
+import { formatPercentValue, formatTimesValue } from "utils/menu";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 
@@ -27,6 +27,7 @@ export const RandomWalkMenu = ({ initialVariables, p5Instance }: Props) => {
   const [posVariance, setPosVariance] = useState(initialVariables.POS_VARIANCE);
   const [radius, setRadius] = useState(initialVariables.ELLIPSE_RADIUS);
   const [opacity, setOpacity] = useState(initialVariables.ELLIPSE_OPACITY);
+  const [speed, setSpeed] = useState(initialVariables.SPEED);
   const [colorVariance, setColorVariance] = useState(
     initialVariables.COLOR_VARIANCE
   );
@@ -39,9 +40,10 @@ export const RandomWalkMenu = ({ initialVariables, p5Instance }: Props) => {
         COLOR_VARIANCE: colorVariance,
         ELLIPSE_RADIUS: radius,
         ELLIPSE_OPACITY: opacity,
-      });
+        SPEED: speed,
+      } as RandomWalkVariables);
     }
-  }, [posVariance, colorVariance, radius, opacity, p5Instance]);
+  }, [speed, posVariance, colorVariance, radius, opacity, p5Instance]);
 
   return (
     <Fragment>
@@ -81,6 +83,13 @@ export const RandomWalkMenu = ({ initialVariables, p5Instance }: Props) => {
               {...sliderParams}
             />
           </MenuItemWrapper>
+          <MenuSlider
+            title="Speed"
+            labelFormat={formatTimesValue}
+            value={speed}
+            setValue={setSpeed}
+            {...sliderParams}
+          />
         </Fragment>
       </BottomMenu>
     </Fragment>

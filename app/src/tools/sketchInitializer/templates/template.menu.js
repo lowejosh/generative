@@ -33,7 +33,7 @@ export const ${sketchName}Menu = ({ initialVariables, p5Instance }: Props) => {
       Object.assign(p5Instance.variables, {
         FOO: foo,
         BAR: bar,
-      });
+      } as ${sketchName}Variables);
     }
   }, [foo, bar, p5Instance]);
 

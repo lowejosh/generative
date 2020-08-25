@@ -58,21 +58,26 @@ export const getRandomWalkSketch = (initialVariables: RandomWalkVariables) => {
           COLOR_VARIANCE,
           ELLIPSE_OPACITY,
           ELLIPSE_RADIUS,
+          SPEED,
         } = p.variables;
 
         // draw an ellipse
-        p.fill(r, g, b, p.map(ELLIPSE_OPACITY, 0, 100, 0, 255));
-        p.noStroke();
-        p.ellipse(x, y, ELLIPSE_RADIUS, ELLIPSE_RADIUS);
+        Array(SPEED)
+          .fill(0)
+          .forEach(() => {
+            p.fill(r, g, b, p.map(ELLIPSE_OPACITY, 0, 100, 0, 255));
+            p.noStroke();
+            p.ellipse(x, y, ELLIPSE_RADIUS, ELLIPSE_RADIUS);
 
-        //increment pos randomly (max at end of screen - diameter)
-        x = incrementRandomlyMinMaxed(x, POS_VARIANCE, 0, p.windowWidth);
-        y = incrementRandomlyMinMaxed(y, POS_VARIANCE, 0, p.windowHeight);
+            //increment pos randomly (max at end of screen - diameter)
+            x = incrementRandomlyMinMaxed(x, POS_VARIANCE, 0, p.windowWidth);
+            y = incrementRandomlyMinMaxed(y, POS_VARIANCE, 0, p.windowHeight);
 
-        //increment color randomly (max at 255)
-        r = incrementRandomlyMinMaxed(r, COLOR_VARIANCE, 0, 255);
-        g = incrementRandomlyMinMaxed(g, COLOR_VARIANCE, 0, 255);
-        b = incrementRandomlyMinMaxed(b, COLOR_VARIANCE, 0, 255);
+            //increment color randomly (max at 255)
+            r = incrementRandomlyMinMaxed(r, COLOR_VARIANCE, 0, 255);
+            g = incrementRandomlyMinMaxed(g, COLOR_VARIANCE, 0, 255);
+            b = incrementRandomlyMinMaxed(b, COLOR_VARIANCE, 0, 255);
+          });
       }
     };
   };
