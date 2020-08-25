@@ -7,23 +7,25 @@ import { useP5 } from "hooks";
 import p5 from "p5";
 
 export interface MultiplicativeEpicycloidVariables extends P5Defaults {
+  IS_AUTOPLAYING: boolean;
   TOTAL_VERTICES: number;
-  RADIUS: number;
-  FACTOR: number;
-  STROKE_WIDTH: number;
   STROKE_OPACITY: number;
   AUTOPLAY_SPEED: number;
-  IS_AUTOPLAYING: boolean;
+  STROKE_WIDTH: number;
+  RADIUS: number;
+  FACTOR: number;
+  COLOR: string;
 }
 
 const initialVariables: MultiplicativeEpicycloidVariables = {
+  IS_AUTOPLAYING: false,
   TOTAL_VERTICES: 150,
-  RADIUS: 300,
-  FACTOR: 2,
-  STROKE_WIDTH: 1,
   STROKE_OPACITY: 70,
   AUTOPLAY_SPEED: 0.01,
-  IS_AUTOPLAYING: false,
+  STROKE_WIDTH: 1,
+  RADIUS: 300,
+  COLOR: "#FFFFFF",
+  FACTOR: 2,
   refresh: (p: p5) => {
     p.setup();
   },

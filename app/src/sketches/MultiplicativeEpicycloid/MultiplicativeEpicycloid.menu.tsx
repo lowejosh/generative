@@ -1,18 +1,19 @@
 import { MultiplicativeEpicycloidVariables } from "./MultiplicativeEpicycloid";
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
+import { MenuItemWrapper, FlexRowPadded } from "components/StyledUI";
 import { MenuCheckbox } from "components/MenuCheckbox/MenuCheckbox";
+import { ColorPicker } from "components/ColorPicker/ColorPicker";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useState, useEffect } from "react";
-import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
+import { P5Instance } from "types/p5";
+import { useIdle } from "hooks";
 import {
   formatTimesValue,
   formatPixelValue,
   formatPercentValue,
 } from "utils/menu";
-import { P5Instance } from "types/p5";
-import { useIdle } from "hooks";
 
 type Props = {
   initialVariables: MultiplicativeEpicycloidVariables;
@@ -38,6 +39,7 @@ export const MultiplicativeEpicycloidMenu = ({
   const [radius, setRadius] = useState(initialVariables.RADIUS);
   const [factor, setFactor] = useState(initialVariables.FACTOR); // override
   const [strokeWidth, setStrokeWidth] = useState(initialVariables.STROKE_WIDTH);
+  const [color, setColor] = useState(initialVariables.COLOR);
   const [strokeOpacity, setStrokeOpacity] = useState(
     initialVariables.STROKE_OPACITY
   ); // override
@@ -59,6 +61,7 @@ export const MultiplicativeEpicycloidMenu = ({
         STROKE_OPACITY: strokeOpacity,
         STROKE_WIDTH: strokeWidth,
         AUTOPLAY_SPEED: autoplaySpeed,
+        COLOR: color,
       });
     }
   }, [
@@ -70,6 +73,7 @@ export const MultiplicativeEpicycloidMenu = ({
     strokeOpacity,
     strokeWidth,
     p5Instance,
+    color,
   ]);
 
   return (
@@ -140,13 +144,16 @@ export const MultiplicativeEpicycloidMenu = ({
               step={0.1}
             />
           </MenuItemWrapper>
-          <MenuCheckbox
-            checked={isAutoplaying}
-            setChecked={(value: boolean) => {
-              setIsAutoplaying(value);
-            }}
-            title="Autoplay"
-          />
+          <FlexRowPadded spacing={3}>
+            <MenuCheckbox
+              checked={isAutoplaying}
+              setChecked={(value: boolean) => {
+                setIsAutoplaying(value);
+              }}
+              title="Autoplay"
+            />
+            <ColorPicker color={color} setColor={setColor} title="Color" />
+          </FlexRowPadded>
         </Fragment>
       </BottomMenu>
     </Fragment>

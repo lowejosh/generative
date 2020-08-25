@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import { styled } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { styled, Typography } from "@material-ui/core";
+import { FlexRowPadded } from "components/StyledUI";
+import { useDebounce } from "hooks";
+import { DEBOUNCE_DELAY } from "constants/numbers";
 
 const Input = styled("input")({
   WebkitAppearance: "none",
@@ -21,14 +24,31 @@ const Input = styled("input")({
 });
 
 type Props = {
-  color: string;
   setColor: Function;
+  color: string;
+  title?: string;
 };
 
-export const ColorPicker = ({ color, setColor }: Props) => (
-  <Input
-    type="color"
-    onChange={(e) => setColor(e.target.value)}
-    value={color}
-  />
-);
+export const ColorPicker = ({ color, setColor, title }: Props) => {
+  /*
+   for chrome at-least the colorpicker is re-rendered a LOT during the color selection, so there is a local
+  value which is debounced before the color value is updated
+  */
+  const [localColor, setLocalColor] = useState(color);
+  const debouncedLocalColor = useDebounce(localColor, DEBOUNCE_DELAY);
+
+  useEffect(() => {
+    setColor(debouncedLocalColor);
+  }, [debouncedLocalColor, setColor]);
+
+  return (
+    <FlexRowPadded spacing={1}>
+      <Input
+        type="color"
+        onChange={(e) => setLocalColor(e.target.value)}
+        value={color}
+      />
+      {title && <Typography variant="caption">{title}</Typography>}
+    </FlexRowPadded>
+  );
+};

@@ -51,6 +51,7 @@ export const getMultiplicativeEpicycloidSketch = (
           STROKE_OPACITY,
           IS_AUTOPLAYING,
           AUTOPLAY_SPEED,
+          COLOR,
         } = p.variables;
 
         // increment factor if autoplaying
@@ -77,7 +78,9 @@ export const getMultiplicativeEpicycloidSketch = (
           const endPos = getVector(i * localFactor);
 
           // draw
-          p.stroke(100, 200, 200, opacity);
+          const color = p.color(COLOR);
+          color.setAlpha(opacity);
+          p.stroke(color);
           if (startPos && endPos) {
             p.line(startPos.x, startPos.y, endPos.x, endPos.y);
           }
