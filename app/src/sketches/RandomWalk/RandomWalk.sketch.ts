@@ -1,9 +1,9 @@
-import { RandomWalkVariables } from "./RandomWalk";
+import { RandomWalkVars } from "./RandomWalk";
 import { P5Instance } from "types/p5";
 
-export const getRandomWalkSketch = (initialVariables: RandomWalkVariables) => {
-  return (p: P5Instance<RandomWalkVariables>) => {
-    p.variables = initialVariables;
+export const getRandomWalkSketch = (initialVars: RandomWalkVars) => {
+  return (p: P5Instance<RandomWalkVars>) => {
+    p.variables = initialVars;
     let x = 0;
     let y = 0;
     let r = 255;
@@ -57,7 +57,7 @@ export const getRandomWalkSketch = (initialVariables: RandomWalkVariables) => {
           POS_VARIANCE,
           COLOR_VARIANCE,
           ELLIPSE_OPACITY,
-          ELLIPSE_RADIUS,
+          ELLIPSE_radius,
           SPEED,
         } = p.variables;
 
@@ -67,7 +67,7 @@ export const getRandomWalkSketch = (initialVariables: RandomWalkVariables) => {
           .forEach(() => {
             p.fill(r, g, b, p.map(ELLIPSE_OPACITY, 0, 100, 0, 255));
             p.noStroke();
-            p.ellipse(x, y, ELLIPSE_RADIUS, ELLIPSE_RADIUS);
+            p.ellipse(x, y, ELLIPSE_radius, ELLIPSE_radius);
 
             //increment pos randomly (max at end of screen - diameter)
             x = incrementRandomlyMinMaxed(x, POS_VARIANCE, 0, p.windowWidth);

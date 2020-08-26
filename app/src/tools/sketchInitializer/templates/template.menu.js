@@ -2,7 +2,7 @@ const getMenuTemplate = (sketchName) => `
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useState, useEffect } from "react";
-import { ${sketchName}Variables } from "./${sketchName}";
+import { ${sketchName}Vars } from "./${sketchName}";
 import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
@@ -10,8 +10,8 @@ import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 
 type Props = {
-  initialVariables: ${sketchName}Variables;
-  p5Instance: P5Instance<${sketchName}Variables> | null;
+  initialVars: ${sketchName}Vars;
+  p5Instance: P5Instance<${sketchName}Vars> | null;
 };
 
 const sliderParams = {
@@ -20,12 +20,12 @@ const sliderParams = {
   step: 1,
 };
 
-export const ${sketchName}Menu = ({ initialVariables, p5Instance }: Props) => {
+export const ${sketchName}Menu = ({ initialVars, p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
 
   // variable state
-  const [foo, setFoo] = useState(initialVariables.FOO);
-  const [bar, setBar] = useState(initialVariables.BAR);
+  const [foo, setFoo] = useState(initialVars.FOO);
+  const [bar, setBar] = useState(initialVars.BAR);
 
   // live update the p5Instance items
   useEffect(() => {
@@ -33,7 +33,7 @@ export const ${sketchName}Menu = ({ initialVariables, p5Instance }: Props) => {
       Object.assign(p5Instance.variables, {
         FOO: foo,
         BAR: bar,
-      } as ${sketchName}Variables);
+      } as ${sketchName}Vars);
     }
   }, [foo, bar, p5Instance]);
 

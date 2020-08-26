@@ -1,4 +1,4 @@
-import { RandomWalk, MultiplicativeEpicycloid } from "sketches";
+import { RandomWalk, Epicycloid } from "sketches";
 import React from "react";
 
 export type SketchItem = {
@@ -19,7 +19,7 @@ export const sketches: Array<SketchItem> = [
   {
     name: "Multiplicative Epicycloid",
     slug: "multiplicative-epicycloid",
-    component: <MultiplicativeEpicycloid />,
+    component: <Epicycloid />,
     dateCompleted: new Date("2020-08-22"),
   },
 ];

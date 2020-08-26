@@ -6,12 +6,12 @@ import React, { Fragment } from "react";
 import { useP5 } from "hooks";
 import p5 from "p5";
 
-export interface ${sketchName}Variables extends P5Defaults {
+export interface ${sketchName}Vars extends P5Defaults {
   FOO: number;
   BAR: number;
 }
 
-const initialVariables: ${sketchName}Variables = {
+const initialVars: ${sketchName}Vars = {
   FOO: 0,
   BAR: 0,
   refresh: (p: p5) => {
@@ -20,14 +20,14 @@ const initialVariables: ${sketchName}Variables = {
 };
 
 export const ${sketchName} = () => {
-  const sketch = get${sketchName}Sketch(initialVariables);
+  const sketch = get${sketchName}Sketch(initialVars);
   const { ref, p5Instance } = useP5(sketch);
 
   return (
     <Fragment>
       <SketchDiv ref={ref} />
       <${sketchName}Menu
-        initialVariables={initialVariables}
+        initialVars={initialVars}
         p5Instance={p5Instance}
       />
     </Fragment>

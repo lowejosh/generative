@@ -38,8 +38,9 @@ export const ColorPicker = ({ color, setColor, title }: Props) => {
   const debouncedLocalColor = useDebounce(localColor, DEBOUNCE_DELAY);
 
   useEffect(() => {
+    console.log("reached");
     setColor(debouncedLocalColor);
-  }, [debouncedLocalColor, setColor]);
+  }, [debouncedLocalColor]);
 
   return (
     <FlexRowPadded spacing={1}>

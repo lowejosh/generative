@@ -13,8 +13,8 @@ export const Routes = () => (
       </Route>
 
       {/* Sketches */}
-      {sketches.map((sketch) => (
-        <Route path={`/${sketch.slug}`}>
+      {sketches.map((sketch, index) => (
+        <Route key={index} path={`/${sketch.slug}`}>
           <Fade in timeout={{ enter: 500 }}>
             <div>{sketch.component}</div>
           </Fade>
