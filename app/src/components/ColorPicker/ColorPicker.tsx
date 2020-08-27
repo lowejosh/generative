@@ -30,23 +30,24 @@ type Props = {
 };
 
 /**
- * Returns a debounced color value from a colorpicker
+ * Returns a debounced color value from a colorpicker to limit full re-renders
  */
 export const ColorPicker = ({ color, setColor, title }: Props) => {
   const [localColor, setLocalColor] = useState(color);
   const debouncedLocalColor = useDebounce(localColor, DEBOUNCE_DELAY);
 
+  // if the debounce delay triggers, set the higher scoped variable
   useEffect(() => {
     setColor(debouncedLocalColor);
   }, [debouncedLocalColor, setColor]);
 
+  // set the state locally upon every change
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLocalColor(e.target.value);
+
   return (
     <FlexRowPadded spacing={1}>
-      <Input
-        type="color"
-        onChange={(e) => setLocalColor(e.target.value)}
-        value={color}
-      />
+      <Input type="color" onChange={handleChange} value={color} />
       {title && <Typography variant="caption">{title}</Typography>}
     </FlexRowPadded>
   );

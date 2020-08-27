@@ -17,6 +17,7 @@ export const createGenericActions = <Vars>(
     payload: Vars[keyof Vars];
   }>
 ) =>
+  // create a set object that holds the dispatch events
   (Object.keys(initialVars) as Array<keyof Vars>).reduce<
     Record<keyof Vars, Function>
   >((set: Record<string, Function>, varKey) => {

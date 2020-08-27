@@ -1,4 +1,5 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { TRANSITION_DELAY } from "constants/numbers";
 import { sketches } from "constants/sketches";
 import { Fade } from "@material-ui/core";
 import { Home } from "components/Home";
@@ -15,7 +16,7 @@ export const Routes = () => (
       {/* Sketches */}
       {sketches.map((sketch, index) => (
         <Route key={index} path={`/${sketch.slug}`}>
-          <Fade in timeout={{ enter: 500 }}>
+          <Fade in timeout={{ enter: TRANSITION_DELAY }}>
             <div>{sketch.component}</div>
           </Fade>
         </Route>

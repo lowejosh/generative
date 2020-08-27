@@ -1,6 +1,8 @@
 import { Slider, Typography } from "@material-ui/core";
 import { FlexColumn } from "components/StyledUI";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDebounce } from "hooks";
+import { DEBOUNCE_DELAY } from "constants/numbers";
 
 type Props = {
   setValue: Function;
@@ -23,8 +25,15 @@ export const MenuSlider = ({
   disabled,
   labelFormat,
 }: Props) => {
+  const [localValue, setLocalValue] = useState(value);
+  const debouncedLocalValue = useDebounce(localValue, DEBOUNCE_DELAY);
+
+  useEffect(() => {
+    setValue(debouncedLocalValue);
+  }, [debouncedLocalValue, setValue]);
+
   const handleChange = (e: React.ChangeEvent<{}>, val: number | number[]) => {
-    setValue(Number(val));
+    setLocalValue(Number(val));
   };
 
   return (
@@ -33,13 +42,14 @@ export const MenuSlider = ({
       <Slider
         disabled={disabled}
         valueLabelFormat={labelFormat}
-        value={typeof value === "number" ? value : 0}
+        value={typeof localValue === "number" ? localValue : 0}
         onChange={handleChange}
         getAriaValueText={(val) => val.toString()}
         valueLabelDisplay="auto"
         step={step || 1}
         min={min}
-        color="primary"
+        color={localValue === debouncedLocalValue ? "primary" : "secondary"} // shows a different color if still debouncing
+        style={{ transition: "0.3s" }}
         max={max}
       />
     </FlexColumn>

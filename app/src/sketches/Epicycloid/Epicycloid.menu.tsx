@@ -49,8 +49,6 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
     }
   }, [p5Instance, state]);
 
-  console.log(state);
-
   return (
     <Fragment>
       <StandardIconMenu
