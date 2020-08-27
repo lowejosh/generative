@@ -29,18 +29,16 @@ type Props = {
   title?: string;
 };
 
+/**
+ * Returns a debounced color value from a colorpicker
+ */
 export const ColorPicker = ({ color, setColor, title }: Props) => {
-  /*
-   for chrome at-least the colorpicker is re-rendered a LOT during the color selection, so there is a local
-  value which is debounced before the color value is updated
-  */
   const [localColor, setLocalColor] = useState(color);
   const debouncedLocalColor = useDebounce(localColor, DEBOUNCE_DELAY);
 
   useEffect(() => {
-    console.log("reached");
     setColor(debouncedLocalColor);
-  }, [debouncedLocalColor]);
+  }, [debouncedLocalColor, setColor]);
 
   return (
     <FlexRowPadded spacing={1}>

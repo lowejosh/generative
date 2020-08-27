@@ -1,5 +1,4 @@
 import { useMemo, useReducer } from "react";
-import { toSentenceCase } from "./formatting";
 
 // Generic reducer for cleaning up state declarations
 export const createGenericReducer = <Vars>() => (
@@ -18,21 +17,24 @@ export const createGenericActions = <Vars>(
     payload: Vars[keyof Vars];
   }>
 ) =>
-  (Object.keys(initialVars) as Array<keyof Vars>).reduce(
-    (actions: { [x: string]: Function }, varKey) => {
-      actions[`set${toSentenceCase(varKey as string)}`] = (
-        value: Vars[keyof Vars]
-      ) => dispatch({ type: varKey, payload: value });
-      return actions;
-    },
-    {}
-  );
+  (Object.keys(initialVars) as Array<keyof Vars>).reduce<
+    Record<keyof Vars, Function>
+  >((set: Record<string, Function>, varKey) => {
+    set[varKey.toString()] = (value: Vars[keyof Vars]) =>
+      dispatch({ type: varKey, payload: value });
+    return set as Record<keyof Vars, Function>;
+  }, {} as Record<keyof Vars, Function>);
 
 // testing some stuff
 export const useGenericReducer = <Vars>(initialVars: Vars) => {
+  // standard reducer
   const reducer = useMemo(() => createGenericReducer<Vars>(), []);
   const [state, dispatch] = useReducer(reducer, { ...initialVars });
-  const actions = createGenericActions<Vars>(initialVars, dispatch);
 
-  return { state, dispatch, actions };
+  // generic dispatch shortcuts with some typescript autocompletion
+  const set = useMemo(() => createGenericActions<Vars>(initialVars, dispatch), [
+    initialVars,
+  ]);
+
+  return { state, dispatch, set };
 };
