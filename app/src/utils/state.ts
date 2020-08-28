@@ -23,10 +23,10 @@ export const createGenericActions = <Vars>(
   >((set: Record<string, Function>, varKey) => {
     set[varKey.toString()] = (value: Vars[keyof Vars]) =>
       dispatch({ type: varKey, payload: value });
-    return set as Record<keyof Vars, Function>;
-  }, {} as Record<keyof Vars, Function>);
+    return set as Record<keyof Vars, Function>; // enforce types for vscode autocompletion
+  }, {} as Record<keyof Vars, Function>); // ""
 
-// testing some stuff
+// abstracts away generic reducer production when given initial variables
 export const useGenericReducer = <Vars>(initialVars: Vars) => {
   // standard reducer
   const reducer = useMemo(() => createGenericReducer<Vars>(), []);

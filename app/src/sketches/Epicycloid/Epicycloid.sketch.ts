@@ -1,9 +1,13 @@
 import { initialEpicycloidVars, EpicycloidVars } from "./Epicycloid.variables";
 import { P5Instance } from "types/p5";
+import { smoothTransitionTo } from "sketches/sketch-utils/values";
 
 export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
+  // sketch scoped vars
   p.variables = initialEpicycloidVars;
-  let localFactor: number;
+  let smoothFactor = 0;
+  let smoothRadius = 0;
+  let smoothTotalVertices = 0;
 
   const drawBackground = () => {
     p.background(0);
@@ -12,12 +16,17 @@ export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
   // returns a vector for a given vertex index
   const getVector = (index: number) => {
     if (p.variables) {
-      const { totalVertices, radius } = p.variables;
       const angle =
-        p.map(index % totalVertices, 0, totalVertices, 0, p.TWO_PI) -
+        p.map(
+          index % smoothTotalVertices,
+          0,
+          smoothTotalVertices,
+          0,
+          p.TWO_PI
+        ) -
         p.TWO_PI / 2;
-      const x = radius * p.cos(angle);
-      const y = radius * p.sin(angle);
+      const x = smoothRadius * p.cos(angle);
+      const y = smoothRadius * p.sin(angle);
       return {
         x,
         y,
@@ -27,7 +36,7 @@ export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
 
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
-    localFactor = 0;
+    smoothFactor = 0;
     p.fill(0);
     drawBackground();
   };
@@ -51,28 +60,35 @@ export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
         color,
       } = p.variables;
 
+      // smoothing values
+      smoothRadius = smoothTransitionTo(smoothRadius, radius);
+      smoothTotalVertices = smoothTransitionTo(
+        smoothTotalVertices,
+        totalVertices
+      );
+
       // increment factor if autoplaying
       if (isAutoplaying) {
-        if (localFactor === factor) {
-          localFactor = 0;
+        if (smoothFactor === factor) {
+          smoothFactor = 0;
         }
-        localFactor += autoplaySpeed;
+        smoothFactor += autoplaySpeed;
       } else {
-        localFactor = factor;
+        smoothFactor = smoothTransitionTo(smoothFactor, factor);
       }
 
       // setup cycle
       drawBackground();
       p.translate(p.windowWidth / 2, p.windowHeight / 2);
-      p.circle(0, 0, radius * 2);
+      p.circle(0, 0, smoothRadius * 2);
       p.strokeWeight(strokeWidth);
       const opacity = p.map(strokeOpacity, 0, 100, 0, 255);
 
       // init vertices
-      for (let i = 0; i < totalVertices; i++) {
+      for (let i = 0; i < smoothTotalVertices; i++) {
         // vectors
         const startPos = getVector(i);
-        const endPos = getVector(i * localFactor);
+        const endPos = getVector(i * smoothFactor);
 
         // draw
         const opacityColor = p.color(color);
