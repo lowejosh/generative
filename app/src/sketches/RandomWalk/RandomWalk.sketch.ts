@@ -1,4 +1,5 @@
 import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
+import { incrementRandomlyMinMaxed } from "sketches/sketch-utils/values";
 import { P5Instance } from "types/p5";
 
 export const getRandomWalkSketch = () => {
@@ -20,22 +21,6 @@ export const getRandomWalkSketch = () => {
       r = 255;
       g = 255;
       b = 255;
-    };
-
-    const incrementRandomlyMinMaxed = (
-      current: number,
-      variance: number,
-      min: number,
-      max: number
-    ) => {
-      if (current + variance > max) {
-        current = current + p.random(-variance, 0);
-      } else if (current - variance < min) {
-        current = current + p.random(0, variance);
-      } else {
-        current = current + p.random(-variance, variance);
-      }
-      return current;
     };
 
     p.setup = () => {
@@ -70,13 +55,13 @@ export const getRandomWalkSketch = () => {
             p.ellipse(x, y, radius, radius);
 
             //increment pos randomly (max at end of screen - diameter)
-            x = incrementRandomlyMinMaxed(x, posVariance, 0, p.windowWidth);
-            y = incrementRandomlyMinMaxed(y, posVariance, 0, p.windowHeight);
+            x = incrementRandomlyMinMaxed(p, x, posVariance, 0, p.windowWidth);
+            y = incrementRandomlyMinMaxed(p, y, posVariance, 0, p.windowHeight);
 
             //increment color randomly (max at 255)
-            r = incrementRandomlyMinMaxed(r, colorVariance, 0, 255);
-            g = incrementRandomlyMinMaxed(g, colorVariance, 0, 255);
-            b = incrementRandomlyMinMaxed(b, colorVariance, 0, 255);
+            r = incrementRandomlyMinMaxed(p, r, colorVariance, 0, 255);
+            g = incrementRandomlyMinMaxed(p, g, colorVariance, 0, 255);
+            b = incrementRandomlyMinMaxed(p, b, colorVariance, 0, 255);
           });
       }
     };
