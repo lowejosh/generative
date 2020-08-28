@@ -37,7 +37,7 @@ export const MenuSlider = ({
   };
 
   return (
-    <FlexColumn fullWidth>
+    <FlexColumn fullwidth={1}>
       {title && <Typography variant="caption">{title}</Typography>}
       <Slider
         disabled={disabled}

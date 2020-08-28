@@ -10,7 +10,8 @@ export interface EpicycloidVars extends P5Defaults {
   strokeWidth: number;
   radius: number;
   factor: number;
-  color: string;
+  strokeColor: string;
+  bgColor: string;
 }
 
 // Initial
@@ -21,7 +22,8 @@ export const initialEpicycloidVars: EpicycloidVars = {
   autoplaySpeed: 0.01,
   strokeWidth: 1,
   radius: 300,
-  color: "#FFFFFF",
+  strokeColor: "#FFFFFF",
+  bgColor: "#000000",
   factor: 2,
   refresh: (p: p5) => {
     p.setup();

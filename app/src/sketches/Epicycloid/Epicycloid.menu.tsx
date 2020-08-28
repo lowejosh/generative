@@ -43,7 +43,8 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
         strokeOpacity: state.strokeOpacity,
         strokeWidth: state.strokeWidth,
         autoplaySpeed: state.autoplaySpeed,
-        color: state.color,
+        strokeColor: state.strokeColor,
+        bgColor: state.bgColor,
       });
     }
   }, [p5Instance, state]);
@@ -135,9 +136,16 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
               title="Autoplay"
             />
             <ColorPicker
-              color={state.color}
-              setColor={useCallback((val: string) => set.color(val), [set])}
-              title="Color"
+              color={state.strokeColor}
+              setColor={useCallback((val: string) => set.strokeColor(val), [
+                set,
+              ])}
+              title="Stroke Color"
+            />
+            <ColorPicker
+              color={state.bgColor}
+              setColor={useCallback((val: string) => set.bgColor(val), [set])}
+              title="Background Color"
             />
           </FlexRowPadded>
         </Fragment>

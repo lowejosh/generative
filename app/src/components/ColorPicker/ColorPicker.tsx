@@ -5,13 +5,14 @@ import { useDebounce } from "hooks";
 import { DEBOUNCE_DELAY } from "constants/numbers";
 
 const Input = styled("input")({
+  backgroundColor: "transparent",
   WebkitAppearance: "none",
   borderRadius: "100%",
   cursor: "pointer",
   outline: "none",
   border: "none",
   height: "20px",
-  width: "20px",
+  width: "23px",
 
   "&::-webkit-color-swatch-wrapper": {
     padding: 0,

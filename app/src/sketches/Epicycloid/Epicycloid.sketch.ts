@@ -10,7 +10,9 @@ export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
   let smoothTotalVertices = 0;
 
   const drawBackground = () => {
-    p.background(0);
+    if (p.variables) {
+      p.background(p.variables.bgColor);
+    }
   };
 
   // returns a vector for a given vertex index
@@ -37,7 +39,6 @@ export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
     smoothFactor = 0;
-    p.fill(0);
     drawBackground();
   };
 
@@ -57,7 +58,8 @@ export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
         strokeOpacity,
         isAutoplaying,
         autoplaySpeed,
-        color,
+        strokeColor,
+        bgColor,
       } = p.variables;
 
       // smoothing values
@@ -78,22 +80,25 @@ export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
       }
 
       // setup cycle
-      drawBackground();
-      p.translate(p.windowWidth / 2, p.windowHeight / 2);
-      p.circle(0, 0, smoothRadius * 2);
-      p.strokeWeight(strokeWidth);
       const opacity = p.map(strokeOpacity, 0, 100, 0, 255);
+      const opacityColor = p.color(strokeColor);
+      opacityColor.setAlpha(opacity);
+      p.stroke(opacityColor);
+      p.fill(bgColor);
+      p.translate(p.windowWidth / 2, p.windowHeight / 2);
+      p.strokeWeight(strokeWidth);
+      drawBackground();
 
-      // init vertices
+      // draw circle
+      p.circle(0, 0, smoothRadius * 2);
+
+      // init vertices to draw lines
       for (let i = 0; i < smoothTotalVertices; i++) {
-        // vectors
+        // get vectors
         const startPos = getVector(i);
         const endPos = getVector(i * smoothFactor);
 
-        // draw
-        const opacityColor = p.color(color);
-        opacityColor.setAlpha(opacity);
-        p.stroke(opacityColor);
+        // draw line
         if (startPos && endPos) {
           p.line(startPos.x, startPos.y, endPos.x, endPos.y);
         }

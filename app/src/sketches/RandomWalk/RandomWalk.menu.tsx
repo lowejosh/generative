@@ -1,8 +1,8 @@
 import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { formatPercentValue, formatTimesValue } from "utils/menu";
-import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useEffect, useCallback } from "react";
+import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";

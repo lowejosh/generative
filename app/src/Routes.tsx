@@ -10,7 +10,11 @@ export const Routes = () => (
     <Switch>
       {/* Home */}
       <Route exact path="/">
-        <Home />
+        <Fade in timeout={{ enter: TRANSITION_DELAY }}>
+          <div>
+            <Home />
+          </div>
+        </Fade>
       </Route>
 
       {/* Sketches */}
