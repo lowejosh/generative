@@ -2,14 +2,14 @@ import { useState, useRef, useEffect, useCallback } from "react";
 
 export const useIdle = (msToIdle: number) => {
   const [isIdle, setIsIdle] = useState(true);
-  const timeout = useRef<any>();
+  const timeout = useRef<number>();
 
   // set idle timeout on mouse move
   const handleMouseMove = useCallback(() => {
     if (timeout) {
       clearTimeout(timeout.current);
     }
-    timeout.current = setTimeout(() => {
+    timeout.current = window.setTimeout(() => {
       setIsIdle(true);
     }, msToIdle);
 
