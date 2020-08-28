@@ -7,7 +7,6 @@ import { useP5 } from "hooks";
 export const Epicycloid = () => {
   const { ref, p5Instance } = useP5(epicycloidSketch);
 
-  console.log("test");
   return (
     <Fragment>
       <SketchDiv ref={ref} />

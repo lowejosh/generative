@@ -1,16 +1,16 @@
 const getMenuTemplate = (sketchName) => `
+import { initial${sketchName}Vars, ${sketchName}Vars } from "./${sketchName}.variables";
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
-import React, { Fragment, useState, useEffect } from "react";
-import { ${sketchName}Vars } from "./${sketchName}";
+import React, { Fragment, useEffect, useCallback } from "react";
 import { MenuItemWrapper } from "components/StyledUI";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
+import { useGenericReducer } from "utils/state";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 
 type Props = {
-  initialVars: ${sketchName}Vars;
   p5Instance: P5Instance<${sketchName}Vars> | null;
 };
 
@@ -20,42 +20,41 @@ const sliderParams = {
   step: 1,
 };
 
-export const ${sketchName}Menu = ({ initialVars, p5Instance }: Props) => {
+export const ${sketchName}Menu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-
-  // variable state
-  const [foo, setFoo] = useState(initialVars.FOO);
-  const [bar, setBar] = useState(initialVars.BAR);
+  const { state, set } = useGenericReducer<${sketchName}Vars>(
+    initial${sketchName}Vars
+  );
 
   // live update the p5Instance items
   useEffect(() => {
     if (p5Instance) {
       Object.assign(p5Instance.variables, {
-        FOO: foo,
-        BAR: bar,
-      } as ${sketchName}Vars);
+        foo: state.foo,
+        bar: state.bar,
+      });
     }
-  }, [foo, bar, p5Instance]);
+  }, [p5Instance, state]);
 
   return (
     <Fragment>
       <StandardIconMenu
         show={!isIdle}
-        onRefresh={() => p5Instance?.variables?.refresh(p5Instance)}
+        p5Instance={p5Instance}
       />
       <BottomMenu show={!isIdle}>
         <Fragment>
           <MenuItemWrapper>
             <MenuSlider
               title="Foo"
-              value={foo}
-              setValue={setFoo}
+              value={state.foo}
+              setValue={useCallback((val: number) => set.foo(val), [set])}
               {...sliderParams}
             />
             <MenuSlider
               title="Bar"
-              value={bar}
-              setValue={setBar}
+              value={state.bar}
+              setValue={useCallback((val: number) => set.bar(val), [set])}
               {...sliderParams}
             />
           </MenuItemWrapper>

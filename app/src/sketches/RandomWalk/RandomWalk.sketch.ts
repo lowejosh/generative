@@ -1,9 +1,9 @@
-import { RandomWalkVars } from "./RandomWalk";
+import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
 import { P5Instance } from "types/p5";
 
-export const getRandomWalkSketch = (initialVars: RandomWalkVars) => {
+export const getRandomWalkSketch = () => {
   return (p: P5Instance<RandomWalkVars>) => {
-    p.variables = initialVars;
+    p.variables = initialRandomWalkVars;
     let x = 0;
     let y = 0;
     let r = 255;
@@ -54,29 +54,29 @@ export const getRandomWalkSketch = (initialVars: RandomWalkVars) => {
       if (p.variables) {
         // get variables
         const {
-          POS_VARIANCE,
-          COLOR_VARIANCE,
-          ELLIPSE_OPACITY,
-          ELLIPSE_radius,
-          SPEED,
+          posVariance,
+          colorVariance,
+          opacity,
+          radius,
+          speed,
         } = p.variables;
 
         // draw an ellipse
-        Array(SPEED)
+        Array(speed)
           .fill(0)
           .forEach(() => {
-            p.fill(r, g, b, p.map(ELLIPSE_OPACITY, 0, 100, 0, 255));
+            p.fill(r, g, b, p.map(opacity, 0, 100, 0, 255));
             p.noStroke();
-            p.ellipse(x, y, ELLIPSE_radius, ELLIPSE_radius);
+            p.ellipse(x, y, radius, radius);
 
             //increment pos randomly (max at end of screen - diameter)
-            x = incrementRandomlyMinMaxed(x, POS_VARIANCE, 0, p.windowWidth);
-            y = incrementRandomlyMinMaxed(y, POS_VARIANCE, 0, p.windowHeight);
+            x = incrementRandomlyMinMaxed(x, posVariance, 0, p.windowWidth);
+            y = incrementRandomlyMinMaxed(y, posVariance, 0, p.windowHeight);
 
             //increment color randomly (max at 255)
-            r = incrementRandomlyMinMaxed(r, COLOR_VARIANCE, 0, 255);
-            g = incrementRandomlyMinMaxed(g, COLOR_VARIANCE, 0, 255);
-            b = incrementRandomlyMinMaxed(b, COLOR_VARIANCE, 0, 255);
+            r = incrementRandomlyMinMaxed(r, colorVariance, 0, 255);
+            g = incrementRandomlyMinMaxed(g, colorVariance, 0, 255);
+            b = incrementRandomlyMinMaxed(b, colorVariance, 0, 255);
           });
       }
     };

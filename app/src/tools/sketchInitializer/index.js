@@ -3,6 +3,7 @@ const getComponentTemplate = require("./templates/template.component.js");
 const getIndexTemplate = require("./templates/template.index.js");
 const getMenuTemplate = require("./templates/template.menu.js");
 const getSketchTemplate = require("./templates/template.sketch.js");
+const getVariablesTemplate = require("./templates/template.variables.js");
 
 const init = (path) => {
   if (!path) {
@@ -24,6 +25,7 @@ const init = (path) => {
       component: getComponentTemplate(sketchName),
       menu: getMenuTemplate(sketchName),
       sketch: getSketchTemplate(sketchName),
+      variables: getVariablesTemplate(sketchName),
     };
 
     // read/write files

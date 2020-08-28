@@ -1,10 +1,10 @@
 const getSketchTemplate = (sketchName) => `
-import { ${sketchName}Vars } from "./${sketchName}";
+import { initial${sketchName}Vars, ${sketchName}Vars } from "./${sketchName}.variables";
 import { P5Instance } from "types/p5";
 
-export const get${sketchName}Sketch = (initialVars: ${sketchName}Vars) => {
+export const get${sketchName}Sketch = () => {
   return (p: P5Instance<${sketchName}Vars>) => {
-    p.variables = initialVars;
+    p.variables = initial${sketchName}Vars;
 
     const drawBackground = () => {
       p.background(0);
@@ -24,8 +24,8 @@ export const get${sketchName}Sketch = (initialVars: ${sketchName}Vars) => {
       if (p.variables) {
         // get variables
         const {
-          FOO,
-          BAR,
+          foo,
+          bar,
         } = p.variables;
 
         // do stuff

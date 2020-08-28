@@ -28,7 +28,6 @@ const sliderParams = {
 
 export const EpicycloidMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-
   const { state, set } = useGenericReducer<EpicycloidVars>(
     initialEpicycloidVars
   );

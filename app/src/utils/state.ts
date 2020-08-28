@@ -1,4 +1,10 @@
-import { useMemo, useReducer } from "react";
+import { useMemo, useReducer, Reducer } from "react";
+
+// abstract dispatch action
+type Action<Vars> = {
+  type: keyof Vars;
+  payload: Vars[keyof Vars];
+};
 
 // Generic reducer for cleaning up state declarations
 export const createGenericReducer = <Vars>() => (
@@ -12,10 +18,7 @@ export const createGenericReducer = <Vars>() => (
 // Creates an object of generic dispatch events given the variable keys
 export const createGenericActions = <Vars>(
   initialVars: Vars,
-  dispatch: React.Dispatch<{
-    type: keyof Vars;
-    payload: Vars[keyof Vars];
-  }>
+  dispatch: React.Dispatch<Action<Vars>>
 ) =>
   // create a set object that holds the dispatch events
   (Object.keys(initialVars) as Array<keyof Vars>).reduce<
@@ -30,7 +33,9 @@ export const createGenericActions = <Vars>(
 export const useGenericReducer = <Vars>(initialVars: Vars) => {
   // standard reducer
   const reducer = useMemo(() => createGenericReducer<Vars>(), []);
-  const [state, dispatch] = useReducer(reducer, { ...initialVars });
+  const [state, dispatch] = useReducer<Reducer<Vars, Action<Vars>>>(reducer, {
+    ...initialVars,
+  });
 
   // generic dispatch shortcuts with some typescript autocompletion
   const set = useMemo(() => createGenericActions<Vars>(initialVars, dispatch), [
