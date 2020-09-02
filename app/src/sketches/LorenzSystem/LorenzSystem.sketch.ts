@@ -49,9 +49,14 @@ export const getLorenzSystemSketch = () => {
 
         points.push(p.createVector(x, y, z));
 
-        p.translate(0, 0, -80);
-        let camX = p.map(p.mouseX, 0, p.width, -200, 200);
-        let camY = p.map(p.mouseY, 0, p.height, -200, 200);
+        let camX = p.map(p.mouseX, 0, p.width, -p.windowWidth, p.windowWidth);
+        let camY = p.map(
+          p.mouseY,
+          0,
+          p.height,
+          -p.windowHeight,
+          p.windowHeight
+        );
         p.camera(
           camX,
           camY,
@@ -63,16 +68,17 @@ export const getLorenzSystemSketch = () => {
           1,
           0
         );
-        //translate(width/2, height/2);
+        // translate(width / 2, height / 2);
         p.scale(5);
         p.stroke(255);
         p.noFill();
 
         let hu = 0;
-        p.beginShape();
+        p.beginShape(p.QUAD_STRIP);
 
         for (let v of points) {
           p.stroke(hu, 255, 255);
+          console.log(hu);
           p.vertex(v.x, v.y, v.z);
           //var offset = p5.Vector.random3D();
           //offset.mult(0.1);
