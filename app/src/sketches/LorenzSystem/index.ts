@@ -1,2 +1,0 @@
-
-export { LorenzSystem } from "./LorenzSystem";
