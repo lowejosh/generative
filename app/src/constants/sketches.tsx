@@ -1,5 +1,6 @@
 import { RandomWalk, Epicycloid } from "sketches";
 import React from "react";
+import { PerlinField } from "sketches/PerlinField";
 
 export type SketchItem = {
   name: string;
@@ -21,5 +22,11 @@ export const sketches: Array<SketchItem> = [
     slug: "multiplicative-epicycloid",
     component: <Epicycloid />,
     dateCompleted: new Date("2020-08-22"),
+  },
+  {
+    name: "Perlin Field",
+    slug: "perlin-field",
+    component: <PerlinField />,
+    dateCompleted: new Date("2020-10-1"),
   },
 ];

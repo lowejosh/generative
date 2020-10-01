@@ -22,9 +22,9 @@ export class Turtle {
     this.isPenDown = false;
   }
   prepareDrawing() {
-    p.stroke(this.stroke);
-    p.strokeWeight(this.strokeWeight);
-    p.fill(this.fill);
+    this.p.stroke(this.stroke);
+    this.p.strokeWeight(this.strokeWeight);
+    this.p.fill(this.fill);
   }
   forward() {
     if (this.isPenDown) {
