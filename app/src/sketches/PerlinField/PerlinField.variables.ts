@@ -1,15 +1,20 @@
-
 import { P5Defaults } from "types/p5";
 import p5 from "p5";
 
 export interface PerlinFieldVars extends P5Defaults {
-  foo: number;
-  bar: number;
+  vectorPadding: number;
+  angleVariation: number;
+  perlinXIncrementScale: number;
+  perlinYIncrementScale: number;
+  perlinZIncrementScale: number;
 }
 
 export const initialPerlinFieldVars: PerlinFieldVars = {
-  foo: 0,
-  bar: 0,
+  vectorPadding: 20,
+  angleVariation: 5,
+  perlinXIncrementScale: 1,
+  perlinYIncrementScale: 1,
+  perlinZIncrementScale: 1,
   refresh: (p: p5) => {
     p.setup();
   },
