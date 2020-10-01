@@ -4,6 +4,7 @@ import {
 } from "./PerlinField.variables";
 import { P5Instance } from "types/p5";
 import { NotListedLocationSharp } from "@material-ui/icons";
+import p5 from "p5";
 
 export const getPerlinFieldSketch = () => {
   return (p: P5Instance<PerlinFieldVars>) => {
@@ -16,6 +17,7 @@ export const getPerlinFieldSketch = () => {
     };
 
     p.setup = () => {
+      p.frameRate(30);
       p.colorMode(p.HSB);
       p.createCanvas(p.windowWidth, p.windowHeight);
       drawBackground();
@@ -37,15 +39,25 @@ export const getPerlinFieldSketch = () => {
 
         let xOff = initOffset;
         let yOff = initOffset;
-        let offsetIncrement = 0.001;
+        let offsetIncrement = 0.01;
 
         for (let x = vectorPadding / 3; x < p.width; x += vectorPadding) {
           for (let y = vectorPadding / 3; y < p.height; y += vectorPadding) {
             // use trig to find vector
-            const angle = p.map(p.noise(xOff, yOff), 0, 1, 0, 360);
+            const angle = (p.noise(xOff, yOff) * p.TWO_PI * 4) % p.TWO_PI;
             const x2 = x + p.sin(angle) * vectorPadding;
             const y2 = y + p.cos(angle) * vectorPadding;
-            const hue = p.map(angle, 0, 360, 0, 255);
+
+            const hue = Math.round(
+              p.map(
+                angle < p.PI ? angle : p.PI - (angle - p.PI),
+                0,
+                p.PI,
+                0,
+                255
+              ) // smoothen the hue by implementing a middle point that it rises to and falls from rather than a jump to start
+            );
+            // console.log(angle);
 
             p.stroke(hue, 255, 255);
             p.line(x, y, x2, y2);
@@ -57,9 +69,7 @@ export const getPerlinFieldSketch = () => {
           xOff += offsetIncrement;
         }
 
-        initOffset += 0.0005;
-
-        // p.noLoop();
+        initOffset += 0.0045;
       }
     };
   };
