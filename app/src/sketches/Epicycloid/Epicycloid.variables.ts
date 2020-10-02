@@ -27,5 +27,6 @@ export const initialEpicycloidVars: EpicycloidVars = {
   factor: 2,
   refresh: (p: p5) => {
     p.setup();
+    p.draw();
   },
 };

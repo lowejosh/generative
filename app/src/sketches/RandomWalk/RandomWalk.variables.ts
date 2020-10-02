@@ -17,5 +17,6 @@ export const initialRandomWalkVars: RandomWalkVars = {
   speed: 1,
   refresh: (p: p5) => {
     p.setup();
+    p.draw();
   },
 };
