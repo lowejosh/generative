@@ -1,6 +1,7 @@
 import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
-import { incrementRandomlyMinMaxed } from "sketches/sketch-utils/values";
+import { incrementRandomlyMinMaxed } from "sketches/sketch-utils/data/values";
 import { P5Instance } from "types/p5";
+import { checkForMismatchedSize } from "sketches/sketch-utils/funcs/checkForMismatchedSize";
 
 export const getRandomWalkSketch = () => {
   return (p: P5Instance<RandomWalkVars>) => {
@@ -36,6 +37,7 @@ export const getRandomWalkSketch = () => {
     };
 
     p.draw = () => {
+      checkForMismatchedSize(p);
       if (p.variables) {
         // get variables
         const {

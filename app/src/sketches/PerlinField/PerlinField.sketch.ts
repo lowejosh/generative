@@ -1,13 +1,16 @@
+import { checkForMismatchedSize } from "sketches/sketch-utils/funcs/checkForMismatchedSize";
 import { P5Instance } from "types/p5";
 import {
   initialPerlinFieldVars,
   PerlinFieldVars,
 } from "./PerlinField.variables";
 
+const BASE_INCREMENT = 0.01;
+const MAX_RANDOM_SEED = 1000000;
+
 export const getPerlinFieldSketch = () => {
   return (p: P5Instance<PerlinFieldVars>) => {
     p.variables = initialPerlinFieldVars;
-    const baseIncrement = 0.01;
     let initOffset: number;
     let zOff = 0;
 
@@ -16,8 +19,8 @@ export const getPerlinFieldSketch = () => {
     };
 
     p.setup = () => {
-      initOffset = p.random(0, 1000000);
-      p.frameRate(30);
+      initOffset = p.random(0, MAX_RANDOM_SEED);
+      p.frameRate(50);
       p.colorMode(p.HSB);
       p.createCanvas(p.windowWidth, p.windowHeight);
       drawBackground();
@@ -29,8 +32,9 @@ export const getPerlinFieldSketch = () => {
     };
 
     p.draw = () => {
+      drawBackground();
+      checkForMismatchedSize(p);
       if (p.variables) {
-        drawBackground();
         // get variables
         const {
           vectorPadding,
@@ -66,13 +70,13 @@ export const getPerlinFieldSketch = () => {
             p.stroke(hue, 255, 255);
             p.line(x, y, x2, y2);
 
-            yOff += perlinYIncrementScale * baseIncrement;
+            yOff += perlinYIncrementScale * BASE_INCREMENT;
           }
           yOff = initOffset;
-          xOff += perlinXIncrementScale * baseIncrement;
+          xOff += perlinXIncrementScale * BASE_INCREMENT;
         }
 
-        zOff += perlinZIncrementScale * baseIncrement;
+        zOff += perlinZIncrementScale * BASE_INCREMENT;
       }
     };
   };

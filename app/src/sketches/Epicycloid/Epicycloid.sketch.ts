@@ -1,6 +1,7 @@
+import { checkForMismatchedSize } from "sketches/sketch-utils/funcs/checkForMismatchedSize";
 import { initialEpicycloidVars, EpicycloidVars } from "./Epicycloid.variables";
+import { smoothTransitionTo } from "sketches/sketch-utils/data/values";
 import { P5Instance } from "types/p5";
-import { smoothTransitionTo } from "sketches/sketch-utils/values";
 
 export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
   // sketch scoped vars
@@ -48,6 +49,7 @@ export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {
   };
 
   p.draw = () => {
+    checkForMismatchedSize(p);
     if (p.variables) {
       // get variables
       const {

@@ -1,4 +1,5 @@
 const getSketchTemplate = (sketchName) => `
+import { checkForMismatchedSize } from "sketches/sketch-utils/funcs/checkForMismatchedSize";
 import { initial${sketchName}Vars, ${sketchName}Vars } from "./${sketchName}.variables";
 import { P5Instance } from "types/p5";
 
@@ -21,6 +22,7 @@ export const get${sketchName}Sketch = () => {
     };
 
     p.draw = () => {
+      checkForMismatchedSize(p);
       if (p.variables) {
         // get variables
         const {

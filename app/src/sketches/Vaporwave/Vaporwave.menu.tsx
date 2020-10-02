@@ -1,5 +1,4 @@
-const getMenuTemplate = (sketchName) => `
-import { initial${sketchName}Vars, ${sketchName}Vars } from "./${sketchName}.variables";
+import { initialVaporwaveVars, VaporwaveVars } from "./Vaporwave.variables";
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import React, { Fragment, useEffect, useCallback } from "react";
@@ -11,7 +10,7 @@ import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 
 type Props = {
-  p5Instance: P5Instance<${sketchName}Vars> | null;
+  p5Instance: P5Instance<VaporwaveVars> | null;
 };
 
 const sliderParams = {
@@ -20,11 +19,9 @@ const sliderParams = {
   step: 1,
 };
 
-export const ${sketchName}Menu = ({ p5Instance }: Props) => {
+export const VaporwaveMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<${sketchName}Vars>(
-    initial${sketchName}Vars
-  );
+  const { state, set } = useGenericReducer<VaporwaveVars>(initialVaporwaveVars);
 
   // live update the p5Instance items
   useEffect(() => {
@@ -34,15 +31,12 @@ export const ${sketchName}Menu = ({ p5Instance }: Props) => {
         bar: state.bar,
       });
     }
+    p5Instance?.setup(); // refresh on state change -- for excluding cpu heavy constant drawings from the draw function
   }, [p5Instance, state]);
 
   return (
     <Fragment>
-      <StandardIconMenu
-        show={!isIdle}
-        initialLoopControl
-        p5Instance={p5Instance}
-      />
+      <StandardIconMenu show={!isIdle} p5Instance={p5Instance} />
       <BottomMenu show={!isIdle}>
         <Fragment>
           <MenuItemWrapper>
@@ -64,6 +58,3 @@ export const ${sketchName}Menu = ({ p5Instance }: Props) => {
     </Fragment>
   );
 };
-`;
-
-module.exports = getMenuTemplate;
