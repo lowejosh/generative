@@ -36,7 +36,11 @@ export const VaporwaveMenu = ({ p5Instance }: Props) => {
 
   return (
     <Fragment>
-      <StandardIconMenu show={!isIdle} p5Instance={p5Instance} />
+      <StandardIconMenu
+        show={!isIdle}
+        p5Instance={p5Instance}
+        initialLoopControl
+      />
       <BottomMenu show={!isIdle}>
         <Fragment>
           <MenuItemWrapper>
