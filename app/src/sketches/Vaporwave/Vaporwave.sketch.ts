@@ -11,8 +11,9 @@ export const getVaporwaveSketch = () => {
   return (p: P5Instance<VaporwaveVars>) => {
     p.variables = initialVaporwaveVars;
     const sunRadius = 150;
-    const sunSlices = 10;
-    const sliceThickness = 4;
+    const sunOffset = 250;
+    const sunSlices = 8;
+    const sliceThickness = 6;
     const horizon = p.windowHeight / 2 + p.windowHeight / 15; // temp
     const stars: Array<Star> = [];
     const starFrequency = 1;
@@ -25,7 +26,7 @@ export const getVaporwaveSketch = () => {
         0,
         0,
         p.width,
-        p.height,
+        horizon,
         p.color(NIGHT_SKY),
         p.color("#000"),
         "y"
@@ -35,7 +36,6 @@ export const getVaporwaveSketch = () => {
     const handleStars = () => {
       // see if star will be created (1 out of starFrequency)
       if (Math.round(p.random(1, starFrequency)) === starFrequency) {
-        console.log("starCreated");
         const x = p.random(0, p.width);
         const y = p.random(0, horizon);
         stars.push(
@@ -55,9 +55,18 @@ export const getVaporwaveSketch = () => {
       }
 
       // draw current stars
-      console.log(stars);
       stars.forEach((star) => star.draw());
     };
+
+    //     function drawGradient(x: number, y: number) {
+    //   let h = p.random(0, 360);
+    //   for (let r = sunRadius; r > 0; --r) {
+    //       const inter = p.map(r, 0, r * 2, 0, 1);
+    //       const c = p.lerpColor(c1, c2, inter);
+    //     p.ellipse(x, y, r, r);
+    //     h = (h + 1) % 360;
+    //   }
+    // }
 
     const drawSun = () => {
       // glow outline -- WAY TOO EXPENSIVE TO RENDER (but it does look cool)
@@ -69,10 +78,11 @@ export const getVaporwaveSketch = () => {
       //   sunRadius * 2 + sunGlow
       // );
       // p.filter(p.BLUR, 12);
+
       gradientCircle(
         p,
         p.width / 2,
-        horizon - sunRadius * 2 - sunRadius / 8,
+        horizon - sunOffset,
         sunRadius,
         p.color(NEON_YELLOW),
         p.color(NEON_PINK),
