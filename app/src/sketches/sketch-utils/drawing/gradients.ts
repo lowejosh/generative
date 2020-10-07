@@ -1,6 +1,6 @@
 import p5, { Color } from "p5";
 
-/** draws a rectangle with a linear gradient line-by-line */
+/* draws a rectangle with a linear gradient line-by-line */
 export const gradientRect = (
   p: p5,
   x: number,
@@ -34,8 +34,18 @@ export const gradientRect = (
   p.noStroke();
 };
 
-/** draws a circle with a linear gradient line-by-line with some fancy trig */
-export const gradientCircle = (
+/**
+ * draws a circle with a linear gradient line-by-line with some fancy trig
+ * @param p p5 Instance
+ * @param x x position
+ * @param y y position
+ * @param r radius
+ * @param c1 color 1
+ * @param c2 color 2
+ * @param axis axis
+ * @param dontDrawOn optional function to stop drawing on certain condition
+ */
+export const gradientCircleLinear = (
   p: p5,
   x: number,
   y: number,
@@ -61,6 +71,46 @@ export const gradientCircle = (
       if (!(dontDrawOn && dontDrawOn(i))) {
         p.line(x - cx, y + i, x + cx, y + i);
       }
+    }
+  }
+
+  // reset vars
+  p.noFill();
+  p.noStroke();
+};
+
+/**
+ * draws a circle with a radial gradient.
+ * @param p p5 Instance
+ * @param x x position
+ * @param y y position
+ * @param r radius
+ * @param c1 color 1
+ * @param c2 color 2
+ * @param performanceFactor increase the increment to increase performance (colours wont be as smooth)
+ * @param dontDrawOn optional function to stop drawing on certain condition
+ */
+export const gradientCircleRadial = (
+  p: p5,
+  x: number,
+  y: number,
+  r: number,
+  c1: Color,
+  c2: Color,
+  performanceFactor?: number,
+  dontDrawOn?: (i: number) => boolean
+) => {
+  p.noFill();
+  // fixes bug
+  x = Math.round(x);
+  y = Math.round(y);
+
+  for (let i = r; i > 0; i -= performanceFactor || 1) {
+    const inter = p.map(i, 0, r, 0, 1);
+    const c = p.lerpColor(c1, c2, inter);
+    p.fill(c);
+    if (!(dontDrawOn && dontDrawOn(i))) {
+      p.ellipse(x, y, i * 2, i * 2);
     }
   }
 

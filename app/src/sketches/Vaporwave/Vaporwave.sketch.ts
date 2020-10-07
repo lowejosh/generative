@@ -2,7 +2,8 @@ import { initialVaporwaveVars, VaporwaveVars } from "./Vaporwave.variables";
 import { P5Instance } from "types/p5";
 import { NEON_PINK, NEON_YELLOW, NIGHT_SKY } from "constants/colors";
 import {
-  gradientCircle,
+  gradientCircleLinear,
+  gradientCircleRadial,
   gradientRect,
 } from "sketches/sketch-utils/drawing/gradients";
 import { Star } from "sketches/sketch-utils/classes/Star";
@@ -13,7 +14,7 @@ export const getVaporwaveSketch = () => {
     const sunRadius = 150;
     const sunOffset = 250;
     const sunSlices = 8;
-    const sliceThickness = 6;
+    const sliceThickness = 7;
     const horizon = p.windowHeight / 2 + p.windowHeight / 15; // temp
     const stars: Array<Star> = [];
     const starFrequency = 1;
@@ -69,17 +70,20 @@ export const getVaporwaveSketch = () => {
     // }
 
     const drawSun = () => {
-      // glow outline -- WAY TOO EXPENSIVE TO RENDER (but it does look cool)
-      // p.fill(NEON_PINK);
-      // p.ellipse(
-      //   p.width / 2,
-      //   p.height / 10 + sunRadius,
-      //   sunRadius * 2 + sunGlow,
-      //   sunRadius * 2 + sunGlow
-      // );
-      // p.filter(p.BLUR, 12);
-
-      gradientCircle(
+      // glow
+      const sunGlowColorGrad1 = p.color("rgba(255, 255, 255, 0.002)");
+      const sunGlowColorGrad2 = p.color("rgba(255, 255, 255, 0)");
+      gradientCircleRadial(
+        p,
+        p.width / 2,
+        horizon - sunOffset + sunRadius,
+        sunRadius * 3,
+        sunGlowColorGrad1,
+        sunGlowColorGrad2,
+        4
+      );
+      // sun
+      gradientCircleLinear(
         p,
         p.width / 2,
         horizon - sunOffset,
@@ -93,7 +97,10 @@ export const getVaporwaveSketch = () => {
       );
     };
 
-    const drawGrid = () => {};
+    const drawGrid = () => {
+      p.fill(0);
+      p.rect(0, horizon, p.width, horizon);
+    };
 
     p.setup = () => {
       p.frameRate(50);
@@ -120,7 +127,6 @@ export const getVaporwaveSketch = () => {
         // debug
         p.stroke("#EA7324");
         p.strokeWeight(2);
-        p.line(0, horizon, p.width, horizon);
         p.noStroke();
 
         drawGrid();
