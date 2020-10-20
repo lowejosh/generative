@@ -23,6 +23,7 @@ export class Star {
   color: Color;
   p: p5;
   onDeath?: Function;
+
   constructor({ p, id, x, y, color, onDeath }: Params) {
     this.id = id;
     this.p = p;
@@ -32,6 +33,8 @@ export class Star {
     this.x = x;
     this.y = y;
   }
+
+  /* gets the current fill color of the star */
   getFill() {
     // fade in and then out over it's lifespan
     const opacity = this.p.map(
@@ -47,14 +50,16 @@ export class Star {
     colorBuff.setAlpha(opacity);
     return colorBuff;
   }
+
+  /* draws to canvas */
   draw() {
     this.p.noStroke();
     this.p.fill(this.getFill());
     this.p.ellipse(this.x, this.y, this.size, this.size);
 
     //experiment
-    this.x += 0.25;
-    this.x -= 0.1;
+    this.x += 0.15;
+    this.y += 0.05;
 
     // tick to lifespan if alive -- otherwise call death function :)
     if (this.lifeTick < this.lifeSpan) {

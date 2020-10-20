@@ -7,19 +7,36 @@ import {
   gradientRect,
 } from "sketches/sketch-utils/drawing/gradients";
 import { Star } from "sketches/sketch-utils/classes/Star";
+import { Graphics } from "p5";
 
 export const getVaporwaveSketch = () => {
   return (p: P5Instance<VaporwaveVars>) => {
     p.variables = initialVaporwaveVars;
+
+    /* 2D & 3D */
+    const horizon = p.windowHeight / 2 + p.windowHeight / 15; // temp
+
+    /* 2D */
     const sunRadius = 150;
     const sunOffset = 250;
     const sunSlices = 8;
     const sliceThickness = 7;
-    const horizon = p.windowHeight / 2 + p.windowHeight / 15; // temp
     const stars: Array<Star> = [];
     const starFrequency = 1;
     let starIdIncrement = 4;
-    // const sunGlow = 10;
+
+    /* 3D */
+    let pg: Graphics;
+    let flying = 0;
+    const scale = 20;
+    const w = 1400;
+    const h = 1000;
+    const rows = Math.round(h / scale);
+    const cols = Math.round(w / scale);
+    const terrain = Array(rows)
+      .fill(0)
+      .map(() => Array(cols).fill(0));
+    console.log(terrain);
 
     const drawBackground = () => {
       gradientRect(
@@ -59,17 +76,9 @@ export const getVaporwaveSketch = () => {
       stars.forEach((star) => star.draw());
     };
 
-    //     function drawGradient(x: number, y: number) {
-    //   let h = p.random(0, 360);
-    //   for (let r = sunRadius; r > 0; --r) {
-    //       const inter = p.map(r, 0, r * 2, 0, 1);
-    //       const c = p.lerpColor(c1, c2, inter);
-    //     p.ellipse(x, y, r, r);
-    //     h = (h + 1) % 360;
-    //   }
-    // }
-
     const drawSun = () => {
+      p.strokeWeight(2);
+
       // glow
       const sunGlowColorGrad1 = p.color("rgba(255, 255, 255, 0.002)");
       const sunGlowColorGrad2 = p.color("rgba(255, 255, 255, 0)");
@@ -82,6 +91,7 @@ export const getVaporwaveSketch = () => {
         sunGlowColorGrad2,
         4
       );
+
       // sun
       gradientCircleLinear(
         p,
@@ -100,11 +110,41 @@ export const getVaporwaveSketch = () => {
     const drawGrid = () => {
       p.fill(0);
       p.rect(0, horizon, p.width, horizon);
+
+      flying -= 0.1;
+      let yoff = flying;
+      for (var y = 0; y < rows; y++) {
+        var xoff = 0;
+        for (var x = 0; x < cols; x++) {
+          terrain[x][y] = p.map(p.noise(xoff, yoff), 0, 1, -20, 20);
+          xoff += 0.2;
+        }
+        yoff += 0.2;
+      }
+
+      pg.translate(0, 50);
+      pg.rotateX(p.PI / 3);
+      pg.fill(0, 0, 0, 0);
+      pg.stroke(NEON_PINK);
+      pg.translate(-w / 2, -h / 2);
+      for (var y = 0; y < rows - 1; y++) {
+        pg.beginShape(p.TRIANGLE_STRIP);
+        for (var x = 0; x < cols; x++) {
+          pg.vertex(x * scale, y * scale, terrain[x][y]);
+          pg.vertex(x * scale, (y + 1) * scale, terrain[x][y + 1]);
+        }
+        pg.endShape();
+      }
     };
 
     p.setup = () => {
-      p.frameRate(50);
+      pg = p.createGraphics(p.windowWidth, p.windowHeight, p.WEBGL);
+      pg.resetMatrix();
       p.createCanvas(p.windowWidth, p.windowHeight);
+
+      p.smooth();
+      p.noStroke();
+      p.frameRate(50);
       drawBackground();
     };
 
@@ -114,22 +154,19 @@ export const getVaporwaveSketch = () => {
     };
 
     p.draw = () => {
-      p.smooth();
-      p.noStroke();
       drawBackground();
-      handleStars();
 
       if (p.variables) {
         // get variables
         const { foo, bar } = p.variables;
+        handleStars();
         drawSun();
 
         // debug
-        p.stroke("#EA7324");
-        p.strokeWeight(2);
         p.noStroke();
 
         drawGrid();
+        p.image(pg, 0, 0);
       }
     };
   };
