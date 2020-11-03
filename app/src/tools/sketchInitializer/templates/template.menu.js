@@ -2,11 +2,12 @@ const getMenuTemplate = (sketchName) => `
 import { initial${sketchName}Vars, ${sketchName}Vars } from "./${sketchName}.variables";
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
-import React, { Fragment, useEffect, useCallback } from "react";
 import { MenuItemWrapper } from "components/StyledUI";
+import React, { Fragment, useCallback } from "react";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { useGenericReducer } from "utils/state";
+import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 
@@ -26,15 +27,7 @@ export const ${sketchName}Menu = ({ p5Instance }: Props) => {
     initial${sketchName}Vars
   );
 
-  // live update the p5Instance items
-  useEffect(() => {
-    if (p5Instance) {
-      Object.assign(p5Instance.variables, {
-        foo: state.foo,
-        bar: state.bar,
-      });
-    }
-  }, [p5Instance, state]);
+  useUpdateP5<${sketchName}Vars>(p5Instance, state);
 
   return (
     <Fragment>

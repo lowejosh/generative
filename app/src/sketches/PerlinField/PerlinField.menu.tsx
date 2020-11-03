@@ -1,17 +1,18 @@
+import { formatPixelValue, formatTimesValue } from "utils/menu/formatting";
+import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
+import React, { Fragment, useCallback } from "react";
+import { MenuSlider } from "components/MenuSlider/MenuSlider";
+import { MenuItemWrapper } from "components/StyledUI";
+import { useGenericReducer } from "utils/data/state";
+import { BottomMenu } from "components/BottomMenu";
+import { TIME_TO_IDLE } from "constants/numbers";
+import { useUpdateP5 } from "hooks/useUpdateP5";
+import { P5Instance } from "types/p5";
+import { useIdle } from "hooks";
 import {
   initialPerlinFieldVars,
   PerlinFieldVars,
 } from "./PerlinField.variables";
-import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
-import { MenuSlider } from "components/MenuSlider/MenuSlider";
-import React, { Fragment, useEffect, useCallback } from "react";
-import { MenuItemWrapper } from "components/StyledUI";
-import { BottomMenu } from "components/BottomMenu";
-import { TIME_TO_IDLE } from "constants/numbers";
-import { useGenericReducer } from "utils/state";
-import { P5Instance } from "types/p5";
-import { useIdle } from "hooks";
-import { formatPixelValue, formatTimesValue } from "utils/menu";
 
 type Props = {
   p5Instance: P5Instance<PerlinFieldVars> | null;
@@ -29,18 +30,7 @@ export const PerlinFieldMenu = ({ p5Instance }: Props) => {
     initialPerlinFieldVars
   );
 
-  // live update the p5Instance items
-  useEffect(() => {
-    if (p5Instance) {
-      Object.assign(p5Instance.variables, {
-        vectorPadding: state.vectorPadding,
-        angleVariation: state.angleVariation,
-        perlinXIncrementScale: state.perlinXIncrementScale,
-        perlinYIncrementScale: state.perlinYIncrementScale,
-        perlinZIncrementScale: state.perlinZIncrementScale,
-      });
-    }
-  }, [p5Instance, state]);
+  useUpdateP5<PerlinFieldVars>(p5Instance, state);
 
   return (
     <Fragment>

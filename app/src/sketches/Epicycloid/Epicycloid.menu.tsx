@@ -3,18 +3,19 @@ import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
 import { MenuItemWrapper, FlexRowPadded } from "components/StyledUI";
 import { MenuCheckbox } from "components/MenuCheckbox/MenuCheckbox";
 import { ColorPicker } from "components/ColorPicker/ColorPicker";
-import React, { Fragment, useEffect, useCallback } from "react";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
-import { useGenericReducer } from "utils/state";
+import React, { Fragment, useCallback } from "react";
+import { useGenericReducer } from "utils/data/state";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
+import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 import {
+  formatPercentValue,
   formatTimesValue,
   formatPixelValue,
-  formatPercentValue,
-} from "utils/menu";
+} from "utils/menu/formatting";
 
 type Props = {
   p5Instance: P5Instance<EpicycloidVars> | null;
@@ -32,22 +33,7 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
     initialEpicycloidVars
   );
 
-  // live update the p5Instance items
-  useEffect(() => {
-    if (p5Instance) {
-      Object.assign(p5Instance.variables, {
-        totalVertices: state.totalVertices,
-        factor: state.factor,
-        radius: state.radius,
-        isAutoplaying: state.isAutoplaying,
-        strokeOpacity: state.strokeOpacity,
-        strokeWidth: state.strokeWidth,
-        autoplaySpeed: state.autoplaySpeed,
-        strokeColor: state.strokeColor,
-        bgColor: state.bgColor,
-      });
-    }
-  }, [p5Instance, state]);
+  useUpdateP5<EpicycloidVars>(p5Instance, state);
 
   return (
     <Fragment>

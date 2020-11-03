@@ -1,12 +1,13 @@
 import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
+import { formatPercentValue, formatTimesValue } from "utils/menu/formatting";
 import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
-import { formatPercentValue, formatTimesValue } from "utils/menu";
-import React, { Fragment, useEffect, useCallback } from "react";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import { MenuItemWrapper } from "components/StyledUI";
+import React, { Fragment, useCallback } from "react";
+import { useGenericReducer } from "utils/data/state";
 import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
-import { useGenericReducer } from "utils/state";
+import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 
@@ -26,18 +27,7 @@ export const RandomWalkMenu = ({ p5Instance }: Props) => {
     initialRandomWalkVars
   );
 
-  // live update the p5Instance items
-  useEffect(() => {
-    if (p5Instance) {
-      Object.assign(p5Instance.variables, {
-        posVariance: state.posVariance,
-        colorVariance: state.colorVariance,
-        radius: state.radius,
-        opacity: state.opacity,
-        speed: state.speed,
-      });
-    }
-  }, [p5Instance, state]);
+  useUpdateP5<RandomWalkVars>(p5Instance, state);
 
   return (
     <Fragment>

@@ -1,4 +1,4 @@
-import { checkForMismatchedSize } from "sketches/sketch-utils/funcs/checkForMismatchedSize";
+import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { P5Instance } from "types/p5";
 import {
   initialPerlinFieldVars,

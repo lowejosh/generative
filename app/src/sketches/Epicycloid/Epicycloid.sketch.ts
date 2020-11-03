@@ -1,6 +1,6 @@
-import { checkForMismatchedSize } from "sketches/sketch-utils/funcs/checkForMismatchedSize";
 import { initialEpicycloidVars, EpicycloidVars } from "./Epicycloid.variables";
-import { smoothTransitionTo } from "sketches/sketch-utils/data/values";
+import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
+import { smoothTransitionTo } from "utils/data/values";
 import { P5Instance } from "types/p5";
 
 export const epicycloidSketch = (p: P5Instance<EpicycloidVars>) => {

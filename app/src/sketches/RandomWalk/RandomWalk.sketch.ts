@@ -1,7 +1,7 @@
 import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
-import { incrementRandomlyMinMaxed } from "sketches/sketch-utils/data/values";
+import { incrementRandomlyMinMaxed } from "utils/data/values";
 import { P5Instance } from "types/p5";
-import { checkForMismatchedSize } from "sketches/sketch-utils/funcs/checkForMismatchedSize";
+import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 
 export const getRandomWalkSketch = () => {
   return (p: P5Instance<RandomWalkVars>) => {
@@ -56,11 +56,11 @@ export const getRandomWalkSketch = () => {
             p.noStroke();
             p.ellipse(x, y, radius, radius);
 
-            //increment pos randomly (max at end of screen - diameter)
+            // increment pos randomly (max at end of screen - diameter)
             x = incrementRandomlyMinMaxed(p, x, posVariance, 0, p.windowWidth);
             y = incrementRandomlyMinMaxed(p, y, posVariance, 0, p.windowHeight);
 
-            //increment color randomly (max at 255)
+            // increment color randomly (max at 255)
             r = incrementRandomlyMinMaxed(p, r, colorVariance, 0, 255);
             g = incrementRandomlyMinMaxed(p, g, colorVariance, 0, 255);
             b = incrementRandomlyMinMaxed(p, b, colorVariance, 0, 255);
