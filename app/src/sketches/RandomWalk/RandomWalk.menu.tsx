@@ -1,11 +1,11 @@
 import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
 import { formatPercentValue, formatTimesValue } from "utils/menu/formatting";
-import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
-import { MenuSlider } from "components/MenuSlider/MenuSlider";
-import { MenuItemWrapper } from "components/StyledUI";
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu";
+import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
+import { BottomMenu } from "components/menu/BottomMenu";
+import { MenuItemWrapper } from "components/generic";
 import React, { Fragment, useCallback } from "react";
 import { useGenericReducer } from "utils/data/state";
-import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";

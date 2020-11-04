@@ -1,3 +1,4 @@
+import { initialPerlinFlowVars, PerlinFlowVars } from "./PerlinFlow.variables";
 import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu";
 import { formatPixelValue, formatTimesValue } from "utils/menu/formatting";
 import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
@@ -9,13 +10,9 @@ import { TIME_TO_IDLE } from "constants/numbers";
 import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
-import {
-  initialPerlinFieldVars,
-  PerlinFieldVars,
-} from "./PerlinField.variables";
 
 type Props = {
-  p5Instance: P5Instance<PerlinFieldVars> | null;
+  p5Instance: P5Instance<PerlinFlowVars> | null;
 };
 
 const sliderParams = {
@@ -24,13 +21,13 @@ const sliderParams = {
   step: 1,
 };
 
-export const PerlinFieldMenu = ({ p5Instance }: Props) => {
+export const PerlinFlowMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<PerlinFieldVars>(
-    initialPerlinFieldVars
+  const { state, set } = useGenericReducer<PerlinFlowVars>(
+    initialPerlinFlowVars
   );
 
-  useUpdateP5<PerlinFieldVars>(p5Instance, state);
+  useUpdateP5<PerlinFlowVars>(p5Instance, state);
 
   return (
     <Fragment>

@@ -1,5 +1,5 @@
 import { Slider, Typography } from "@material-ui/core";
-import { FlexColumn } from "components/StyledUI";
+import { FlexColumn } from "components/generic";
 import React, { useState, useEffect } from "react";
 import { useDebounce } from "hooks";
 import { DEBOUNCE_DELAY } from "constants/numbers";

@@ -1,4 +1,4 @@
-import { FlexRowPadded } from "components/StyledUI/Flex";
+import { FlexRowPadded } from "components/generic/Flex";
 import React, { useState, useEffect } from "react";
 import { IconWrapper } from "./IconMenu.styled";
 import { useHistory } from "react-router-dom";

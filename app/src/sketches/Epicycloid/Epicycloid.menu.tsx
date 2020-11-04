@@ -1,12 +1,12 @@
 import { initialEpicycloidVars, EpicycloidVars } from "./Epicycloid.variables";
-import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
-import { MenuItemWrapper, FlexRowPadded } from "components/StyledUI";
-import { MenuCheckbox } from "components/MenuCheckbox/MenuCheckbox";
-import { ColorPicker } from "components/ColorPicker/ColorPicker";
-import { MenuSlider } from "components/MenuSlider/MenuSlider";
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu";
+import { MenuCheckbox } from "components/menu/MenuCheckbox/MenuCheckbox";
+import { ColorPicker } from "components/menu/ColorPicker/ColorPicker";
+import { MenuItemWrapper, FlexRowPadded } from "components/generic";
+import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
+import { BottomMenu } from "components/menu/BottomMenu";
 import React, { Fragment, useCallback } from "react";
 import { useGenericReducer } from "utils/data/state";
-import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";
@@ -32,7 +32,6 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
   const { state, set } = useGenericReducer<EpicycloidVars>(
     initialEpicycloidVars
   );
-
   useUpdateP5<EpicycloidVars>(p5Instance, state);
 
   return (

@@ -1,7 +1,7 @@
 import { SketchInstance } from "types/p5";
 import { useP5 } from "hooks";
 import React from "react";
-import { SketchDiv } from "components/StyledUI";
+import { SketchDiv } from "components/generic";
 
 type Props = {
   sketch: SketchInstance;

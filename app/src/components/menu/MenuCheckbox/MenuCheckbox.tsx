@@ -1,5 +1,5 @@
 import { Checkbox, Typography } from "@material-ui/core";
-import { FlexRowPadded } from "components/StyledUI";
+import { FlexRowPadded } from "components/generic";
 import React from "react";
 
 type Props = {

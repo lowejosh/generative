@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { styled, Typography } from "@material-ui/core";
-import { FlexRowPadded } from "components/StyledUI";
+import { FlexRowPadded } from "components/generic";
 import { useDebounce } from "hooks";
 import { DEBOUNCE_DELAY } from "constants/numbers";
 
