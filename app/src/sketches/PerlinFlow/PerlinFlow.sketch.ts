@@ -3,6 +3,7 @@ import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { getVectorFromAngle } from "utils/data/vectors";
 import { P5Instance } from "types/p5";
 import { createParticle, Particle } from "factories/Particle";
+import { Vector } from "p5";
 
 const BASE_INCREMENT = 0.01;
 const MAX_RANDOM_SEED = 1000000;
@@ -12,8 +13,9 @@ export const getPerlinFlowSketch = () => {
     p.variables = initialPerlinFlowVars;
     let initOffset: number;
     let zOff = 0;
-    const particleAmount = 200;
+    const particleAmount = 400;
     const particles: Array<Particle> = [];
+    const forceVectors: Array<Array<Vector>> = [];
 
     const drawBackground = () => {
       p.background(0);
@@ -65,56 +67,59 @@ export const getPerlinFlowSketch = () => {
 
         let xOff = initOffset;
         let yOff = initOffset;
+
         const cols = Math.floor(p.width / vectorPadding);
         const rows = Math.floor(p.height / vectorPadding);
 
-        // for (let x = vectorPadding / 3; x < p.width; x += vectorPadding) {
-        //   for (let y = vectorPadding / 3; y < p.height; y += vectorPadding) {
-        //     // use trig to find vector
-        //     const angle =
-        //       (p.noise(xOff, yOff, zOff) * p.TWO_PI * angleVariation) %
-        //       p.TWO_PI;
-        //     const forceVector = getVectorFromAngle(x, y, angle, vectorPadding);
+        for (let x = 0; x < p.width; x += vectorPadding) {
+          const col = Math.floor(x / vectorPadding);
+          forceVectors.push([]);
+          for (let y = 0; y < p.height; y += vectorPadding) {
+            // use trig to find vector
+            const angle =
+              (p.noise(xOff, yOff, zOff) * p.TWO_PI * angleVariation) %
+              p.TWO_PI;
+            const forceVector = getVectorFromAngle(x, y, angle, vectorPadding);
+            forceVectors[col].push(forceVector.copy().sub(x, y));
 
-        //     // debug
-        // p.stroke(255, 255, 255);
-        // p.line(x, y, forceVector.x, forceVector.y);
+            // debug
+            p.stroke(255, 255, 255);
+            p.line(x, y, forceVector.x, forceVector.y);
 
-        //     yOff += perlinYIncrementScale * BASE_INCREMENT;
-        //   }
-        //   yOff = initOffset;
-        //   xOff += perlinXIncrementScale * BASE_INCREMENT;
-        // }
+            yOff += perlinYIncrementScale * BASE_INCREMENT;
+          }
+          yOff = initOffset;
+          xOff += perlinXIncrementScale * BASE_INCREMENT;
+        }
 
         // handle particles
         particles.forEach((particle) => {
-          const angle =
-            (p.noise(
-              particle.location.x / 1000,
-              particle.location.y / 1000,
-              zOff
-            ) *
-              p.TWO_PI *
-              angleVariation) %
-            p.TWO_PI;
-          const forceVector = getVectorFromAngle(
-            particle.location.x,
-            particle.location.y,
-            angle,
-            vectorPadding
-          );
+          const col = Math.floor(particle.location.x / vectorPadding);
+          const row = Math.floor(particle.location.y / vectorPadding);
+          const forceVector = forceVectors[col][row];
 
-          // debug
-          p.stroke(255, 255, 255);
-          p.line(
-            particle.location.x,
-            particle.location.y,
-            particle.location.x + particle.velocity.x,
-            particle.location.y + particle.velocity.y
-          );
-          p.noStroke();
+          // const angle =
+          //   (p.noise(
+          //     particle.location.x / 1000,
+          //     particle.location.y / 1000,
+          //     zOff
+          //   ) *
+          //     p.TWO_PI *
+          //     angleVariation) %
+          //   p.TWO_PI;
 
-          particle.applyForce(forceVector.div(10000));
+          // const forceVector = getVectorFromAngle(
+          //   particle.location.x,
+          //   particle.location.y,
+          //   angle,
+          //   vectorPadding
+          // );
+
+          if (forceVector) {
+            particle.acceleration.mult(0);
+            particle.velocity.mult(0);
+            particle.applyForce(forceVector.copy());
+          }
           particle.update(p);
           particle.display(p);
         });

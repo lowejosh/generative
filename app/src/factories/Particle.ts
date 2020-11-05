@@ -7,7 +7,7 @@ const p = new p5(() => {});
 type Props = {
   acceleration?: Vector;
   stroke?: Color | null;
-  maxVelocity?: number;
+  maxVelocity?: number | null;
   fill?: Color | null;
   velocity?: Vector;
   location: Vector;
@@ -19,7 +19,7 @@ type Props = {
 export type Particle = {
   acceleration: Vector;
   stroke: Color | null;
-  maxVelocity: number;
+  maxVelocity: number | null;
   fill: Color | null;
   location: Vector;
   velocity: Vector;
@@ -40,7 +40,7 @@ export function createParticle({
   acceleration = p.createVector(0, 0),
   velocity = p.createVector(0, 0),
   fill = p.color("FFF"),
-  maxVelocity = 3,
+  maxVelocity = null,
   stroke = null,
   height = 1,
   width = 1,
@@ -64,22 +64,22 @@ export function createParticle({
     update(p) {
       // v1 = v0 + a*t so v1 = v0 + a
       this.velocity.add(this.acceleration);
-      this.velocity.limit(this.maxVelocity);
+      this.maxVelocity && this.velocity.limit(this.maxVelocity);
       // v = d/t so d = v*t, so d = v
       this.location.add(this.velocity);
       this.acceleration.mult(0);
 
       // handle collision with bounds -- todo abstract
-      if (this.location.x >= p.width) {
+      if (this.location.x >= p.windowWidth) {
         this.location.x = 1;
       } else if (this.location.x <= 0) {
-        this.location.x = p.width + 1;
+        this.location.x = p.windowWidth + 1;
       }
 
-      if (this.location.y >= p.height) {
+      if (this.location.y >= p.windowHeight) {
         this.location.y = 1;
       } else if (this.location.y <= 0) {
-        this.location.y = p.height + 1;
+        this.location.y = p.windowHeight + 1;
       }
     },
 
