@@ -15,7 +15,6 @@ export const getPerlinFlowSketch = () => {
     let zOff = 0;
     const particleAmount = 400;
     const particles: Array<Particle> = [];
-    const forceVectors: Array<Array<Vector>> = [];
 
     const drawBackground = () => {
       p.background(0);
@@ -68,18 +67,25 @@ export const getPerlinFlowSketch = () => {
         let xOff = initOffset;
         let yOff = initOffset;
 
+        const forceVectors: Array<Array<Vector>> = [];
         const cols = Math.floor(p.width / vectorPadding);
         const rows = Math.floor(p.height / vectorPadding);
 
-        for (let x = 0; x < p.width; x += vectorPadding) {
+        for (let x = 0; x < p.width + vectorPadding; x += vectorPadding) {
           const col = Math.floor(x / vectorPadding);
+          console.log(col);
           forceVectors.push([]);
-          for (let y = 0; y < p.height; y += vectorPadding) {
+          for (let y = 0; y < p.height + vectorPadding; y += vectorPadding) {
             // use trig to find vector
             const angle =
               (p.noise(xOff, yOff, zOff) * p.TWO_PI * angleVariation) %
               p.TWO_PI;
-            const forceVector = getVectorFromAngle(x, y, angle, vectorPadding);
+            const forceVector = getVectorFromAngle(
+              x,
+              y,
+              angle,
+              vectorPadding / 5
+            );
             forceVectors[col].push(forceVector.copy().sub(x, y));
 
             // debug
@@ -96,6 +102,7 @@ export const getPerlinFlowSketch = () => {
         particles.forEach((particle) => {
           const col = Math.floor(particle.location.x / vectorPadding);
           const row = Math.floor(particle.location.y / vectorPadding);
+          console.log(col, row);
           const forceVector = forceVectors[col][row];
 
           // const angle =

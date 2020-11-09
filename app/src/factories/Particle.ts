@@ -71,15 +71,15 @@ export function createParticle({
 
       // handle collision with bounds -- todo abstract
       if (this.location.x >= p.windowWidth) {
-        this.location.x = 1;
+        this.location.x = 2;
       } else if (this.location.x <= 0) {
-        this.location.x = p.windowWidth + 1;
+        this.location.x = p.windowWidth - 2;
       }
 
       if (this.location.y >= p.windowHeight) {
-        this.location.y = 1;
+        this.location.y = 2;
       } else if (this.location.y <= 0) {
-        this.location.y = p.windowHeight + 1;
+        this.location.y = p.windowHeight - 2;
       }
     },
 
