@@ -4,6 +4,7 @@ import { getVectorFromAngle } from "utils/data/vectors";
 import { P5Instance } from "types/p5";
 import { createParticle, Particle } from "factories/Particle";
 import { Vector } from "p5";
+import { NEON_PINK } from "./../../constants/colors";
 
 const BASE_INCREMENT = 0.01;
 const MAX_RANDOM_SEED = 1000000;
@@ -13,7 +14,7 @@ export const getPerlinFlowSketch = () => {
     p.variables = initialPerlinFlowVars;
     let initOffset: number;
     let zOff = 0;
-    const particleAmount = 400;
+    const particleAmount = 200;
     const particles: Array<Particle> = [];
 
     const drawBackground = () => {
@@ -31,11 +32,16 @@ export const getPerlinFlowSketch = () => {
             p.random(0, p.windowWidth),
             p.random(0, p.windowHeight)
           );
+          const randomMass = p.random(1, 6);
           particles.push(
             createParticle({
               location: randomLocation,
-              width: 1,
-              height: 1,
+              width: randomMass / 3,
+              height: randomMass / 3,
+              mass: randomMass,
+              drawTrails: true,
+              maxTrailLength: 100,
+              swapSidesAtBorder: true,
             })
           );
         });
@@ -73,24 +79,18 @@ export const getPerlinFlowSketch = () => {
 
         for (let x = 0; x < p.width + vectorPadding; x += vectorPadding) {
           const col = Math.floor(x / vectorPadding);
-          console.log(col);
           forceVectors.push([]);
           for (let y = 0; y < p.height + vectorPadding; y += vectorPadding) {
             // use trig to find vector
             const angle =
               (p.noise(xOff, yOff, zOff) * p.TWO_PI * angleVariation) %
               p.TWO_PI;
-            const forceVector = getVectorFromAngle(
-              x,
-              y,
-              angle,
-              vectorPadding / 5
-            );
-            forceVectors[col].push(forceVector.copy().sub(x, y));
+            const forceVector = getVectorFromAngle(x, y, angle, vectorPadding);
+            forceVectors[col].push(forceVector.copy().sub(x, y).div(6));
 
-            // debug
+            // // debug
             p.stroke(255, 255, 255);
-            p.line(x, y, forceVector.x, forceVector.y);
+            // p.line(x, y, forceVector.x, forceVector.y);
 
             yOff += perlinYIncrementScale * BASE_INCREMENT;
           }
@@ -102,8 +102,7 @@ export const getPerlinFlowSketch = () => {
         particles.forEach((particle) => {
           const col = Math.floor(particle.location.x / vectorPadding);
           const row = Math.floor(particle.location.y / vectorPadding);
-          console.log(col, row);
-          const forceVector = forceVectors[col][row];
+          const forceVector = forceVectors?.[col]?.[row];
 
           // const angle =
           //   (p.noise(
