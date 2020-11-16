@@ -7,7 +7,7 @@ const p = new p5(() => {});
  * Returns a vector given an angle and distance from a starting position
  * @param sx Starting X
  * @param sy Starting Y
- * @param angle Angle from starting position
+ * @param angle Angle from starting position (in radians)
  * @param distance Distance from starting position to ending position
  */
 export const getVectorFromAngle = (

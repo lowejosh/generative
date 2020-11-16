@@ -14,8 +14,9 @@ export const getPerlinFlowSketch = () => {
     p.variables = initialPerlinFlowVars;
     let initOffset: number;
     let zOff = 0;
-    const particleAmount = 200;
+    const particleAmount = 1;
     const particles: Array<Particle> = [];
+    const vectorForceDivisor = 6;
 
     const drawBackground = () => {
       p.background(0);
@@ -40,8 +41,7 @@ export const getPerlinFlowSketch = () => {
               height: randomMass / 3,
               mass: randomMass,
               drawTrails: true,
-              maxTrailLength: 100,
-              swapSidesAtBorder: true,
+              maxTrailLength: 20,
             })
           );
         });
@@ -86,11 +86,49 @@ export const getPerlinFlowSketch = () => {
               (p.noise(xOff, yOff, zOff) * p.TWO_PI * angleVariation) %
               p.TWO_PI;
             const forceVector = getVectorFromAngle(x, y, angle, vectorPadding);
-            forceVectors[col].push(forceVector.copy().sub(x, y).div(6));
+
+            // now to implement a gradient of influence on the force vectors in order to make the particles stay aiming at the center
+            // first use the vectors position to find the percentage of difference from the center (edge of screen at 100%, center at 0%) for each orientation
+            const centerX = p.width / 2;
+            const centerY = p.height / 2;
+            const percentageFromCenterX = Math.round(
+              (x > centerX ? (x - centerX) / centerX : 1 - x / centerX) * 100
+            );
+            const percentageFromCenterY = Math.round(
+              (y > centerY ? (y - centerY) / centerY : 1 - y / centerY) * 100
+            );
+            // next is to use these percentage values to make the vector point more and more to the center as the percentage goes up
+            // create a vector that points to the center
+            const positionVector = p.createVector(x, y);
+            const centerVector = p.createVector(centerX, centerY);
+            const angleToCenter = centerVector.angleBetween(positionVector);
+            if (p.frameCount % 180 === 0) {
+              console.log(positionVector.x, positionVector.y);
+              console.log(centerVector.x, centerVector.y);
+            }
+            const vectorPointingToCenter = getVectorFromAngle(
+              x,
+              y,
+              angleToCenter,
+              vectorPadding
+            );
+
+            p.stroke(255, 0, 0);
+            p.ellipse(positionVector.x, positionVector.y, 2, 2);
+            p.stroke(0, 255, 0);
+            p.ellipse(vectorPointingToCenter.x, vectorPointingToCenter.y, 2, 2);
+
+            // push the vector to the multiarray
+            forceVectors[col].push(
+              forceVector.copy().sub(x, y).div(vectorForceDivisor)
+            );
 
             // // debug
+            if (percentageFromCenterX > 5 || percentageFromCenterY > 5) {
+              p.stroke(255, 100, 100, 50);
+            }
+            p.line(x, y, vectorPointingToCenter.x, vectorPointingToCenter.y);
             p.stroke(255, 255, 255);
-            // p.line(x, y, forceVector.x, forceVector.y);
 
             yOff += perlinYIncrementScale * BASE_INCREMENT;
           }

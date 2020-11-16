@@ -7,10 +7,10 @@ const p = new p5(() => {});
 type Props = {
   maxVelocity?: number | null;
   swapSidesAtBorder?: boolean;
+  maxTrailLength?: number;
   acceleration?: Vector;
   stroke?: Color | null;
   drawTrails?: boolean;
-  maxTrailLength?: number;
   fill?: Color | null;
   velocity?: Vector;
   location: Vector;
@@ -20,17 +20,17 @@ type Props = {
 };
 
 export type Particle = {
+  prevLocation: Vector | null;
   maxVelocity: number | null;
   swapSidesAtBorder: boolean;
   prevPoints: Array<Vector>;
+  maxTrailLength: number;
   acceleration: Vector;
   stroke: Color | null;
   drawTrails: boolean;
   fill: Color | null;
-  maxTrailLength: number;
   lifeTick: number;
   location: Vector;
-  prevLocation: Vector | null;
   velocity: Vector;
   height: number;
   width: number;
@@ -50,9 +50,9 @@ export function createParticle({
   velocity = p.createVector(0, 0),
   swapSidesAtBorder = false,
   fill = p.color("FFF"),
+  maxTrailLength = 20,
   drawTrails = false,
   maxVelocity = null,
-  maxTrailLength = 20,
   stroke = null,
   height = 1,
   width = 1,
@@ -66,14 +66,14 @@ export function createParticle({
 
   return {
     swapSidesAtBorder,
-    acceleration,
-    lifeTick,
-    prevPoints,
     maxTrailLength,
-    maxVelocity,
+    acceleration,
     prevLocation,
-    location,
+    maxVelocity,
+    prevPoints,
     drawTrails,
+    lifeTick,
+    location,
     velocity,
     stroke,
     height,
@@ -131,12 +131,17 @@ export function createParticle({
       p.ellipse(this.location.x, this.location.y, this.width, this.height);
 
       // draw line between all previous points if we are drawing trails
-      p.beginShape(p.LINES);
-      this.prevPoints.forEach((point) => {
-        p.vertex(point.x, point.y);
-      });
-      p.vertex(this.location.x, this.location.y);
-      p.endShape();
+      if (this.prevPoints.length && this.drawTrails) {
+        p.noFill();
+        p.beginShape();
+        p.curveVertex(this.prevPoints[0].x, this.prevPoints[0].y);
+        this.prevPoints.forEach((point) => {
+          p.curveVertex(point.x, point.y);
+        });
+        p.curveVertex(this.location.x, this.location.y);
+        p.curveVertex(this.location.x, this.location.y);
+        p.endShape();
+      }
     },
 
     /**
