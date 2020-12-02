@@ -78,14 +78,16 @@ export const getPerlinFlowSketch = () => {
           const col = Math.floor(x / vectorPadding);
           forceVectors.push([]);
           for (let y = 0; y < p.height + vectorPadding; y += vectorPadding) {
-            // use trig to find vector
+            // use trig to find vector from noise
             const angle =
               (p.noise(xOff, yOff, zOff) * p.TWO_PI * angleVariation) %
               p.TWO_PI;
             const forceVector = getVectorFromAngle(x, y, angle, vectorPadding);
 
-            // now to implement a gradient of influence on the force vectors in order to make the particles stay aiming at the center
-            // first use the vectors position to find the percentage of difference from the center (edge of screen at 100%, center at 0%) for each orientation
+            /* 
+              now to implement a gradient of influence on the force vectors in order to make the particles stay aiming at the center
+              first use the vectors position to find the percentage of difference from the center (edge of screen at 100%, center at 0%) for each orientation 
+            */
             const centerX = p.width / 2;
             const centerY = p.height / 2;
             const percentageFromCenterX = Math.round(
@@ -94,35 +96,45 @@ export const getPerlinFlowSketch = () => {
             const percentageFromCenterY = Math.round(
               (y > centerY ? (y - centerY) / centerY : 1 - y / centerY) * 100
             );
-            /* 
-              next is to use these percentage values to make the vector point more and more to the center as the percentage goes up
-              create a vector that points to the center by dividing the difference between the position and the center coordinates (by the forceDivisor)
-              this will also scale it so the outer vectors will be stronger because the divisor remains constant as the distance grows (which is what we want)
-              this effect is also furtherly compounded with multiplying by the normalized percentage difference between the two points to allow for a nice gradient
-              transition between the two vectors to allow for less influence by the toCenterVector in places where its not necessary (near the center, where we want
-              most of the effect to be from the perlin noise) 
-            */
+
             const centerVector = p.createVector(centerX, centerY);
+            const positionVector = p.createVector(x, y);
+
+            /*
+              find the angle between position and center using trig
+              sin(angle) = opposite / hyp
+              (angle) = sin-1((distance between x and cx) / (total distance between center and position))
+            */
+            const distX =
+              positionVector.x < centerVector.x
+                ? centerVector.x - positionVector.x
+                : positionVector.x - centerVector.x;
+            const dist = positionVector.dist(centerVector);
+            const toCenterAngle = p.asin(distX / dist);
+            /* 
+              p.text(Math.round(p.degrees(toCenterAngle)), x, y);
+              now use this angle to create a vector the size of the vector padding from the position
+              cos adjacent will be the yDiff and sin opposite will be the xDiff, given the hypotenuse is the vectorPadding
+              p.sin(toCenterAngle) = xdiff / vectorpadding so... 
+            */
+            const shortDistX = p.sin(toCenterAngle) * vectorPadding;
+            // p.cos(toCenterAngle) = ydiff / vectorpadding so...
+            const shortDistY = p.cos(toCenterAngle) * vectorPadding;
+            // then add these to the position to create the facing center vector
             const toCenterVector = p.createVector(
-              centerVector.x - x,
-              centerVector.y - y
+              x + shortDistX,
+              y + shortDistY
             );
-            toCenterVector.x = toCenterVector.x;
-            toCenterVector.y = toCenterVector.y;
-            const pVec = p.createVector(x, y);
-            const angleBetween = pVec.angleBetween(centerVector);
-            const test = getVectorFromAngle(x, y, angleBetween, vectorPadding);
+            p.text(Math.round(shortDistY), x, y);
 
             // push the vector to the multiarray
-            forceVectors[col].push(
-              forceVector.sub(x, y).div(vectorPadding).add(toCenterVector)
-            );
+            forceVectors[col].push(forceVector.sub(x, y).div(vectorPadding));
 
-            // // debug
+            // debug
             if (percentageFromCenterX > 10 || percentageFromCenterY > 10) {
               p.stroke(255, 100, 100, 50);
             }
-            p.line(x, y, test.x, test.y);
+            p.line(x, y, toCenterVector.x, toCenterVector.y);
             p.stroke(255, 255, 255);
 
             yOff += perlinYIncrementScale * BASE_INCREMENT;
