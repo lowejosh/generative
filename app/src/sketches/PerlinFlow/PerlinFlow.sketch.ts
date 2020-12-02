@@ -85,8 +85,8 @@ export const getPerlinFlowSketch = () => {
             const forceVector = getVectorFromAngle(x, y, angle, vectorPadding);
 
             /* 
-              now to implement a gradient of influence on the force vectors in order to make the particles stay aiming at the center
-              first use the vectors position to find the percentage of difference from the center (edge of screen at 100%, center at 0%) for each orientation 
+              Now to implement a gradient of influence on the force vectors in order to make the particles stay aiming at the center.
+              First use the vectors position to find the percentage of difference from the center (edge of screen at 100%, center at 0%) for each orientation.
             */
             const centerX = p.width / 2;
             const centerY = p.height / 2;
@@ -97,45 +97,52 @@ export const getPerlinFlowSketch = () => {
               (y > centerY ? (y - centerY) / centerY : 1 - y / centerY) * 100
             );
 
-            const centerVector = p.createVector(centerX, centerY);
-            const positionVector = p.createVector(x, y);
-
             /*
-              find the angle between position and center using trig
+              Find the angle between position and center using trig.
+
               sin(angle) = opposite / hyp
               (angle) = sin-1((distance between x and cx) / (total distance between center and position))
             */
+            const centerVector = p.createVector(centerX, centerY);
+            const positionVector = p.createVector(x, y);
             const distX =
               positionVector.x < centerVector.x
                 ? centerVector.x - positionVector.x
                 : positionVector.x - centerVector.x;
             const dist = positionVector.dist(centerVector);
             const toCenterAngle = p.asin(distX / dist);
+
             /* 
-              p.text(Math.round(p.degrees(toCenterAngle)), x, y);
-              now use this angle to create a vector the size of the vector padding from the position
-              cos adjacent will be the yDiff and sin opposite will be the xDiff, given the hypotenuse is the vectorPadding
-              p.sin(toCenterAngle) = xdiff / vectorpadding so... 
+              Now use this angle to create a vector the size of the vector padding from the position.
+              Cos adjacent will be the yDiff and sin opposite will be the xDiff (given the hypotenuse is the vectorPadding).
+
+              p.sin(toCenterAngle) = xdiff / vectorpadding 
+              p.cos(toCenterAngle) = ydiff / vectorpadding
             */
             const shortDistX = p.sin(toCenterAngle) * vectorPadding;
-            // p.cos(toCenterAngle) = ydiff / vectorpadding so...
             const shortDistY = p.cos(toCenterAngle) * vectorPadding;
-            // then add these to the position to create the facing center vector
             const toCenterVector = p.createVector(
-              x + shortDistX,
-              y + shortDistY
+              x > centerVector.x ? x + shortDistX : x - shortDistX,
+              y > centerVector.y ? y + shortDistY : y - shortDistY
             );
-            p.text(Math.round(shortDistY), x, y);
 
-            // push the vector to the multiarray
-            forceVectors[col].push(forceVector.sub(x, y).div(vectorPadding));
+            /* Now all thats left is to find the differences between the current forceVector and this new toCenter vector
+              and then influence the forceVector to be more like the toCenter vector, the closer the position is to the edges.
+              This is where the percentage differences will come into play, while also superimposed with an exponential function,
+              so that it has nearly no relevance close to the center, where we want the perlin noise to be the major influence.
+            */
+            const toCenterDiffX = forceVector.x - toCenterVector.x;
+            const toCenterDiffY = forceVector.y - toCenterVector.y;
 
             // debug
-            if (percentageFromCenterX > 10 || percentageFromCenterY > 10) {
-              p.stroke(255, 100, 100, 50);
-            }
+            p.stroke(100, 200, 120, 50);
             p.line(x, y, toCenterVector.x, toCenterVector.y);
-            p.stroke(255, 255, 255);
+            p.stroke(100, 200, 120, 150);
+            p.line(x, y, forceVector.x, forceVector.y);
+            p.stroke(30, 100, 255, 50);
+
+            // push the vector to the multiarray
+            forceVectors[col].push(forceVector.sub(x, y).div(vectorPadding)); //todo change vector padding to maxspeed - speed
 
             yOff += perlinYIncrementScale * BASE_INCREMENT;
           }
