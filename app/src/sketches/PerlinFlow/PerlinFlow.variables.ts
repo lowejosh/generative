@@ -7,6 +7,7 @@ export interface PerlinFlowVars extends P5Defaults {
   perlinXIncrementScale: number;
   perlinYIncrementScale: number;
   perlinZIncrementScale: number;
+  viewForceVectors: boolean;
 }
 
 export const initialPerlinFlowVars: PerlinFlowVars = {
@@ -15,6 +16,7 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
   perlinXIncrementScale: 1,
   perlinYIncrementScale: 1,
   perlinZIncrementScale: 0.4,
+  viewForceVectors: false,
   refresh: (p: p5) => {
     p.setup();
     p.draw();

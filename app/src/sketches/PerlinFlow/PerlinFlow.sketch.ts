@@ -7,6 +7,7 @@ import p5, { Vector } from "p5";
 
 const BASE_INCREMENT = 0.01;
 const MAX_RANDOM_SEED = 1000000;
+const defaultColor = "#FFF";
 
 export const getPerlinFlowSketch = () => {
   return (p: P5Instance<PerlinFlowVars>) => {
@@ -61,8 +62,10 @@ export const getPerlinFlowSketch = () => {
     };
 
     p.draw = () => {
-      // drawBackground();
+      drawBackground();
       checkForMismatchedSize(p);
+      p.stroke(defaultColor);
+      p.fill(defaultColor);
       if (p.variables) {
         // get variables
         const {
@@ -71,6 +74,7 @@ export const getPerlinFlowSketch = () => {
           perlinXIncrementScale,
           perlinYIncrementScale,
           perlinZIncrementScale,
+          viewForceVectors,
         } = p.variables;
 
         let xOff = initOffset;
@@ -153,9 +157,13 @@ export const getPerlinFlowSketch = () => {
                 (Math.pow(2, percentageFromCenterY / 25) / 16);
 
             // debug
-            // p.stroke(100, 200, 120, 150);
-            // p.ellipse(forceVector.x, forceVector.y, 2, 2);
-            // p.line(x, y, forceVector.x, forceVector.y);
+            if (viewForceVectors) {
+              p.stroke(100, 200, 120, 150);
+              p.ellipse(forceVector.x, forceVector.y, 2, 2);
+              p.line(x, y, forceVector.x, forceVector.y);
+              p.stroke(defaultColor);
+              p.fill(defaultColor);
+            }
 
             // push the vector to the multiarray
             forceVectors[col].push(forceVector.sub(x, y).div(vectorPadding)); //todo chang;

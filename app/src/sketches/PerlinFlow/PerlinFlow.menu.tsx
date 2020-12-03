@@ -10,6 +10,7 @@ import React, { Fragment } from "react";
 import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
 import { PerlinFlowParticleMenu } from "./menu-sections/PerlinFlowParticleMenu";
+import { PerlinFlowCanvasMenu } from "./menu-sections/PerlinFlowCanvasMenu";
 
 type Props = {
   p5Instance: P5Instance<PerlinFlowVars> | null;
@@ -31,12 +32,11 @@ export const PerlinFlowMenu = ({ p5Instance }: Props) => {
         show={!isIdle}
       />
       <BottomMenu show={!isIdle}>
-        <Fragment>
-          <MenuTabs labels={["Noise", "Particle"]}>
-            <PerlinFlowNoiseMenu state={state} set={set} />
-            <PerlinFlowParticleMenu state={state} set={set} />
-          </MenuTabs>
-        </Fragment>
+        <MenuTabs labels={["Noise", "Particle", "Canvas"]}>
+          <PerlinFlowNoiseMenu state={state} set={set} />
+          <PerlinFlowParticleMenu state={state} set={set} />
+          <PerlinFlowCanvasMenu state={state} set={set} />
+        </MenuTabs>
       </BottomMenu>
     </Fragment>
   );

@@ -55,7 +55,7 @@ export const PerlinFlowNoiseMenu = ({
         {...sliderParams}
       />
       <MenuSlider
-        title="Speed"
+        title="Noise Speed"
         value={state.perlinZIncrementScale}
         setValue={useCallback((val: number) => set.perlinZIncrementScale(val), [
           set,

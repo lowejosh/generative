@@ -12,7 +12,7 @@ const sliderParams = {
   step: 1,
 };
 
-export const PerlinFlowParticleMenu = ({
+export const PerlinFlowCanvasMenu = ({
   state,
   set,
 }: PerlinFlowMenuSectionProps) => (
@@ -28,5 +28,12 @@ export const PerlinFlowParticleMenu = ({
         max={50}
       />
     </MenuItemWrapper>
+    <MenuCheckbox
+      checked={state.viewForceVectors}
+      setChecked={useCallback((val: boolean) => set.viewForceVectors(val), [
+        set,
+      ])}
+      title="Show Force Vectors"
+    />
   </Box>
 );
