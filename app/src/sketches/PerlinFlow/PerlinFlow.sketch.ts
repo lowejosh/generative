@@ -13,7 +13,7 @@ export const getPerlinFlowSketch = () => {
     p.variables = initialPerlinFlowVars;
     let initOffset: number;
     let zOff = 0;
-    const particleAmount = 400;
+    const particleAmount = 600;
     const particles: Array<Particle> = [];
     const vectorForceDivisor = 6;
 
@@ -122,23 +122,38 @@ export const getPerlinFlowSketch = () => {
             const shortDistX = p.sin(toCenterAngle) * vectorPadding;
             const shortDistY = p.cos(toCenterAngle) * vectorPadding;
             const toCenterVector = p.createVector(
-              x > centerVector.x ? x + shortDistX : x - shortDistX,
-              y > centerVector.y ? y + shortDistY : y - shortDistY
+              x > centerVector.x ? x - shortDistX : x + shortDistX,
+              y > centerVector.y ? y - shortDistY : y + shortDistY
             );
 
             /* Now all thats left is to find the differences between the current forceVector and this new toCenter vector
               and then influence the forceVector to be more like the toCenter vector, the closer the position is to the edges.
               This is where the percentage differences will come into play, while also superimposed with an exponential function,
               so that it has nearly no relevance close to the center, where we want the perlin noise to be the major influence.
+
+              The exponential function will be multiplier = (2^(percentageDiff / 25) / 16), because if the max diff is 4 (100 / 25).
+              The max output would be 16, and we want to normalize that value between 0 and 1 to use as a multiplier.
+              the reason for picking these numbers is that they give a nice gradient along the edges without influencing the center too much (guess & check)
             */
-            const toCenterDiffX = forceVector.x - toCenterVector.x;
-            const toCenterDiffY = forceVector.y - toCenterVector.y;
+            const toCenterDiffY = toCenterVector.y - forceVector.y;
+            const toCenterDiffX = toCenterVector.x - forceVector.x;
+            forceVector.x =
+              forceVector.x +
+              (percentageFromCenterX / 100) *
+                toCenterDiffX *
+                (Math.pow(2, percentageFromCenterX / 25) / 16);
+            forceVector.y =
+              forceVector.y +
+              (percentageFromCenterY / 100) *
+                toCenterDiffY *
+                (Math.pow(2, percentageFromCenterY / 25) / 16);
 
             // debug
-            p.stroke(100, 200, 120, 50);
-            p.line(x, y, toCenterVector.x, toCenterVector.y);
-            p.stroke(100, 200, 120, 150);
-            p.line(x, y, forceVector.x, forceVector.y);
+            // p.stroke(100, 200, 120, 50);
+            // p.line(x, y, toCenterVector.x, toCenterVector.y);
+            // p.stroke(100, 200, 120, 150);
+            // p.ellipse(forceVector.x, forceVector.y, 2, 2);
+            // p.line(x, y, forceVector.x, forceVector.y);
             p.stroke(30, 100, 255, 50);
 
             // push the vector to the multiarray
