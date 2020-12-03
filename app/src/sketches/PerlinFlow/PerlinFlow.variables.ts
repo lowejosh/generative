@@ -10,11 +10,11 @@ export interface PerlinFlowVars extends P5Defaults {
 }
 
 export const initialPerlinFlowVars: PerlinFlowVars = {
-  vectorPadding: 20,
-  angleVariation: 5,
+  vectorPadding: 15,
+  angleVariation: 8,
   perlinXIncrementScale: 1,
   perlinYIncrementScale: 1,
-  perlinZIncrementScale: 0.1,
+  perlinZIncrementScale: 0.4,
   refresh: (p: p5) => {
     p.setup();
     p.draw();

@@ -13,7 +13,7 @@ export const getPerlinFlowSketch = () => {
     p.variables = initialPerlinFlowVars;
     let initOffset: number;
     let zOff = 0;
-    const particleAmount = 600;
+    const particleAmount = 200;
     const particles: Array<Particle> = [];
     const vectorForceDivisor = 6;
 
@@ -36,11 +36,15 @@ export const getPerlinFlowSketch = () => {
           particles.push(
             createParticle({
               location: randomLocation,
-              width: randomMass / 3,
-              height: randomMass / 3,
-              mass: randomMass,
-              drawTrails: true,
-              maxTrailLength: 20,
+              // width: randomMass / 3,
+              // height: randomMass / 3,
+              width: 1,
+              height: 1,
+              fill: p.color(30, 100, 255, 3),
+              stroke: p.color(30, 100, 255, 3),
+              // mass: randomMass,
+              mass: 1,
+              drawTrails: false,
             })
           );
         });
@@ -57,7 +61,7 @@ export const getPerlinFlowSketch = () => {
     };
 
     p.draw = () => {
-      drawBackground();
+      // drawBackground();
       checkForMismatchedSize(p);
       if (p.variables) {
         // get variables
@@ -149,16 +153,12 @@ export const getPerlinFlowSketch = () => {
                 (Math.pow(2, percentageFromCenterY / 25) / 16);
 
             // debug
-            // p.stroke(100, 200, 120, 50);
-            // p.line(x, y, toCenterVector.x, toCenterVector.y);
             // p.stroke(100, 200, 120, 150);
             // p.ellipse(forceVector.x, forceVector.y, 2, 2);
             // p.line(x, y, forceVector.x, forceVector.y);
-            p.stroke(30, 100, 255, 50);
 
             // push the vector to the multiarray
-            forceVectors[col].push(forceVector.sub(x, y).div(vectorPadding)); //todo change vector padding to maxspeed - speed
-
+            forceVectors[col].push(forceVector.sub(x, y).div(vectorPadding)); //todo chang;
             yOff += perlinYIncrementScale * BASE_INCREMENT;
           }
           yOff = initOffset;
