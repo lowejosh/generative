@@ -29,11 +29,19 @@ export const PerlinFlowCanvasMenu = ({
       />
     </MenuItemWrapper>
     <MenuCheckbox
+      checked={state.clearScreen}
+      setChecked={useCallback((val: boolean) => set.clearScreen(val), [set])}
+      title="Refresh Screen"
+    />
+    <MenuCheckbox
       checked={state.viewForceVectors}
+      disabled={!state.clearScreen}
       setChecked={useCallback((val: boolean) => set.viewForceVectors(val), [
         set,
       ])}
-      title="Show Force Vectors"
+      title={`Show Force Vectors${
+        !state.clearScreen ? " (Disabled when not refreshing screen)" : ""
+      }`}
     />
   </Box>
 );

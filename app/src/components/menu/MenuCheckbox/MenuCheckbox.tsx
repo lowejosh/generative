@@ -4,11 +4,17 @@ import React from "react";
 
 type Props = {
   setChecked: Function;
+  disabled?: boolean;
   checked: boolean;
   title?: string;
 };
 
-export const MenuCheckbox = ({ setChecked, checked, title }: Props) => {
+export const MenuCheckbox = ({
+  setChecked,
+  disabled,
+  checked,
+  title,
+}: Props) => {
   const handleChange = (e: React.ChangeEvent<{}>, val: boolean) => {
     setChecked(Boolean(val));
   };
@@ -16,8 +22,9 @@ export const MenuCheckbox = ({ setChecked, checked, title }: Props) => {
   return (
     <FlexRowPadded spacing={0.5}>
       <Checkbox
-        checked={checked}
         onChange={handleChange}
+        disabled={disabled}
+        checked={checked}
         color="primary"
         size="small"
       />

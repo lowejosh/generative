@@ -14,12 +14,14 @@ export const getPerlinFlowSketch = () => {
     p.variables = initialPerlinFlowVars;
     let initOffset: number;
     let zOff = 0;
-    const particleAmount = 200;
+    const particleAmount = 1000;
     const particles: Array<Particle> = [];
     const vectorForceDivisor = 6;
 
-    const drawBackground = () => {
-      p.background(0);
+    const refreshScreen = () => {
+      if (p.variables?.clearScreen) {
+        p.background(0);
+      }
     };
 
     p.setup = () => {
@@ -41,8 +43,8 @@ export const getPerlinFlowSketch = () => {
               // height: randomMass / 3,
               width: 1,
               height: 1,
-              fill: p.color(30, 100, 255, 3),
-              stroke: p.color(30, 100, 255, 3),
+              fill: p.color(30, 100, 255, 2),
+              stroke: p.color(30, 100, 255, 2),
               // mass: randomMass,
               mass: 1,
               drawTrails: false,
@@ -53,16 +55,16 @@ export const getPerlinFlowSketch = () => {
       initOffset = p.random(0, MAX_RANDOM_SEED);
       p.frameRate(60);
       p.createCanvas(p.windowWidth, p.windowHeight);
-      drawBackground();
+      refreshScreen();
     };
 
     p.windowResized = () => {
       p.resizeCanvas(p.windowWidth, p.windowHeight);
-      drawBackground();
+      refreshScreen();
     };
 
     p.draw = () => {
-      drawBackground();
+      refreshScreen();
       checkForMismatchedSize(p);
       p.stroke(defaultColor);
       p.fill(defaultColor);
@@ -156,14 +158,17 @@ export const getPerlinFlowSketch = () => {
                 toCenterDiffY *
                 (Math.pow(2, percentageFromCenterY / 25) / 16);
 
+            /*
+             * Check if the
+             */
+
             // debug
             if (viewForceVectors) {
-              p.stroke(100, 200, 120, 150);
+              p.stroke(100, 200, 120, 50);
               p.ellipse(forceVector.x, forceVector.y, 2, 2);
               p.line(x, y, forceVector.x, forceVector.y);
-              p.stroke(defaultColor);
-              p.fill(defaultColor);
             }
+            p.stroke(100, 200, 120, 150);
 
             // push the vector to the multiarray
             forceVectors[col].push(forceVector.sub(x, y).div(vectorPadding)); //todo chang;
