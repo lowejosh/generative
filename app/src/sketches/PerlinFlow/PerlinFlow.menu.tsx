@@ -1,22 +1,18 @@
+import { PerlinFlowParticleMenu } from "./menu-sections/PerlinFlowParticleMenu";
 import { initialPerlinFlowVars, PerlinFlowVars } from "./PerlinFlow.variables";
 import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu";
+import { PerlinFlowCanvasMenu } from "./menu-sections/PerlinFlowCanvasMenu";
 import { PerlinFlowNoiseMenu } from "./menu-sections/PerlinFlowNoiseMenu";
 import { MenuTabs } from "components/menu/MenuTabs/MenuTabs";
+import { PerlinFlowMenuProps } from "./PerlinFlow.types";
 import { BottomMenu } from "components/menu/BottomMenu";
 import { useGenericReducer } from "utils/data/state";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { useUpdateP5 } from "hooks/useUpdateP5";
 import React, { Fragment } from "react";
-import { P5Instance } from "types/p5";
 import { useIdle } from "hooks";
-import { PerlinFlowParticleMenu } from "./menu-sections/PerlinFlowParticleMenu";
-import { PerlinFlowCanvasMenu } from "./menu-sections/PerlinFlowCanvasMenu";
 
-type Props = {
-  p5Instance: P5Instance<PerlinFlowVars> | null;
-};
-
-export const PerlinFlowMenu = ({ p5Instance }: Props) => {
+export const PerlinFlowMenu = ({ p5Instance }: PerlinFlowMenuProps) => {
   const isIdle = useIdle(TIME_TO_IDLE);
   const { state, set } = useGenericReducer<PerlinFlowVars>(
     initialPerlinFlowVars
@@ -35,7 +31,11 @@ export const PerlinFlowMenu = ({ p5Instance }: Props) => {
         <MenuTabs labels={["Noise", "Particle", "Canvas"]}>
           <PerlinFlowNoiseMenu state={state} set={set} />
           <PerlinFlowParticleMenu state={state} set={set} />
-          <PerlinFlowCanvasMenu state={state} set={set} />
+          <PerlinFlowCanvasMenu
+            p5Instance={p5Instance}
+            state={state}
+            set={set}
+          />
         </MenuTabs>
       </BottomMenu>
     </Fragment>

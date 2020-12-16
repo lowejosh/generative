@@ -3,7 +3,10 @@ import { MenuItemWrapper } from "components/generic";
 import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
 import React, { useCallback } from "react";
 import { formatPixelValue, formatTimesValue } from "utils/menu/formatting";
-import { PerlinFlowMenuSectionProps } from "../PerlinFlow.types";
+import {
+  PerlinFlowMenuProps,
+  PerlinFlowMenuSectionProps,
+} from "../PerlinFlow.types";
 
 const sliderParams = {
   min: 1,

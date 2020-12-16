@@ -1,10 +1,14 @@
+import { MenuCheckbox } from "components/menu/MenuCheckbox/MenuCheckbox";
 import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
-import { PerlinFlowMenuSectionProps } from "../PerlinFlow.types";
 import { formatPixelValue } from "utils/menu/formatting";
 import { MenuItemWrapper } from "components/generic";
 import React, { useCallback } from "react";
 import { Box } from "@material-ui/core";
-import { MenuCheckbox } from "components/menu/MenuCheckbox/MenuCheckbox";
+import {
+  PerlinFlowMenuSectionProps,
+  PerlinFlowMenuProps,
+} from "../PerlinFlow.types";
+import { ColorPicker } from "components/menu/ColorPicker/ColorPicker";
 
 const sliderParams = {
   min: 1,
@@ -13,28 +17,36 @@ const sliderParams = {
 };
 
 export const PerlinFlowCanvasMenu = ({
+  p5Instance,
   state,
   set,
-}: PerlinFlowMenuSectionProps) => (
+}: PerlinFlowMenuSectionProps & PerlinFlowMenuProps) => (
   <Box>
     <MenuItemWrapper>
       <MenuSlider
-        title="Placeholder"
-        value={state.vectorPadding}
-        labelFormat={formatPixelValue}
         setValue={useCallback((val: number) => set.vectorPadding(val), [set])}
+        labelFormat={formatPixelValue}
+        value={state.vectorPadding}
+        title="Placeholder"
         {...sliderParams}
-        min={5}
         max={50}
+        min={5}
       />
     </MenuItemWrapper>
     <MenuCheckbox
       checked={state.clearScreen}
-      setChecked={useCallback((val: boolean) => set.clearScreen(val), [set])}
-      title="Refresh Screen"
+      title="Refresh Background"
+      setChecked={useCallback(
+        (val: boolean) => {
+          p5Instance?.background(state.bgColor);
+          set.viewForceVectors(false);
+          set.clearScreen(val);
+        },
+        [set, p5Instance, state.bgColor]
+      )}
     />
     <MenuCheckbox
-      checked={state.viewForceVectors}
+      checked={state.clearScreen && state.viewForceVectors}
       disabled={!state.clearScreen}
       setChecked={useCallback((val: boolean) => set.viewForceVectors(val), [
         set,
@@ -42,6 +54,11 @@ export const PerlinFlowCanvasMenu = ({
       title={`Show Force Vectors${
         !state.clearScreen ? " (Disabled when not refreshing screen)" : ""
       }`}
+    />
+    <ColorPicker
+      color={state.bgColor}
+      setColor={useCallback((val: string) => set.bgColor(val), [set])}
+      title="Background Color"
     />
   </Box>
 );

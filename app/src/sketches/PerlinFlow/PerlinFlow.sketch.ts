@@ -20,36 +20,46 @@ export const getPerlinFlowSketch = () => {
 
     const refreshScreen = () => {
       if (p.variables?.clearScreen) {
-        p.background(0);
+        p.background(p.variables.bgColor);
       }
     };
 
     p.setup = () => {
+      if (p.variables) {
+        p.background(p.variables.bgColor);
+      }
+
       if (particles.length) {
         particles.splice(0, particles.length);
       }
+
       Array(particleAmount)
         .fill(0)
         .forEach(() => {
-          const randomLocation = p.createVector(
-            p.random(0, p.windowWidth),
-            p.random(0, p.windowHeight)
-          );
-          const randomMass = p.random(1, 6);
-          particles.push(
-            createParticle({
-              location: randomLocation,
-              // width: randomMass / 3,
-              // height: randomMass / 3,
-              width: 1,
-              height: 1,
-              fill: p.color(30, 100, 255, 2),
-              stroke: p.color(30, 100, 255, 2),
-              // mass: randomMass,
-              mass: 1,
-              drawTrails: false,
-            })
-          );
+          if (p.variables) {
+            const randomLocation = p.createVector(
+              p.random(0, p.windowWidth),
+              p.random(0, p.windowHeight)
+            );
+            const particleColor = p.color(p.variables.particleColor);
+            particleColor.setAlpha(50);
+            const randomMass = p.random(1, 6);
+            particles.push(
+              createParticle({
+                location: randomLocation,
+                // width: randomMass / 3,
+                // height: randomMass / 3,
+                width: 1,
+                height: 1,
+                fill: particleColor,
+                stroke: particleColor,
+                // mass: randomMass,
+                mass: 1,
+                drawTrails: true,
+                maxTrailLength: 4,
+              })
+            );
+          }
         });
 
       initOffset = p.random(0, MAX_RANDOM_SEED);

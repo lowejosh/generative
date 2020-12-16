@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { styled, Typography } from "@material-ui/core";
+import { IconButton, styled, Typography } from "@material-ui/core";
 import { FlexRowPadded } from "components/generic";
 import { useDebounce } from "hooks";
 import { DEBOUNCE_DELAY } from "constants/numbers";
@@ -11,8 +11,8 @@ const Input = styled("input")({
   cursor: "pointer",
   outline: "none",
   border: "none",
-  height: "20px",
-  width: "23px",
+  height: "18px",
+  width: "20px",
 
   "&::-webkit-color-swatch-wrapper": {
     padding: 0,
@@ -47,8 +47,10 @@ export const ColorPicker = ({ color, setColor, title }: Props) => {
     setLocalColor(e.target.value);
 
   return (
-    <FlexRowPadded spacing={1}>
-      <Input type="color" onChange={handleChange} value={color} />
+    <FlexRowPadded spacing={1} style={{ padding: "6px" }}>
+      <IconButton size="small">
+        <Input type="color" onChange={handleChange} value={color} />
+      </IconButton>
       {title && <Typography variant="caption">{title}</Typography>}
     </FlexRowPadded>
   );

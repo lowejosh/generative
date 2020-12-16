@@ -1,10 +1,10 @@
+import { ColorPicker } from "components/menu/ColorPicker/ColorPicker";
 import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
 import { PerlinFlowMenuSectionProps } from "../PerlinFlow.types";
 import { formatPixelValue } from "utils/menu/formatting";
 import { MenuItemWrapper } from "components/generic";
 import React, { useCallback } from "react";
 import { Box } from "@material-ui/core";
-import { MenuCheckbox } from "components/menu/MenuCheckbox/MenuCheckbox";
 
 const sliderParams = {
   min: 1,
@@ -28,5 +28,10 @@ export const PerlinFlowParticleMenu = ({
         max={50}
       />
     </MenuItemWrapper>
+    <ColorPicker
+      setColor={useCallback((val: string) => set.particleColor(val), [set])}
+      color={state.particleColor}
+      title="Particle Color"
+    />
   </Box>
 );
