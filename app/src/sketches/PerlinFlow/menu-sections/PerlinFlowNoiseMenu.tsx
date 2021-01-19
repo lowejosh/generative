@@ -1,12 +1,9 @@
-import { Box } from "@material-ui/core";
-import { MenuItemWrapper } from "components/generic";
-import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
-import React, { useCallback } from "react";
 import { formatPixelValue, formatTimesValue } from "utils/menu/formatting";
-import {
-  PerlinFlowMenuProps,
-  PerlinFlowMenuSectionProps,
-} from "../PerlinFlow.types";
+import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
+import { PerlinFlowMenuSectionProps } from "../PerlinFlow.types";
+import { MenuItemWrapper } from "components/generic";
+import React, { useCallback } from "react";
+import { Box } from "@material-ui/core";
 
 const sliderParams = {
   min: 1,

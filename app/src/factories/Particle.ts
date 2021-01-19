@@ -97,6 +97,7 @@ export function createParticle({
         this.prevPoints.push(this.location.copy());
       }
 
+      // movement calculations
       // v1 = v0 + a*t so v1 = v0 + a
       this.velocity.add(this.acceleration);
       this.maxVelocity && this.velocity.limit(this.maxVelocity);
@@ -151,6 +152,7 @@ export function createParticle({
     applyForce(force) {
       // F = ma so a = F/m
       const forceBuffer = force.copy();
+
       forceBuffer.div(this.mass);
       this.acceleration.add(forceBuffer);
     },
