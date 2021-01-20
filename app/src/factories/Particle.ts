@@ -134,6 +134,7 @@ export function createParticle({
       // Draw line between all previous points if we are drawing trails
       if (this.prevPoints.length && this.drawTrails) {
         p.noFill();
+        p.strokeWeight((this.width + this.height) / 2);
         p.beginShape();
         p.curveVertex(this.prevPoints[0].x, this.prevPoints[0].y);
         this.prevPoints.forEach((point) => {
@@ -142,6 +143,7 @@ export function createParticle({
         p.curveVertex(this.location.x, this.location.y);
         p.curveVertex(this.location.x, this.location.y);
         p.endShape();
+        p.noStroke();
       }
     },
 

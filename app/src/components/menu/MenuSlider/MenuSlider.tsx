@@ -1,4 +1,4 @@
-import { Slider, Typography } from "@material-ui/core";
+import { Slider, Tooltip, Typography } from "@material-ui/core";
 import { FlexColumn } from "components/generic";
 import React, { useState, useEffect } from "react";
 import { useDebounce } from "hooks";
@@ -9,10 +9,11 @@ type Props = {
   value: number;
   min: number;
   max: number;
+  labelFormat?: string | ((value: number, index: number) => string) | undefined;
+  disabled?: boolean;
+  tooltip?: string;
   title?: string;
   step?: number;
-  disabled?: boolean;
-  labelFormat?: string | ((value: number, index: number) => string) | undefined;
 };
 
 export const MenuSlider = ({
@@ -20,10 +21,11 @@ export const MenuSlider = ({
   value,
   min,
   max,
+  labelFormat,
+  disabled,
+  tooltip,
   title,
   step,
-  disabled,
-  labelFormat,
 }: Props) => {
   const [localValue, setLocalValue] = useState(value);
   const debouncedLocalValue = useDebounce(localValue, DEBOUNCE_DELAY);
@@ -37,21 +39,23 @@ export const MenuSlider = ({
   };
 
   return (
-    <FlexColumn fullwidth={1}>
-      {title && <Typography variant="caption">{title}</Typography>}
-      <Slider
-        disabled={disabled}
-        valueLabelFormat={labelFormat}
-        value={typeof localValue === "number" ? localValue : 0}
-        onChange={handleChange}
-        getAriaValueText={(val) => val.toString()}
-        valueLabelDisplay="auto"
-        step={step || 1}
-        min={min}
-        color={localValue === debouncedLocalValue ? "primary" : "secondary"} // shows a different color if still debouncing
-        style={{ transition: "0.3s" }}
-        max={max}
-      />
-    </FlexColumn>
+    <Tooltip title={tooltip || ""}>
+      <FlexColumn fullwidth={1}>
+        {title && <Typography variant="caption">{title}</Typography>}
+        <Slider
+          disabled={disabled}
+          valueLabelFormat={labelFormat}
+          value={typeof localValue === "number" ? localValue : 0}
+          onChange={handleChange}
+          getAriaValueText={(val) => val.toString()}
+          valueLabelDisplay="auto"
+          step={step || 1}
+          min={min}
+          color={localValue === debouncedLocalValue ? "primary" : "secondary"} // shows a different color if still debouncing
+          style={{ transition: "0.3s" }}
+          max={max}
+        />
+      </FlexColumn>
+    </Tooltip>
   );
 };

@@ -5,6 +5,7 @@ import { formatPercentValue, formatPixelValue } from "utils/menu/formatting";
 import { MenuItemWrapper } from "components/generic";
 import React, { useCallback } from "react";
 import { Box } from "@material-ui/core";
+import { MenuCheckbox } from "components/menu/MenuCheckbox/MenuCheckbox";
 
 const sliderParams = {
   max: 10,
@@ -35,6 +36,29 @@ export const PerlinFlowParticleMenu = ({
         min={0.1}
         step={0.1}
         max={100}
+      />
+      <MenuSlider
+        title="Particle Size"
+        value={state.particleSize}
+        labelFormat={formatPixelValue}
+        setValue={useCallback((val: number) => set.particleSize(val), [set])}
+        {...sliderParams}
+      />
+      <MenuSlider
+        tooltip={!state.drawTrails ? "Disabled when not drawing trails" : ""}
+        title="Trail Length"
+        value={state.trailLength}
+        labelFormat={formatPixelValue}
+        setValue={useCallback((val: number) => set.trailLength(val), [set])}
+        disabled={!state.drawTrails}
+        {...sliderParams}
+      />
+    </MenuItemWrapper>
+    <MenuItemWrapper>
+      <MenuCheckbox
+        checked={state.drawTrails}
+        setChecked={useCallback((val: boolean) => set.drawTrails(val), [set])}
+        title="Draw Trails"
       />
     </MenuItemWrapper>
     <ColorPicker

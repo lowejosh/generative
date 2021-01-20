@@ -29,10 +29,17 @@ export const initParticles = (
     .fill(0)
     .forEach(() => {
       if (p.variables) {
-        const particleColor = p.color(p.variables.particleColor);
-        particleColor.setAlpha(
-          p.map(p.variables.particleOpacity, 0, 100, 0, 255)
-        );
+        const {
+          particleColor,
+          particleOpacity,
+          maxVelocity,
+          drawTrails,
+          trailLength,
+          particleSize,
+        } = p.variables;
+
+        const particleColorObj = p.color(particleColor);
+        particleColorObj.setAlpha(p.map(particleOpacity, 0, 100, 0, 255));
         const randomMass = p.random(1, 6);
         const randomLocation = p.createVector(
           p.random(0, p.windowWidth),
@@ -42,14 +49,14 @@ export const initParticles = (
         particles.push(
           createParticle({
             location: randomLocation,
-            width: 1,
-            height: 1,
-            fill: particleColor,
-            stroke: particleColor,
+            width: particleSize,
+            height: particleSize,
+            fill: particleColorObj,
+            stroke: particleColorObj,
             mass: 1,
-            maxVelocity: p.variables.maxVelocity,
+            maxVelocity,
             drawTrails: true,
-            maxTrailLength: 5,
+            maxTrailLength: 4,
           })
         );
       }
@@ -141,6 +148,32 @@ export const updateParticles = (
       const row = Math.floor(particle.location.y / vectorPadding);
       const maxCol = Math.floor(p.width / vectorPadding);
       const maxRow = Math.floor(p.height / vectorPadding);
+
+      // Update the particle properties
+      if (p.variables) {
+        const {
+          particleOpacity,
+          particleColor,
+          particleSize,
+          maxVelocity,
+          trailLength,
+          drawTrails,
+        } = p.variables;
+        const particleColorObj = p.color(particleColor);
+        particleColorObj.setAlpha(p.map(particleOpacity, 0, 100, 0, 255));
+        particle = {
+          ...particle,
+          ...{
+            maxTrailLength: trailLength,
+            stroke: particleColorObj,
+            fill: particleColorObj,
+            height: particleSize,
+            width: particleSize,
+            maxVelocity,
+            drawTrails,
+          },
+        };
+      }
 
       // If the particle is out of bounds, push it back towards the center, otherwise just access the force vector
       const forceVector =

@@ -8,10 +8,14 @@ import { useEffect } from "react";
  */
 export const useUpdateP5 = <T extends P5Defaults>(
   p5Instance: P5Instance<T> | null,
-  state: T
+  state: T,
+  refreshOnChange?: boolean
 ) => {
   useEffect(() => {
     if (p5Instance) {
+      if (refreshOnChange) {
+        p5Instance.variables?.refresh(p5Instance);
+      }
       p5Instance.variables = { ...p5Instance.variables, ...state };
     }
   }, [p5Instance, state]);
