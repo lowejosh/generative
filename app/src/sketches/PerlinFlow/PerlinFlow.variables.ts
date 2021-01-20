@@ -7,10 +7,12 @@ export interface PerlinFlowVars extends P5Defaults {
   perlinYIncrementScale: number;
   perlinZIncrementScale: number;
   viewForceVectors: boolean;
+  particleOpacity: number;
   angleVariation: number;
   vectorPadding: number;
   particleColor: string;
   clearScreen: boolean;
+  maxVelocity: number;
   bgColor: string;
 }
 
@@ -20,10 +22,12 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
   perlinYIncrementScale: 1,
   particleColor: NEON_BLUE,
   viewForceVectors: false,
+  particleOpacity: 25,
   bgColor: "#000000",
+  angleVariation: 20,
   vectorPadding: 15,
-  angleVariation: 8,
   clearScreen: true,
+  maxVelocity: 5,
   refresh: (p: p5) => {
     p.setup();
     p.draw();

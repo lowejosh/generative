@@ -59,7 +59,7 @@ export function createParticle({
   location,
   mass = 1,
 }: Props): Particle {
-  // non-prop defaults
+  // Non-prop defaults
   const prevLocation: Vector | null = null;
   const prevPoints: Array<Vector> = [];
   const lifeTick = 0;
@@ -85,7 +85,7 @@ export function createParticle({
         note: this is a single "time tick", so time can be eliminated from the equations
      */
     update(p) {
-      // record point if we are drawing trails
+      // Record point if we are drawing trails
       if (
         this.drawTrails &&
         this.prevLocation &&
@@ -97,7 +97,7 @@ export function createParticle({
         this.prevPoints.push(this.location.copy());
       }
 
-      // movement calculations
+      // Movement calculations
       // v1 = v0 + a*t so v1 = v0 + a
       this.velocity.add(this.acceleration);
       this.maxVelocity && this.velocity.limit(this.maxVelocity);
@@ -106,7 +106,7 @@ export function createParticle({
       this.location.add(this.velocity);
       this.acceleration.mult(0);
 
-      // handle collision with bounds if we are swapping sides when the particle hits the border
+      // Handle collision with bounds if we are swapping sides when the particle hits the border
       if (this.swapSidesAtBorder) {
         if (this.location.x >= p.windowWidth) {
           this.location.x = 1;
@@ -131,7 +131,7 @@ export function createParticle({
       this.fill && p.fill(this.fill);
       p.ellipse(this.location.x, this.location.y, this.width, this.height);
 
-      // draw line between all previous points if we are drawing trails
+      // Draw line between all previous points if we are drawing trails
       if (this.prevPoints.length && this.drawTrails) {
         p.noFill();
         p.beginShape();
