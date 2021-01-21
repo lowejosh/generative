@@ -15,6 +15,7 @@ export interface PerlinFlowVars extends P5Defaults {
   clearScreen: boolean;
   drawTrails: boolean;
   trailLength: number;
+  particleAmount: number;
   maxVelocity: number;
   bgColor: string;
 }
@@ -28,11 +29,12 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
   particleOpacity: 25,
   bgColor: "#000000",
   angleVariation: 20,
+  particleAmount: 500,
   vectorPadding: 15,
   clearScreen: true,
   drawTrails: true,
   particleSize: 1,
-  trailLength: 20,
+  trailLength: 3,
   maxVelocity: 5,
   refresh: (p: p5) => {
     p.setup();

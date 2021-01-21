@@ -24,8 +24,7 @@ export const initParticles = (
   }
 
   // TODOMENU
-  const particleAmount = 1000;
-  Array(particleAmount)
+  Array(p.variables?.particleAmount)
     .fill(0)
     .forEach(() => {
       if (p.variables) {
@@ -55,8 +54,8 @@ export const initParticles = (
             stroke: particleColorObj,
             mass: 1,
             maxVelocity,
-            drawTrails: true,
-            maxTrailLength: 4,
+            drawTrails,
+            maxTrailLength: trailLength,
           })
         );
       }

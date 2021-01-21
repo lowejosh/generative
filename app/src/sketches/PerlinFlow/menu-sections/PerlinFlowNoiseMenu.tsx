@@ -60,9 +60,9 @@ export const PerlinFlowNoiseMenu = ({
         setValue={useCallback((val: number) => set.perlinZIncrementScale(val), [
           set,
         ])}
-        {...sliderParams}
         min={0}
-        step={0.1}
+        step={0.01}
+        max={5}
       />
     </MenuItemWrapper>
   </Box>

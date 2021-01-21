@@ -20,6 +20,13 @@ export const PerlinFlowParticleMenu = ({
   <Box>
     <MenuItemWrapper>
       <MenuSlider
+        title="Particle Amount"
+        value={state.particleAmount}
+        setValue={useCallback((val: number) => set.particleAmount(val), [set])}
+        {...sliderParams}
+        max={5000}
+      />
+      <MenuSlider
         title="Max Velocity"
         value={state.maxVelocity}
         setValue={useCallback((val: number) => set.maxVelocity(val), [set])}
@@ -48,10 +55,10 @@ export const PerlinFlowParticleMenu = ({
         tooltip={!state.drawTrails ? "Disabled when not drawing trails" : ""}
         title="Trail Length"
         value={state.trailLength}
-        labelFormat={formatPixelValue}
         setValue={useCallback((val: number) => set.trailLength(val), [set])}
         disabled={!state.drawTrails}
         {...sliderParams}
+        max={100}
       />
     </MenuItemWrapper>
     <MenuItemWrapper>

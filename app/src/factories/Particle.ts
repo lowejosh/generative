@@ -85,18 +85,6 @@ export function createParticle({
         note: this is a single "time tick", so time can be eliminated from the equations
      */
     update(p) {
-      // Record point if we are drawing trails
-      if (
-        this.drawTrails &&
-        this.prevLocation &&
-        !this.location.equals(this.prevLocation)
-      ) {
-        if (this.prevPoints.length === this.maxTrailLength) {
-          this.prevPoints.shift();
-        }
-        this.prevPoints.push(this.location.copy());
-      }
-
       // Movement calculations
       // v1 = v0 + a*t so v1 = v0 + a
       this.velocity.add(this.acceleration);
@@ -105,6 +93,19 @@ export function createParticle({
       this.prevLocation = this.location.copy();
       this.location.add(this.velocity);
       this.acceleration.mult(0);
+
+      if (
+        this.drawTrails &&
+        this.prevLocation &&
+        !this.location.equals(this.prevLocation)
+      ) {
+        if (this.prevPoints.length > this.maxTrailLength) {
+          Array(this.prevPoints.length - this.maxTrailLength)
+            .fill(null)
+            .forEach(() => this.prevPoints.shift());
+        }
+        this.prevPoints.push(this.location.copy());
+      }
 
       // Handle collision with bounds if we are swapping sides when the particle hits the border
       if (this.swapSidesAtBorder) {
@@ -127,8 +128,8 @@ export function createParticle({
      *  Displays the particle on a given sketch instance
      */
     display(p) {
-      this.stroke && p.stroke(this.stroke);
-      this.fill && p.fill(this.fill);
+      this.stroke ? p.stroke(this.stroke) : p.noStroke();
+      this.fill ? p.fill(this.fill) : p.noFill();
       p.ellipse(this.location.x, this.location.y, this.width, this.height);
 
       // Draw line between all previous points if we are drawing trails
