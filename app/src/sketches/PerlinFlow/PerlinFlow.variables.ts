@@ -9,15 +9,16 @@ export interface PerlinFlowVars extends P5Defaults {
   viewForceVectors: boolean;
   particleOpacity: number;
   angleVariation: number;
+  particleAmount: number;
   vectorPadding: number;
   particleColor: string;
   particleSize: number;
   clearScreen: boolean;
   drawTrails: boolean;
   trailLength: number;
-  particleAmount: number;
   maxVelocity: number;
   bgColor: string;
+  mass: number;
 }
 
 export const initialPerlinFlowVars: PerlinFlowVars = {
@@ -27,15 +28,16 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
   particleColor: NEON_BLUE,
   viewForceVectors: false,
   particleOpacity: 25,
+  particleAmount: 500,
   bgColor: "#000000",
   angleVariation: 20,
-  particleAmount: 500,
   vectorPadding: 15,
   clearScreen: true,
   drawTrails: true,
   particleSize: 1,
   trailLength: 3,
   maxVelocity: 5,
+  mass: 2,
   refresh: (p: p5) => {
     p.setup();
     p.draw();

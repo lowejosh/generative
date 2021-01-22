@@ -23,7 +23,6 @@ export const initParticles = (
     particles.splice(0, particles.length);
   }
 
-  // TODOMENU
   Array(p.variables?.particleAmount)
     .fill(0)
     .forEach(() => {
@@ -32,6 +31,7 @@ export const initParticles = (
           particleColor,
           particleOpacity,
           maxVelocity,
+          mass,
           drawTrails,
           trailLength,
           particleSize,
@@ -39,7 +39,6 @@ export const initParticles = (
 
         const particleColorObj = p.color(particleColor);
         particleColorObj.setAlpha(p.map(particleOpacity, 0, 100, 0, 255));
-        const randomMass = p.random(1, 6);
         const randomLocation = p.createVector(
           p.random(0, p.windowWidth),
           p.random(0, p.windowHeight)
@@ -52,7 +51,7 @@ export const initParticles = (
             height: particleSize,
             fill: particleColorObj,
             stroke: particleColorObj,
-            mass: 1,
+            mass,
             maxVelocity,
             drawTrails,
             maxTrailLength: trailLength,
@@ -157,6 +156,7 @@ export const updateParticles = (
           maxVelocity,
           trailLength,
           drawTrails,
+          mass,
         } = p.variables;
         const particleColorObj = p.color(particleColor);
         particleColorObj.setAlpha(p.map(particleOpacity, 0, 100, 0, 255));
@@ -170,6 +170,7 @@ export const updateParticles = (
             width: particleSize,
             maxVelocity,
             drawTrails,
+            mass,
           },
         };
       }

@@ -33,6 +33,13 @@ export const PerlinFlowParticleMenu = ({
         {...sliderParams}
         max={15}
       />
+      <MenuSlider
+        title="Mass"
+        value={state.mass}
+        setValue={useCallback((val: number) => set.mass(val), [set])}
+        {...sliderParams}
+        max={15}
+      />
     </MenuItemWrapper>
     <MenuItemWrapper>
       <MenuSlider
