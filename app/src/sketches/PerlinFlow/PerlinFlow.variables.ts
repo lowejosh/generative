@@ -14,6 +14,7 @@ export interface PerlinFlowVars extends P5Defaults {
   vectorPadding: number;
   particleColor: string;
   avoidBorders: boolean;
+  randomColor: boolean;
   particleSize: number;
   clearScreen: boolean;
   drawTrails: boolean;
@@ -32,6 +33,7 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
   viewForceVectors: false,
   particleOpacity: 25,
   particleAmount: 500,
+  randomColor: false,
   avoidBorders: true,
   bgColor: "#000000",
   angleVariation: 20,

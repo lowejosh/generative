@@ -141,6 +141,7 @@ export function createParticle({
         p.curveVertex(this.prevPoints[0].x, this.prevPoints[0].y);
         this.prevPoints.forEach((point, index) => {
           if (
+            // Break the trail into 2 shapes if the next point is further than half the canvas width/height away (for particles swapping side)
             !(
               prevPoints?.[index + 1] &&
               Math.abs(prevPoints[index + 1].x - point.x) < p.width / 2 &&

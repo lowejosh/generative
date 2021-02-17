@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, styled, Typography } from "@material-ui/core";
+import { IconButton, styled, Tooltip, Typography } from "@material-ui/core";
 import { FlexRowPadded } from "components/generic";
 import { useDebounce } from "hooks";
 import { DEBOUNCE_DELAY } from "constants/numbers";
@@ -26,14 +26,22 @@ const Input = styled("input")({
 
 type Props = {
   setColor: Function;
-  color: string;
+  disabled?: boolean;
+  tooltip?: string;
   title?: string;
+  color: string;
 };
 
 /**
  * Returns a debounced color value from a colorpicker to limit full re-renders
  */
-export const ColorPicker = ({ color, setColor, title }: Props) => {
+export const ColorPicker = ({
+  setColor,
+  disabled,
+  tooltip,
+  color,
+  title,
+}: Props) => {
   const [localColor, setLocalColor] = useState(color);
   const debouncedLocalColor = useDebounce(localColor, DEBOUNCE_DELAY);
 
@@ -47,11 +55,13 @@ export const ColorPicker = ({ color, setColor, title }: Props) => {
     setLocalColor(e.target.value);
 
   return (
-    <FlexRowPadded spacing={1} style={{ padding: "6px" }}>
-      <IconButton size="small">
-        <Input type="color" onChange={handleChange} value={color} />
-      </IconButton>
-      {title && <Typography variant="caption">{title}</Typography>}
-    </FlexRowPadded>
+    <Tooltip title={tooltip || ""}>
+      <FlexRowPadded spacing={1} style={{ padding: "6px" }}>
+        <IconButton size="small" disabled={disabled}>
+          <Input type="color" onChange={handleChange} value={color} />
+        </IconButton>
+        {title && <Typography variant="caption">{title}</Typography>}
+      </FlexRowPadded>
+    </Tooltip>
   );
 };

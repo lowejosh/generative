@@ -88,7 +88,14 @@ export const PerlinFlowParticleMenu = ({
         title="Swap Sides at Border"
       />
     </MenuItemWrapper>
+    <MenuCheckbox
+      checked={state.randomColor}
+      setChecked={useCallback((val: boolean) => set.randomColor(val), [set])}
+      title="Random Color"
+    />
     <ColorPicker
+      tooltip={state.randomColor ? "Disabled when showing random color" : ""}
+      disabled={state.randomColor}
       setColor={useCallback((val: string) => set.particleColor(val), [set])}
       color={state.particleColor}
       title="Particle Color"

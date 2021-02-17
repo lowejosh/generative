@@ -6,6 +6,7 @@ import {
   getVectorFromAngle,
   relativelyPointVectorToCenter,
 } from "utils/data/vectors";
+import { getRandomColor } from "utils/drawing/colors";
 
 const BASE_INCREMENT = 0.01;
 
@@ -34,11 +35,15 @@ export const initParticles = (
           particleSize,
           maxVelocity,
           trailLength,
+          randomColor,
           drawTrails,
           mass,
         } = p.variables;
 
-        const particleColorObj = p.color(particleColor);
+        // generate a random color if necessary
+        const particleColorObj = p.color(
+          randomColor ? getRandomColor() : particleColor
+        );
         particleColorObj.setAlpha(p.map(particleOpacity, 0, 100, 0, 255));
         const randomLocation = p.createVector(
           p.random(0, p.windowWidth),
@@ -160,11 +165,14 @@ export const updateParticles = (
           particleColor,
           particleSize,
           maxVelocity,
+          randomColor,
           trailLength,
           drawTrails,
           mass,
         } = p.variables;
-        const particleColorObj = p.color(particleColor);
+        // maintain current color if we're still showing the random color
+        const particleColorObj =
+          randomColor && particle.fill ? particle.fill : p.color(particleColor);
         particleColorObj.setAlpha(p.map(particleOpacity, 0, 100, 0, 255));
         particle = {
           ...particle,
