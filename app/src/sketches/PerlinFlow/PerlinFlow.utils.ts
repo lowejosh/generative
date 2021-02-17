@@ -28,13 +28,14 @@ export const initParticles = (
     .forEach(() => {
       if (p.variables) {
         const {
-          particleColor,
+          swapSidesAtBorder,
           particleOpacity,
-          maxVelocity,
-          mass,
-          drawTrails,
-          trailLength,
+          particleColor,
           particleSize,
+          maxVelocity,
+          trailLength,
+          drawTrails,
+          mass,
         } = p.variables;
 
         const particleColorObj = p.color(particleColor);
@@ -46,15 +47,16 @@ export const initParticles = (
 
         particles.push(
           createParticle({
+            maxTrailLength: trailLength,
             location: randomLocation,
-            width: particleSize,
-            height: particleSize,
-            fill: particleColorObj,
             stroke: particleColorObj,
-            mass,
+            fill: particleColorObj,
+            height: particleSize,
+            width: particleSize,
+            swapSidesAtBorder,
             maxVelocity,
             drawTrails,
-            maxTrailLength: trailLength,
+            mass,
           })
         );
       }
@@ -73,12 +75,13 @@ export const getForceVectors = (
 
   if (p.variables) {
     const {
-      vectorPadding,
-      angleVariation,
       perlinXIncrementScale,
       perlinYIncrementScale,
       perlinZIncrementScale,
       viewForceVectors,
+      angleVariation,
+      vectorPadding,
+      avoidBorders,
     } = p.variables;
     let xOff = seed;
     let yOff = seed;
@@ -99,13 +102,15 @@ export const getForceVectors = (
           vectorPadding
         );
 
-        const forceVector = relativelyPointVectorToCenter(
-          p,
-          x,
-          y,
-          initialForceVector,
-          vectorPadding
-        );
+        const forceVector = avoidBorders
+          ? relativelyPointVectorToCenter(
+              p,
+              x,
+              y,
+              initialForceVector,
+              vectorPadding
+            )
+          : initialForceVector;
 
         // Show the vectors if we want to
         if (viewForceVectors) {
@@ -139,7 +144,7 @@ export const updateParticles = (
   forceVectors: Array<Array<Vector>>
 ) => {
   if (p.variables) {
-    const { vectorPadding } = p.variables;
+    const { vectorPadding, avoidBorders } = p.variables;
 
     particles.forEach((particle) => {
       const col = Math.floor(particle.location.x / vectorPadding);
@@ -150,6 +155,7 @@ export const updateParticles = (
       // Update the particle properties
       if (p.variables) {
         const {
+          swapSidesAtBorder,
           particleOpacity,
           particleColor,
           particleSize,
@@ -168,6 +174,7 @@ export const updateParticles = (
             fill: particleColorObj,
             height: particleSize,
             width: particleSize,
+            swapSidesAtBorder,
             maxVelocity,
             drawTrails,
             mass,
@@ -177,7 +184,7 @@ export const updateParticles = (
 
       // If the particle is out of bounds, push it back towards the center, otherwise just access the force vector
       const forceVector =
-        col > maxCol || row > maxRow || !col || !row
+        avoidBorders && (col > maxCol || row > maxRow || !col || !row)
           ? relativelyPointVectorToCenter(
               p,
               particle.location.x,

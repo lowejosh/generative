@@ -6,12 +6,14 @@ export interface PerlinFlowVars extends P5Defaults {
   perlinXIncrementScale: number;
   perlinYIncrementScale: number;
   perlinZIncrementScale: number;
+  swapSidesAtBorder: boolean;
   viewForceVectors: boolean;
   particleOpacity: number;
   angleVariation: number;
   particleAmount: number;
   vectorPadding: number;
   particleColor: string;
+  avoidBorders: boolean;
   particleSize: number;
   clearScreen: boolean;
   drawTrails: boolean;
@@ -26,9 +28,11 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
   perlinXIncrementScale: 1,
   perlinYIncrementScale: 1,
   particleColor: NEON_BLUE,
+  swapSidesAtBorder: true,
   viewForceVectors: false,
   particleOpacity: 25,
   particleAmount: 500,
+  avoidBorders: true,
   bgColor: "#000000",
   angleVariation: 20,
   vectorPadding: 15,

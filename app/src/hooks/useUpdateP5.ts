@@ -18,5 +18,5 @@ export const useUpdateP5 = <T extends P5Defaults>(
       }
       p5Instance.variables = { ...p5Instance.variables, ...state };
     }
-  }, [p5Instance, state]);
+  }, [p5Instance, state, refreshOnChange]);
 };

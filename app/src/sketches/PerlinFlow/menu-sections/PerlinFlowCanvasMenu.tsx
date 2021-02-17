@@ -33,28 +33,31 @@ export const PerlinFlowCanvasMenu = ({
         min={5}
       />
     </MenuItemWrapper>
-    <MenuCheckbox
-      checked={state.clearScreen}
-      title="Refresh Background"
-      setChecked={useCallback(
-        (val: boolean) => {
-          p5Instance?.background(state.bgColor);
-          set.viewForceVectors(false);
-          set.clearScreen(val);
-        },
-        [set, p5Instance, state.bgColor]
-      )}
-    />
-    <MenuCheckbox
-      checked={state.clearScreen && state.viewForceVectors}
-      disabled={!state.clearScreen}
-      setChecked={useCallback((val: boolean) => set.viewForceVectors(val), [
-        set,
-      ])}
-      title={`Show Force Vectors${
-        !state.clearScreen ? " (Disabled when not refreshing screen)" : ""
-      }`}
-    />
+    <MenuItemWrapper>
+      <MenuCheckbox
+        checked={state.clearScreen}
+        title="Refresh Background"
+        setChecked={useCallback(
+          (val: boolean) => {
+            p5Instance?.background(state.bgColor);
+            set.viewForceVectors(false);
+            set.clearScreen(val);
+          },
+          [set, p5Instance, state.bgColor]
+        )}
+      />
+      <MenuCheckbox
+        tooltip={
+          !state.clearScreen ? "Disabled when not refreshing screen" : ""
+        }
+        checked={state.clearScreen && state.viewForceVectors}
+        disabled={!state.clearScreen}
+        setChecked={useCallback((val: boolean) => set.viewForceVectors(val), [
+          set,
+        ])}
+        title="Show Force Vectors"
+      />
+    </MenuItemWrapper>
     <ColorPicker
       color={state.bgColor}
       setColor={useCallback((val: string) => set.bgColor(val), [set])}

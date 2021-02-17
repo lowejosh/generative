@@ -94,6 +94,7 @@ export function createParticle({
       this.location.add(this.velocity);
       this.acceleration.mult(0);
 
+      // Draw tails if we have it enabled, we have a previous location
       if (
         this.drawTrails &&
         this.prevLocation &&
@@ -138,7 +139,17 @@ export function createParticle({
         p.strokeWeight((this.width + this.height) / 2);
         p.beginShape();
         p.curveVertex(this.prevPoints[0].x, this.prevPoints[0].y);
-        this.prevPoints.forEach((point) => {
+        this.prevPoints.forEach((point, index) => {
+          if (
+            !(
+              prevPoints?.[index + 1] &&
+              Math.abs(prevPoints[index + 1].x - point.x) < p.width / 2 &&
+              Math.abs(prevPoints[index + 1].y - point.y) < p.height / 2
+            )
+          ) {
+            p.endShape();
+            p.beginShape();
+          }
           p.curveVertex(point.x, point.y);
         });
         p.curveVertex(this.location.x, this.location.y);

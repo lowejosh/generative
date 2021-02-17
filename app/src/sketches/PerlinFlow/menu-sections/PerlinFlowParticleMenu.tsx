@@ -74,6 +74,19 @@ export const PerlinFlowParticleMenu = ({
         setChecked={useCallback((val: boolean) => set.drawTrails(val), [set])}
         title="Draw Trails"
       />
+      <MenuCheckbox
+        checked={state.avoidBorders}
+        setChecked={useCallback((val: boolean) => set.avoidBorders(val), [set])}
+        title="Avoid Borders"
+      />
+      <MenuCheckbox
+        disabled={state.avoidBorders}
+        checked={state.swapSidesAtBorder}
+        setChecked={useCallback((val: boolean) => set.swapSidesAtBorder(val), [
+          set,
+        ])}
+        title="Swap Sides at Border"
+      />
     </MenuItemWrapper>
     <ColorPicker
       setColor={useCallback((val: string) => set.particleColor(val), [set])}
