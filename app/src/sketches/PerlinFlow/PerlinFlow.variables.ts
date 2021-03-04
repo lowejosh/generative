@@ -3,6 +3,7 @@ import { P5Defaults } from "types/p5";
 import p5 from "p5";
 
 export interface PerlinFlowVars extends P5Defaults {
+  randomParticlePositions: boolean;
   perlinXIncrementScale: number;
   perlinYIncrementScale: number;
   perlinZIncrementScale: number;
@@ -25,6 +26,7 @@ export interface PerlinFlowVars extends P5Defaults {
 }
 
 export const initialPerlinFlowVars: PerlinFlowVars = {
+  randomParticlePositions: true,
   perlinZIncrementScale: 0.4,
   perlinXIncrementScale: 1,
   perlinYIncrementScale: 1,
