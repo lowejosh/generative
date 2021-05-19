@@ -1,6 +1,6 @@
 import { Slider, Tooltip, Typography } from "@material-ui/core";
 import { FlexColumn } from "components/generic";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDebounce } from "hooks";
 import { DEBOUNCE_DELAY } from "constants/numbers";
 
@@ -34,9 +34,12 @@ export const MenuSlider = ({
     setValue(debouncedLocalValue);
   }, [debouncedLocalValue, setValue]);
 
-  const handleChange = (e: React.ChangeEvent<{}>, val: number | number[]) => {
-    setLocalValue(Number(val));
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<{}>, val: number | number[]) => {
+      setLocalValue(Number(val));
+    },
+    []
+  );
 
   return (
     <Tooltip title={tooltip || ""}>

@@ -1,5 +1,5 @@
 import { FlexRowPadded } from "components/generic/Flex";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { IconWrapper } from "./IconMenu.styled";
 import { useHistory } from "react-router-dom";
 import { IconMenu } from "./IconMenu";
@@ -31,21 +31,24 @@ export const StandardIconMenu = ({
   const [isLooping, setIsLooping] = useState(initialLoopControl);
   const history = useHistory();
 
-  const onRefresh = () => p5Instance?.variables?.refresh(p5Instance);
+  const onRefresh = useCallback(
+    () => p5Instance?.variables?.refresh(p5Instance),
+    [p5Instance]
+  );
 
-  const onSave = () => p5Instance?.save("image");
+  const onSave = useCallback(() => p5Instance?.save("image"), [p5Instance]);
 
-  const onPlay = () => {
+  const onPlay = useCallback(() => {
     setIsLooping(true);
-  };
+  }, []);
 
-  const onPause = () => {
+  const onPause = useCallback(() => {
     setIsLooping(false);
-  };
+  }, []);
 
-  const onBack = () => {
+  const onBack = useCallback(() => {
     history.push("/");
-  };
+  }, [history]);
 
   useEffect(() => {
     // Re-enable looping when loop control is disabled
@@ -68,10 +71,7 @@ export const StandardIconMenu = ({
           <ArrowBack color="primary" />
         </IconWrapper>
         {!disableLoopControl && (
-          <IconWrapper
-            onClick={isLooping ? onPause : onPlay}
-            // disabled={disableLoopControl}
-          >
+          <IconWrapper onClick={isLooping ? onPause : onPlay}>
             {isLooping ? (
               <Pause color="primary" />
             ) : (

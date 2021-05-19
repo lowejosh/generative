@@ -14,6 +14,7 @@ const sliderParams = {
 };
 
 export const PerlinFlowParticleMenu = ({
+  refreshAnimation,
   state,
   set,
 }: PerlinFlowMenuSectionProps) => (
@@ -22,7 +23,16 @@ export const PerlinFlowParticleMenu = ({
       <MenuSlider
         title="Particle Amount"
         value={state.particleAmount}
-        setValue={useCallback((val: number) => set.particleAmount(val), [set])}
+        setValue={useCallback(
+          (val: number) => {
+            if (val !== state.particleAmount) {
+              // can't stop from unrealted rerenders due to refresh coupling with p5Instance
+              set.particleAmount(val);
+              refreshAnimation && refreshAnimation();
+            }
+          },
+          [set, refreshAnimation, state.particleAmount]
+        )}
         {...sliderParams}
         max={5000}
       />
@@ -82,9 +92,10 @@ export const PerlinFlowParticleMenu = ({
       <MenuCheckbox
         disabled={state.avoidBorders}
         checked={state.swapSidesAtBorder}
-        setChecked={useCallback((val: boolean) => set.swapSidesAtBorder(val), [
-          set,
-        ])}
+        setChecked={useCallback(
+          (val: boolean) => set.swapSidesAtBorder(val),
+          [set]
+        )}
         title="Swap Sides at Border"
       />
     </MenuItemWrapper>
@@ -93,14 +104,6 @@ export const PerlinFlowParticleMenu = ({
         checked={state.randomColor}
         setChecked={useCallback((val: boolean) => set.randomColor(val), [set])}
         title="Random Color"
-      />
-      <MenuCheckbox
-        checked={state.randomParticlePositions}
-        setChecked={useCallback(
-          (val: boolean) => set.randomParticlePositions(val),
-          [set]
-        )}
-        title="Random Positions"
       />
     </MenuItemWrapper>
     <ColorPicker

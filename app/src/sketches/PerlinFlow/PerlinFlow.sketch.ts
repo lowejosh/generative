@@ -30,8 +30,7 @@ export const getPerlinFlowSketch = () => {
     };
 
     p.windowResized = () => {
-      p.resizeCanvas(p.windowWidth, p.windowHeight);
-      refreshScreen();
+      p.setup();
     };
 
     p.draw = () => {

@@ -9,7 +9,7 @@ import { BottomMenu } from "components/menu/BottomMenu";
 import { useGenericReducer } from "utils/data/state";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { useUpdateP5 } from "hooks/useUpdateP5";
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import { useIdle } from "hooks";
 
 export const PerlinFlowMenu = ({ p5Instance }: PerlinFlowMenuProps) => {
@@ -19,6 +19,11 @@ export const PerlinFlowMenu = ({ p5Instance }: PerlinFlowMenuProps) => {
   );
 
   useUpdateP5<PerlinFlowVars>(p5Instance, state);
+
+  const refreshAnimation = useCallback(
+    () => p5Instance?.variables?.refresh(p5Instance),
+    [p5Instance]
+  );
 
   return (
     <Fragment>
@@ -30,7 +35,11 @@ export const PerlinFlowMenu = ({ p5Instance }: PerlinFlowMenuProps) => {
       <BottomMenu show={!isIdle}>
         <MenuTabs labels={["Noise", "Particle", "Canvas"]}>
           <PerlinFlowNoiseMenu state={state} set={set} />
-          <PerlinFlowParticleMenu state={state} set={set} />
+          <PerlinFlowParticleMenu
+            state={state}
+            set={set}
+            refreshAnimation={refreshAnimation}
+          />
           <PerlinFlowCanvasMenu
             p5Instance={p5Instance}
             state={state}
