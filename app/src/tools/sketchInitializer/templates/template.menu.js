@@ -1,6 +1,7 @@
 const getMenuTemplate = (sketchName) => `
 import { initial${sketchName}Vars, ${sketchName}Vars } from "./${sketchName}.variables";
-import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu/StandardIconMenu";
+import { MenuWrapper } from "components/menu/MenuWrapper/MenuWrapper";
 import { MenuSlider } from "components/MenuSlider/MenuSlider";
 import { MenuItemWrapper } from "components/StyledUI";
 import React, { Fragment, useCallback } from "react";
@@ -30,13 +31,9 @@ export const ${sketchName}Menu = ({ p5Instance }: Props) => {
   useUpdateP5<${sketchName}Vars>(p5Instance, state);
 
   return (
-    <Fragment>
-      <StandardIconMenu
-        show={!isIdle}
-        initialLoopControl
-        p5Instance={p5Instance}
-      />
-      <BottomMenu show={!isIdle}>
+    <MenuWrapper p5Instance={p5Instance} show={!isIdle}>
+      <StandardIconMenu initialLoopControl />
+      <BottomMenu>
         <Fragment>
           <MenuItemWrapper>
             <MenuSlider
@@ -54,7 +51,7 @@ export const ${sketchName}Menu = ({ p5Instance }: Props) => {
           </MenuItemWrapper>
         </Fragment>
       </BottomMenu>
-    </Fragment>
+    </MenuWrapper>
   );
 };
 `;

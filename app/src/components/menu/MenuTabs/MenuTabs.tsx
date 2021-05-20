@@ -2,6 +2,8 @@ import { Box } from "@material-ui/core";
 import React, { Fragment, useState } from "react";
 import { MenuTabsWrapper, StyledTab } from "./MenuTabs.styled";
 
+const TOP_MARGIN = "48px";
+
 export type MenuTabsProps = {
   labels: Array<string>;
   children: Array<JSX.Element>;
@@ -33,13 +35,14 @@ export const MenuTabs = ({ children, labels }: MenuTabsProps) => {
       <MenuTabsWrapper>
         {labels.map((label, index) => (
           <StyledTab
-            label={label}
-            selected={selectedIndex === index}
             onClick={() => setSelectedIndex(index)}
+            selected={selectedIndex === index}
+            label={label}
+            key={index}
           />
         ))}
       </MenuTabsWrapper>
-      <Box marginTop="48px">{children[selectedIndex]}</Box>
+      <Box marginTop={TOP_MARGIN}>{children[selectedIndex]}</Box>
     </Fragment>
   );
 };

@@ -1,5 +1,6 @@
-import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu";
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu/StandardIconMenu";
 import { formatPixelValue, formatTimesValue } from "utils/menu/formatting";
+import { MenuWrapper } from "components/menu/MenuWrapper/MenuWrapper";
 import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
 import { BottomMenu } from "components/menu/BottomMenu";
 import React, { Fragment, useCallback } from "react";
@@ -33,22 +34,19 @@ export const PerlinFieldMenu = ({ p5Instance }: Props) => {
   useUpdateP5<PerlinFieldVars>(p5Instance, state);
 
   return (
-    <Fragment>
-      <StandardIconMenu
-        initialLoopControl={true}
-        show={!isIdle}
-        p5Instance={p5Instance}
-      />
-      <BottomMenu show={!isIdle}>
+    <MenuWrapper p5Instance={p5Instance} show={!isIdle}>
+      <StandardIconMenu initialLoopControl={true} />
+      <BottomMenu>
         <Fragment>
           <MenuItemWrapper>
             <MenuSlider
               title="Vector Padding"
               value={state.vectorPadding}
               labelFormat={formatPixelValue}
-              setValue={useCallback((val: number) => set.vectorPadding(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.vectorPadding(val),
+                [set]
+              )}
               {...sliderParams}
               min={5}
               max={50}
@@ -56,9 +54,10 @@ export const PerlinFieldMenu = ({ p5Instance }: Props) => {
             <MenuSlider
               title="Angle Variation"
               value={state.angleVariation}
-              setValue={useCallback((val: number) => set.angleVariation(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.angleVariation(val),
+                [set]
+              )}
               {...sliderParams}
               min={1}
               max={50}
@@ -99,6 +98,6 @@ export const PerlinFieldMenu = ({ p5Instance }: Props) => {
           </MenuItemWrapper>
         </Fragment>
       </BottomMenu>
-    </Fragment>
+    </MenuWrapper>
   );
 };

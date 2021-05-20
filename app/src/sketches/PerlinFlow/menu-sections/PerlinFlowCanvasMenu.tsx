@@ -1,6 +1,4 @@
 import { MenuCheckbox } from "components/menu/MenuCheckbox/MenuCheckbox";
-import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
-import { formatPixelValue } from "utils/menu/formatting";
 import { MenuItemWrapper } from "components/generic";
 import React, { useCallback } from "react";
 import { Box } from "@material-ui/core";
@@ -10,29 +8,12 @@ import {
 } from "../PerlinFlow.types";
 import { ColorPicker } from "components/menu/ColorPicker/ColorPicker";
 
-const sliderParams = {
-  min: 1,
-  max: 10,
-  step: 1,
-};
-
 export const PerlinFlowCanvasMenu = ({
   p5Instance,
   state,
   set,
 }: PerlinFlowMenuSectionProps & PerlinFlowMenuProps) => (
   <Box>
-    <MenuItemWrapper>
-      <MenuSlider
-        setValue={useCallback((val: number) => set.vectorPadding(val), [set])}
-        labelFormat={formatPixelValue}
-        value={state.vectorPadding}
-        title="Placeholder"
-        {...sliderParams}
-        max={50}
-        min={5}
-      />
-    </MenuItemWrapper>
     <MenuItemWrapper>
       <MenuCheckbox
         checked={state.clearScreen}
@@ -52,9 +33,10 @@ export const PerlinFlowCanvasMenu = ({
         }
         checked={state.clearScreen && state.viewForceVectors}
         disabled={!state.clearScreen}
-        setChecked={useCallback((val: boolean) => set.viewForceVectors(val), [
-          set,
-        ])}
+        setChecked={useCallback(
+          (val: boolean) => set.viewForceVectors(val),
+          [set]
+        )}
         title="Show Force Vectors"
       />
     </MenuItemWrapper>

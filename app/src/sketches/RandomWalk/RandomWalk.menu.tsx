@@ -1,6 +1,7 @@
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu/StandardIconMenu";
 import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
 import { formatPercentValue, formatTimesValue } from "utils/menu/formatting";
-import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu";
+import { MenuWrapper } from "components/menu/MenuWrapper/MenuWrapper";
 import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
 import { BottomMenu } from "components/menu/BottomMenu";
 import { MenuItemWrapper } from "components/generic";
@@ -30,29 +31,27 @@ export const RandomWalkMenu = ({ p5Instance }: Props) => {
   useUpdateP5<RandomWalkVars>(p5Instance, state);
 
   return (
-    <Fragment>
-      <StandardIconMenu
-        show={!isIdle}
-        p5Instance={p5Instance}
-        initialLoopControl
-      />
-      <BottomMenu show={!isIdle}>
+    <MenuWrapper p5Instance={p5Instance} show={!isIdle}>
+      <StandardIconMenu initialLoopControl />
+      <BottomMenu>
         <Fragment>
           <MenuItemWrapper>
             <MenuSlider
               title="Position Variance"
               value={state.posVariance}
-              setValue={useCallback((val: number) => set.posVariance(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.posVariance(val),
+                [set]
+              )}
               {...sliderParams}
             />
             <MenuSlider
               title="Color Variance"
               value={state.colorVariance}
-              setValue={useCallback((val: number) => set.colorVariance(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.colorVariance(val),
+                [set]
+              )}
               {...sliderParams}
             />
           </MenuItemWrapper>
@@ -80,6 +79,6 @@ export const RandomWalkMenu = ({ p5Instance }: Props) => {
           />
         </Fragment>
       </BottomMenu>
-    </Fragment>
+    </MenuWrapper>
   );
 };

@@ -1,9 +1,12 @@
-import { FlexRowPadded } from "components/generic/Flex";
+import { useMenuWrapperContext } from "components/menu/MenuWrapper/MenuWrapper.provider";
+import { StandardIconMenuSeparator } from "./StandardIconMenu.styled";
 import React, { useState, useEffect, useCallback } from "react";
-import { IconWrapper } from "./IconMenu.styled";
+import { FlexRowPadded } from "components/generic/Flex";
+import { PresetData } from "../Presets/Presets.types";
+import { IconWrapper } from "../IconMenu.styled";
 import { useHistory } from "react-router-dom";
-import { IconMenu } from "./IconMenu";
-import { P5Instance } from "types/p5";
+import { Presets } from "../Presets/Presets";
+import { IconMenu } from "../IconMenu";
 import {
   ArrowBack,
   CameraAlt,
@@ -13,10 +16,17 @@ import {
 } from "@material-ui/icons/";
 
 type Props = {
-  p5Instance: P5Instance<any> | null;
   disableLoopControl?: boolean;
   initialLoopControl?: boolean;
-  show: boolean;
+  presets?: PresetData<object>;
+};
+
+const icons = {
+  SCREENSHOT: <CameraAlt color="primary" />,
+  REFRESH: <Refresh color="primary" />,
+  BACK: <ArrowBack color="primary" />,
+  PLAY: <PlayArrow color="primary" />,
+  PAUSE: <Pause color="primary" />,
 };
 
 /**
@@ -25,10 +35,10 @@ type Props = {
 export const StandardIconMenu = ({
   disableLoopControl,
   initialLoopControl,
-  p5Instance,
-  show,
+  presets,
 }: Props) => {
   const [isLooping, setIsLooping] = useState(initialLoopControl);
+  const { show, p5Instance } = useMenuWrapperContext();
   const history = useHistory();
 
   const onRefresh = useCallback(
@@ -66,26 +76,19 @@ export const StandardIconMenu = ({
 
   return (
     <IconMenu show={show}>
-      <FlexRowPadded>
-        <IconWrapper onClick={onBack}>
-          <ArrowBack color="primary" />
-        </IconWrapper>
-        {!disableLoopControl && (
-          <IconWrapper onClick={isLooping ? onPause : onPlay}>
-            {isLooping ? (
-              <Pause color="primary" />
-            ) : (
-              <PlayArrow color="primary" />
-            )}
-          </IconWrapper>
-        )}
-        <IconWrapper onClick={onRefresh}>
-          <Refresh color="primary" />
-        </IconWrapper>
-        <IconWrapper onClick={onSave}>
-          <CameraAlt color="primary" />
-        </IconWrapper>
-      </FlexRowPadded>
+      <StandardIconMenuSeparator>
+        <FlexRowPadded>
+          <IconWrapper onClick={onBack}>{icons.BACK}</IconWrapper>
+          {!disableLoopControl && (
+            <IconWrapper onClick={isLooping ? onPause : onPlay}>
+              {isLooping ? icons.PAUSE : icons.PLAY}
+            </IconWrapper>
+          )}
+          <IconWrapper onClick={onRefresh}>{icons.REFRESH}</IconWrapper>
+          <IconWrapper onClick={onSave}>{icons.SCREENSHOT}</IconWrapper>
+        </FlexRowPadded>
+        {presets ? <Presets presets={presets} /> : null}
+      </StandardIconMenuSeparator>
     </IconMenu>
   );
 };

@@ -1,4 +1,5 @@
-import { NEON_BLUE } from "constants/colors";
+import { PresetData } from "components/menu/IconMenu/Presets/Presets.types";
+import { NEON_BLUE, NEON_PINK } from "constants/colors";
 import { P5Defaults } from "types/p5";
 import p5 from "p5";
 
@@ -24,6 +25,9 @@ export interface PerlinFlowVars extends P5Defaults {
   mass: number;
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                  DEFAULTS                                  */
+/* -------------------------------------------------------------------------- */
 export const initialPerlinFlowVars: PerlinFlowVars = {
   perlinZIncrementScale: 0.4,
   perlinXIncrementScale: 1,
@@ -49,3 +53,59 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
     p.draw();
   },
 };
+
+/* -------------------------------------------------------------------------- */
+/*                                   PRESETS                                  */
+/* -------------------------------------------------------------------------- */
+const classicalPerlinFlow: PerlinFlowVars = {
+  ...initialPerlinFlowVars,
+  ...{
+    swapSidesAtBorder: false,
+    perlinZIncrementScale: 0,
+    particleColor: "#000000",
+    particleOpacity: 1.5,
+    particleAmount: 5000,
+    vectorPadding: 25,
+    avoidBorders: false,
+    clearScreen: false,
+    bgColor: "#FFFFFF",
+    drawTrails: false,
+    angleVariation: 5,
+    particleSize: 1,
+    trailLength: 0,
+    maxVelocity: 2,
+    mass: 5,
+  },
+};
+
+const plasma: PerlinFlowVars = {
+  ...initialPerlinFlowVars,
+  ...{
+    swapSidesAtBorder: false,
+    perlinZIncrementScale: 5,
+    particleColor: NEON_PINK,
+    particleOpacity: 1.5,
+    particleAmount: 1500,
+    avoidBorders: true,
+    clearScreen: false,
+    bgColor: "#000000",
+    angleVariation: 25,
+    vectorPadding: 25,
+    drawTrails: false,
+    particleSize: 1,
+    trailLength: 0,
+    maxVelocity: 3,
+    mass: 25,
+  },
+};
+
+export const perlinFlowPresets: PresetData<PerlinFlowVars> = [
+  {
+    name: "Classical Flow",
+    vars: classicalPerlinFlow,
+  },
+  {
+    name: "Plasma",
+    vars: plasma,
+  },
+];

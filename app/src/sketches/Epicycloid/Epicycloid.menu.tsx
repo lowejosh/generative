@@ -1,5 +1,5 @@
 import { initialEpicycloidVars, EpicycloidVars } from "./Epicycloid.variables";
-import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu";
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu/StandardIconMenu";
 import { MenuCheckbox } from "components/menu/MenuCheckbox/MenuCheckbox";
 import { ColorPicker } from "components/menu/ColorPicker/ColorPicker";
 import { MenuItemWrapper, FlexRowPadded } from "components/generic";
@@ -16,6 +16,7 @@ import {
   formatTimesValue,
   formatPixelValue,
 } from "utils/menu/formatting";
+import { MenuWrapper } from "components/menu/MenuWrapper/MenuWrapper";
 
 type Props = {
   p5Instance: P5Instance<EpicycloidVars> | null;
@@ -35,14 +36,12 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
   useUpdateP5<EpicycloidVars>(p5Instance, state);
 
   return (
-    <Fragment>
+    <MenuWrapper p5Instance={p5Instance} show={!isIdle}>
       <StandardIconMenu
-        show={!isIdle}
-        p5Instance={p5Instance}
         disableLoopControl={!state.isAutoplaying}
         initialLoopControl
       />
-      <BottomMenu show={!isIdle}>
+      <BottomMenu>
         <Fragment>
           <MenuItemWrapper>
             <MenuSlider
@@ -57,9 +56,10 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
               title="Stroke Width"
               labelFormat={formatPixelValue}
               value={state.strokeWidth}
-              setValue={useCallback((val: number) => set.strokeWidth(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.strokeWidth(val),
+                [set]
+              )}
               step={1}
               min={1}
               max={5}
@@ -68,9 +68,10 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
               title="Stroke Opacity"
               labelFormat={formatPercentValue}
               value={state.strokeOpacity}
-              setValue={useCallback((val: number) => set.strokeOpacity(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.strokeOpacity(val),
+                [set]
+              )}
               {...sliderParams}
             />
           </MenuItemWrapper>
@@ -78,9 +79,10 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
             <MenuSlider
               title="Total Vertices"
               value={state.totalVertices}
-              setValue={useCallback((val: number) => set.totalVertices(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.totalVertices(val),
+                [set]
+              )}
               {...sliderParams}
               min={0}
               max={1000}
@@ -122,9 +124,10 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
             />
             <ColorPicker
               color={state.strokeColor}
-              setColor={useCallback((val: string) => set.strokeColor(val), [
-                set,
-              ])}
+              setColor={useCallback(
+                (val: string) => set.strokeColor(val),
+                [set]
+              )}
               title="Stroke Color"
             />
             <ColorPicker
@@ -135,6 +138,6 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
           </FlexRowPadded>
         </Fragment>
       </BottomMenu>
-    </Fragment>
+    </MenuWrapper>
   );
 };
