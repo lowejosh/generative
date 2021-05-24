@@ -40,7 +40,6 @@ export const PerlinFlowMenu = ({ p5Instance }: PerlinFlowMenuProps) => {
     },
     [refreshAnimation, setState]
   );
-  console.log(state);
 
   return (
     <MenuWrapper

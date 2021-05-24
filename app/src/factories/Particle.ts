@@ -12,6 +12,7 @@ type Props = {
   stroke?: Color | null;
   drawTrails?: boolean;
   fill?: Color | null;
+  fillTrails?: boolean;
   velocity?: Vector;
   location: Vector;
   height?: number;
@@ -28,6 +29,7 @@ export type Particle = {
   acceleration: Vector;
   stroke: Color | null;
   drawTrails: boolean;
+  fillTrails: boolean;
   fill: Color | null;
   lifeTick: number;
   location: Vector;
@@ -53,6 +55,7 @@ export function createParticle({
   maxTrailLength = 20,
   drawTrails = false,
   maxVelocity = null,
+  fillTrails = false,
   stroke = null,
   height = 1,
   width = 1,
@@ -72,6 +75,7 @@ export function createParticle({
     maxVelocity,
     prevPoints,
     drawTrails,
+    fillTrails,
     lifeTick,
     location,
     velocity,
@@ -135,10 +139,15 @@ export function createParticle({
 
       // Draw line between all previous points if we are drawing trails
       if (this.prevPoints.length && this.drawTrails) {
-        p.noFill();
+        if (this.fillTrails) {
+          this.fill ? p.fill(this.fill) : p.noFill();
+        } else {
+          p.noFill();
+        }
         p.strokeWeight((this.width + this.height) / 2);
         p.beginShape();
         p.curveVertex(this.prevPoints[0].x, this.prevPoints[0].y);
+
         this.prevPoints.forEach((point, index) => {
           if (
             // Break the trail into 2 shapes if the next point is further than half the canvas width/height away (for particles swapping side)

@@ -85,6 +85,13 @@ export const PerlinFlowParticleMenu = ({
         title="Draw Trails"
       />
       <MenuCheckbox
+        checked={state.fillTrails}
+        disabled={!state.drawTrails}
+        tooltip={!state.drawTrails ? "Disabled when not drawing tails" : ""}
+        setChecked={useCallback((val: boolean) => set.fillTrails(val), [set])}
+        title="Fill Trails"
+      />
+      <MenuCheckbox
         checked={state.avoidBorders}
         setChecked={useCallback((val: boolean) => set.avoidBorders(val), [set])}
         title="Avoid Borders"

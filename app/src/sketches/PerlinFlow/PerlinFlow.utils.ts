@@ -36,6 +36,7 @@ export const initParticles = (
           maxVelocity,
           trailLength,
           randomColor,
+          fillTrails,
           drawTrails,
           mass,
         } = p.variables;
@@ -61,6 +62,7 @@ export const initParticles = (
             swapSidesAtBorder,
             maxVelocity,
             drawTrails,
+            fillTrails,
             mass,
           })
         );

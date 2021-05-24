@@ -45,7 +45,8 @@ export const useGenericReducer = <Vars>(initialVars: Vars) => {
     () => createGenericActions<Vars>(initialVars, dispatch),
     [initialVars]
   );
-  const setState = (state: Vars) => dispatch({ type: "all", payload: state });
+  const setState = (newState: Vars) =>
+    dispatch({ type: "all", payload: newState });
 
   return { state, dispatch, set, setState };
 };

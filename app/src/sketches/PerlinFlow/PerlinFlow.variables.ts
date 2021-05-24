@@ -18,6 +18,7 @@ export interface PerlinFlowVars extends P5Defaults {
   randomColor: boolean;
   particleSize: number;
   clearScreen: boolean;
+  fillTrails: boolean;
   drawTrails: boolean;
   trailLength: number;
   maxVelocity: number;
@@ -41,6 +42,7 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
   avoidBorders: true,
   bgColor: "#000000",
   angleVariation: 20,
+  fillTrails: false,
   vectorPadding: 15,
   clearScreen: true,
   drawTrails: true,
@@ -62,13 +64,13 @@ const classicalPerlinFlow: PerlinFlowVars = {
   ...{
     swapSidesAtBorder: false,
     perlinZIncrementScale: 0,
-    particleColor: "#000000",
+    particleColor: "#FFFFFF",
     particleOpacity: 1.5,
     particleAmount: 5000,
     vectorPadding: 25,
     avoidBorders: false,
     clearScreen: false,
-    bgColor: "#FFFFFF",
+    bgColor: "#000000",
     drawTrails: false,
     angleVariation: 5,
     particleSize: 1,
@@ -85,7 +87,7 @@ const plasma: PerlinFlowVars = {
     perlinZIncrementScale: 5,
     particleColor: NEON_PINK,
     particleOpacity: 1.5,
-    particleAmount: 1500,
+    particleAmount: 3500,
     avoidBorders: true,
     clearScreen: false,
     bgColor: "#000000",
@@ -99,6 +101,27 @@ const plasma: PerlinFlowVars = {
   },
 };
 
+const cosmic: PerlinFlowVars = {
+  ...initialPerlinFlowVars,
+  ...{
+    perlinZIncrementScale: 0.5,
+    perlinXIncrementScale: 10,
+    perlinYIncrementScale: 10,
+    swapSidesAtBorder: true,
+    particleAmount: 100,
+    bgColor: "#120817",
+    clearScreen: false,
+    vectorPadding: 50,
+    angleVariation: 1,
+    randomColor: true,
+    trailLength: 25,
+    maxVelocity: 3,
+    particleOpacity: 1,
+    avoidBorders: false,
+    mass: 10,
+  },
+};
+
 export const perlinFlowPresets: PresetData<PerlinFlowVars> = [
   {
     name: "Classical Flow",
@@ -106,6 +129,11 @@ export const perlinFlowPresets: PresetData<PerlinFlowVars> = [
   },
   {
     name: "Plasma",
+
     vars: plasma,
+  },
+  {
+    name: "Cosmic",
+    vars: cosmic,
   },
 ];
