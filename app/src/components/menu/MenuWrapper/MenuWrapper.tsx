@@ -1,5 +1,6 @@
 import { PresetDatum } from "../IconMenu/Presets/Presets.types";
 import { MenuWrapperContext } from "./MenuWrapper.provider";
+import { DEBOUNCE_DELAY } from "constants/numbers";
 import React, { useCallback } from "react";
 import { P5Instance } from "types/p5";
 
@@ -17,7 +18,11 @@ export const MenuWrapper = ({
   show,
 }: Props) => {
   const refreshAnimation = useCallback(
-    () => setTimeout(() => p5Instance?.variables?.refresh(p5Instance), 5), // timeout removes a bug
+    () =>
+      setTimeout(
+        () => p5Instance?.variables?.refresh(p5Instance),
+        DEBOUNCE_DELAY * 15
+      ), // timeout removes a bug
     [p5Instance]
   );
 
