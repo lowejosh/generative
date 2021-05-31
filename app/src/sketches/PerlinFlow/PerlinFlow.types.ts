@@ -9,5 +9,4 @@ export type PerlinFlowMenuProps = {
 export type PerlinFlowMenuSectionProps = {
   state: PerlinFlowVars;
   set: Record<keyof PerlinFlowVars, Function>;
-  refreshAnimation?: () => void;
 };

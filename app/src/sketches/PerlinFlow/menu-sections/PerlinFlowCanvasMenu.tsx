@@ -18,6 +18,7 @@ export const PerlinFlowCanvasMenu = ({
       <MenuCheckbox
         checked={state.clearScreen}
         title="Refresh Background"
+        refresh
         setChecked={useCallback(
           (val: boolean) => {
             p5Instance?.background(state.bgColor);

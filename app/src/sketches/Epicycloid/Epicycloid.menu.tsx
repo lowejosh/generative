@@ -30,13 +30,13 @@ const sliderParams = {
 
 export const EpicycloidMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<EpicycloidVars>(
+  const { state, set, setState } = useGenericReducer<EpicycloidVars>(
     initialEpicycloidVars
   );
   useUpdateP5<EpicycloidVars>(p5Instance, state);
 
   return (
-    <MenuWrapper p5Instance={p5Instance} show={!isIdle}>
+    <MenuWrapper setState={setState} p5Instance={p5Instance} show={!isIdle}>
       <StandardIconMenu
         disableLoopControl={!state.isAutoplaying}
         initialLoopControl

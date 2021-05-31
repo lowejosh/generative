@@ -24,14 +24,14 @@ const sliderParams = {
 
 export const ${sketchName}Menu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<${sketchName}Vars>(
+  const { state, set, setState } = useGenericReducer<${sketchName}Vars>(
     initial${sketchName}Vars
   );
 
   useUpdateP5<${sketchName}Vars>(p5Instance, state);
 
   return (
-    <MenuWrapper p5Instance={p5Instance} show={!isIdle}>
+    <MenuWrapper setState={setState} p5Instance={p5Instance} show={!isIdle}>
       <StandardIconMenu initialLoopControl />
       <BottomMenu>
         <Fragment>

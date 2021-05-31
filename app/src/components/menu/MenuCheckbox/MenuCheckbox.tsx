@@ -1,10 +1,12 @@
 import { Checkbox, Tooltip, Typography } from "@material-ui/core";
 import { FlexRowPadded } from "components/generic";
-import React from "react";
+import React, { useCallback } from "react";
+import { useMenuWrapperContext } from "../MenuWrapper/MenuWrapper.provider";
 
 type Props = {
   setChecked: Function;
   disabled?: boolean;
+  refresh?: boolean;
   tooltip?: string;
   checked: boolean;
   title?: string;
@@ -13,13 +15,24 @@ type Props = {
 export const MenuCheckbox = ({
   setChecked,
   disabled,
+  refresh,
   tooltip,
   checked,
   title,
 }: Props) => {
-  const handleChange = (e: React.ChangeEvent<{}>, val: boolean) => {
-    setChecked(Boolean(val));
-  };
+  const { refreshAnimation } = useMenuWrapperContext();
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<{}>, val: boolean) => {
+      if (val !== checked) {
+        setChecked(Boolean(val));
+        if (refresh) {
+          refreshAnimation();
+        }
+      }
+    },
+    [checked, refreshAnimation, refresh, setChecked]
+  );
 
   return (
     <Tooltip title={tooltip || ""}>

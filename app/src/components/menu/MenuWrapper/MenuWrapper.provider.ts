@@ -3,8 +3,9 @@ import { createContext, useContext } from "react";
 import { P5Instance } from "types/p5";
 
 export type MenuWrapperContext = {
-  onPresetClick?: (preset: PresetDatum<any>) => void;
+  handlePresetClick: (preset: PresetDatum<any>) => void;
   p5Instance: P5Instance<any> | null;
+  refreshAnimation: () => void;
   show: boolean;
 };
 

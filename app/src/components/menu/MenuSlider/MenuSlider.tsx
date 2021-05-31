@@ -1,8 +1,9 @@
+import { useMenuWrapperContext } from "../MenuWrapper/MenuWrapper.provider";
 import { Slider, Tooltip, Typography } from "@material-ui/core";
-import { FlexColumn } from "components/generic";
 import React, { useState, useEffect, useCallback } from "react";
-import { useDebounce } from "hooks";
 import { DEBOUNCE_DELAY } from "constants/numbers";
+import { FlexColumn } from "components/generic";
+import { useDebounce } from "hooks";
 
 type Props = {
   setValue: Function;
@@ -11,6 +12,7 @@ type Props = {
   max: number;
   labelFormat?: string | ((value: number, index: number) => string) | undefined;
   disabled?: boolean;
+  refresh?: boolean;
   tooltip?: string;
   title?: string;
   step?: number;
@@ -23,12 +25,14 @@ export const MenuSlider = ({
   max,
   labelFormat,
   disabled,
+  refresh,
   tooltip,
   title,
   step,
 }: Props) => {
   const [localValue, setLocalValue] = useState(value);
   const debouncedLocalValue = useDebounce(localValue, DEBOUNCE_DELAY);
+  const { refreshAnimation } = useMenuWrapperContext();
 
   useEffect(() => {
     setValue(debouncedLocalValue);
@@ -36,9 +40,14 @@ export const MenuSlider = ({
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<{}>, val: number | number[]) => {
-      setLocalValue(Number(val));
+      if (val !== value) {
+        setLocalValue(Number(val));
+        if (refresh) {
+          refreshAnimation();
+        }
+      }
     },
-    []
+    [refresh, refreshAnimation, value]
   );
 
   return (

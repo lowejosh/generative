@@ -8,8 +8,8 @@ type Props = {
 };
 
 export const Preset = ({ preset }: Props) => {
-  const { onPresetClick } = useMenuWrapperContext();
-  const handleClick = () => onPresetClick && onPresetClick(preset);
+  const { handlePresetClick } = useMenuWrapperContext();
+  const handleClick = () => handlePresetClick && handlePresetClick(preset);
 
   return <PresetContainer onClick={handleClick}>{preset.name}</PresetContainer>;
 };

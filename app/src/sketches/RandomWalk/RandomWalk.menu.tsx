@@ -24,14 +24,14 @@ const sliderParams = {
 
 export const RandomWalkMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<RandomWalkVars>(
+  const { state, set, setState } = useGenericReducer<RandomWalkVars>(
     initialRandomWalkVars
   );
 
   useUpdateP5<RandomWalkVars>(p5Instance, state);
 
   return (
-    <MenuWrapper p5Instance={p5Instance} show={!isIdle}>
+    <MenuWrapper setState={setState} p5Instance={p5Instance} show={!isIdle}>
       <StandardIconMenu initialLoopControl />
       <BottomMenu>
         <Fragment>

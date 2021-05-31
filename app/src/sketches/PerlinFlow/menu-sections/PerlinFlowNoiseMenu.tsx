@@ -15,7 +15,6 @@ export const PerlinFlowNoiseMenu = ({
   state,
   set,
 }: PerlinFlowMenuSectionProps) => {
-  console.log(JSON.parse(JSON.stringify(state)));
   return (
     <Box>
       <MenuItemWrapper>

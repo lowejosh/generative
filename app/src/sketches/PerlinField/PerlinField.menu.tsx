@@ -27,14 +27,14 @@ const sliderParams = {
 
 export const PerlinFieldMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<PerlinFieldVars>(
+  const { state, set, setState } = useGenericReducer<PerlinFieldVars>(
     initialPerlinFieldVars
   );
 
   useUpdateP5<PerlinFieldVars>(p5Instance, state);
 
   return (
-    <MenuWrapper p5Instance={p5Instance} show={!isIdle}>
+    <MenuWrapper setState={setState} p5Instance={p5Instance} show={!isIdle}>
       <StandardIconMenu initialLoopControl={true} />
       <BottomMenu>
         <Fragment>
