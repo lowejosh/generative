@@ -124,6 +124,10 @@ const cosmic: PerlinFlowVars = {
 
 export const perlinFlowPresets: PresetData<PerlinFlowVars> = [
   {
+    name: "Default",
+    vars: initialPerlinFlowVars,
+  },
+  {
     name: "Classical Flow",
     vars: classicalPerlinFlow,
   },

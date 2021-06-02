@@ -5,7 +5,9 @@ import { P5Instance } from "types/p5";
 export type MenuWrapperContext = {
   handlePresetClick: (preset: PresetDatum<any>) => void;
   p5Instance: P5Instance<any> | null;
+  setUpdateLocalStates: Function;
   refreshAnimation: () => void;
+  updateLocalStates: boolean;
   show: boolean;
 };
 

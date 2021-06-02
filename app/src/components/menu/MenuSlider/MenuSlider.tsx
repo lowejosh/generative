@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { DEBOUNCE_DELAY } from "constants/numbers";
 import { FlexColumn } from "components/generic";
 import { useDebounce } from "hooks";
+import { useUpdateLocalStateWhenChanged } from "hooks/useUpdateIfChanged";
 
 type Props = {
   setValue: Function;
@@ -37,6 +38,8 @@ export const MenuSlider = ({
   useEffect(() => {
     setValue(debouncedLocalValue);
   }, [debouncedLocalValue, setValue]);
+
+  useUpdateLocalStateWhenChanged(value, setLocalValue);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<{}>, val: number | number[]) => {

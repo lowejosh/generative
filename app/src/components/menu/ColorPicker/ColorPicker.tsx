@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { IconButton, styled, Tooltip, Typography } from "@material-ui/core";
+import { useUpdateLocalStateWhenChanged } from "hooks/useUpdateIfChanged";
+import React, { useState, useEffect } from "react";
 import { FlexRowPadded } from "components/generic";
-import { useDebounce } from "hooks";
 import { DEBOUNCE_DELAY } from "constants/numbers";
+import { useDebounce } from "hooks";
 
 const Input = styled("input")({
   backgroundColor: "transparent",
@@ -49,6 +50,8 @@ export const ColorPicker = ({
   useEffect(() => {
     setColor(debouncedLocalColor);
   }, [debouncedLocalColor, setColor]);
+
+  useUpdateLocalStateWhenChanged(color, setLocalColor);
 
   // set the state locally upon every change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>

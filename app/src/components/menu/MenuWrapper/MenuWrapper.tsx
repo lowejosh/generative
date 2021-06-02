@@ -1,7 +1,7 @@
 import { PresetDatum } from "../IconMenu/Presets/Presets.types";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MenuWrapperContext } from "./MenuWrapper.provider";
 import { DEBOUNCE_DELAY } from "constants/numbers";
-import React, { useCallback } from "react";
 import { P5Instance } from "types/p5";
 
 type Props = {
@@ -17,6 +17,14 @@ export const MenuWrapper = ({
   children,
   show,
 }: Props) => {
+  const [updateLocalStates, setUpdateLocalStates] = useState(false);
+
+  useEffect(() => {
+    if (updateLocalStates) {
+      setUpdateLocalStates(false);
+    }
+  }, [updateLocalStates]);
+
   const refreshAnimation = useCallback(
     () =>
       setTimeout(
@@ -29,17 +37,23 @@ export const MenuWrapper = ({
   const handlePresetClick = useCallback(
     (preset: PresetDatum<any>) => {
       setState(preset.vars);
+      setUpdateLocalStates(true);
       refreshAnimation();
     },
     [refreshAnimation, setState]
   );
 
-  const store = {
-    handlePresetClick,
-    refreshAnimation,
-    p5Instance,
-    show,
-  };
+  const store: MenuWrapperContext = useMemo(
+    () => ({
+      setUpdateLocalStates,
+      updateLocalStates,
+      handlePresetClick,
+      refreshAnimation,
+      p5Instance,
+      show,
+    }),
+    [handlePresetClick, refreshAnimation, p5Instance, show, updateLocalStates]
+  );
 
   return (
     <MenuWrapperContext.Provider value={store}>
