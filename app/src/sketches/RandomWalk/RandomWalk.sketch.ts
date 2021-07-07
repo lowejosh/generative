@@ -52,6 +52,7 @@ export const getRandomWalkSketch = () => {
         Array(speed)
           .fill(0)
           .forEach(() => {
+            // prepare
             p.fill(r, g, b, p.map(opacity, 0, 100, 0, 255));
             p.noStroke();
             p.ellipse(x, y, radius, radius);

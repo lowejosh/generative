@@ -1,4 +1,5 @@
 import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
+import { getVectorFromAngle } from "utils/data/vectors";
 import { P5Instance } from "types/p5";
 import {
   initialPerlinFieldVars,
@@ -53,8 +54,12 @@ export const getPerlinFieldSketch = () => {
             const angle =
               (p.noise(xOff, yOff, zOff) * p.TWO_PI * angleVariation) %
               p.TWO_PI;
-            const x2 = x + p.sin(angle) * vectorPadding;
-            const y2 = y + p.cos(angle) * vectorPadding;
+            const { x: x2, y: y2 } = getVectorFromAngle(
+              x,
+              y,
+              angle,
+              vectorPadding
+            );
 
             // get a nice color
             const hue = Math.round(

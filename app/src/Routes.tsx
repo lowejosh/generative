@@ -1,8 +1,8 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { TRANSITION_DELAY } from "constants/numbers";
 import { sketches } from "constants/sketches";
+import { Home } from "components/common/Home";
 import { Fade } from "@material-ui/core";
-import { Home } from "components/Home";
 import React from "react";
 
 export const Routes = () => (

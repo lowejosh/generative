@@ -1,6 +1,6 @@
 import { getRandomWalkSketch } from "./RandomWalk.sketch";
 import { RandomWalkMenu } from "./RandomWalk.menu";
-import { SketchDiv } from "components/StyledUI";
+import { SketchDiv } from "components/generic";
 import React, { Fragment } from "react";
 import { useP5 } from "hooks";
 

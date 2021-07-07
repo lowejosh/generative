@@ -1,11 +1,12 @@
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu/StandardIconMenu";
 import { initialRandomWalkVars, RandomWalkVars } from "./RandomWalk.variables";
 import { formatPercentValue, formatTimesValue } from "utils/menu/formatting";
-import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
-import { MenuSlider } from "components/MenuSlider/MenuSlider";
-import { MenuItemWrapper } from "components/StyledUI";
+import { MenuWrapper } from "components/menu/MenuWrapper/MenuWrapper";
+import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
+import { BottomMenu } from "components/menu/BottomMenu";
+import { MenuItemWrapper } from "components/generic";
 import React, { Fragment, useCallback } from "react";
 import { useGenericReducer } from "utils/data/state";
-import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";
@@ -23,36 +24,34 @@ const sliderParams = {
 
 export const RandomWalkMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<RandomWalkVars>(
+  const { state, set, setState } = useGenericReducer<RandomWalkVars>(
     initialRandomWalkVars
   );
 
   useUpdateP5<RandomWalkVars>(p5Instance, state);
 
   return (
-    <Fragment>
-      <StandardIconMenu
-        show={!isIdle}
-        p5Instance={p5Instance}
-        initialLoopControl
-      />
-      <BottomMenu show={!isIdle}>
+    <MenuWrapper setState={setState} p5Instance={p5Instance} show={!isIdle}>
+      <StandardIconMenu initialLoopControl />
+      <BottomMenu>
         <Fragment>
           <MenuItemWrapper>
             <MenuSlider
               title="Position Variance"
               value={state.posVariance}
-              setValue={useCallback((val: number) => set.posVariance(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.posVariance(val),
+                [set]
+              )}
               {...sliderParams}
             />
             <MenuSlider
               title="Color Variance"
               value={state.colorVariance}
-              setValue={useCallback((val: number) => set.colorVariance(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.colorVariance(val),
+                [set]
+              )}
               {...sliderParams}
             />
           </MenuItemWrapper>
@@ -80,6 +79,6 @@ export const RandomWalkMenu = ({ p5Instance }: Props) => {
           />
         </Fragment>
       </BottomMenu>
-    </Fragment>
+    </MenuWrapper>
   );
 };

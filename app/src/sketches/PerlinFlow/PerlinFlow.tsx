@@ -1,17 +1,17 @@
-import { getPerlinFieldSketch } from "./PerlinField.sketch";
-import { PerlinFieldMenu } from "./PerlinField.menu";
+import { getPerlinFlowSketch } from "./PerlinFlow.sketch";
+import { PerlinFlowMenu } from "./PerlinFlow.menu";
 import { SketchDiv } from "components/generic";
 import React, { Fragment } from "react";
 import { useP5 } from "hooks";
 
-export const PerlinField = () => {
-  const sketch = getPerlinFieldSketch();
+export const PerlinFlow = () => {
+  const sketch = getPerlinFlowSketch();
   const { ref, p5Instance } = useP5(sketch);
 
   return (
     <Fragment>
       <SketchDiv ref={ref} />
-      <PerlinFieldMenu p5Instance={p5Instance} />
+      <PerlinFlowMenu p5Instance={p5Instance} />
     </Fragment>
   );
 };

@@ -1,5 +1,5 @@
 import { IconMenuContainer } from "./IconMenu.styled";
-import { Fade } from "@material-ui/core";
+import { Box, Fade } from "@material-ui/core";
 import React from "react";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 export const IconMenu = ({ show, children }: Props) => (
   <IconMenuContainer>
     <Fade in={show}>
-      <div>{children}</div>
+      <Box width="100%">{children}</Box>
     </Fade>
   </IconMenuContainer>
 );
