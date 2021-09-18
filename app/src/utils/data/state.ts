@@ -2,18 +2,21 @@ import { useMemo, useReducer, Reducer } from "react";
 
 // abstract dispatch action
 type Action<Vars> = {
-  type: keyof Vars;
-  payload: Vars[keyof Vars];
+  type: keyof Vars | "all";
+  payload: Vars[keyof Vars] | Vars;
 };
 
 // Generic reducer for cleaning up state declarations
-export const createGenericReducer = <Vars>() => (
-  state: Vars,
-  action: { type: keyof Vars; payload: Vars[keyof Vars] }
-) => {
-  const { type, payload } = action;
-  return { ...state, [type]: payload } as any; // brute-forcing until properly typed indexes become a thing
-};
+export const createGenericReducer =
+  <Vars>() =>
+  (state: Vars, action: Action<Vars>) => {
+    const { type, payload } = action;
+    if (type === "all") {
+      return { ...state, ...payload } as any;
+    } else {
+      return { ...state, [type]: payload } as any; // brute-forcing until properly typed indexes become a thing
+    }
+  };
 
 // Creates an object of generic dispatch events given the variable keys
 export const createGenericActions = <Vars>(
@@ -38,9 +41,12 @@ export const useGenericReducer = <Vars>(initialVars: Vars) => {
   });
 
   // generic dispatch shortcuts with some typescript autocompletion
-  const set = useMemo(() => createGenericActions<Vars>(initialVars, dispatch), [
-    initialVars,
-  ]);
+  const set = useMemo(
+    () => createGenericActions<Vars>(initialVars, dispatch),
+    [initialVars]
+  );
+  const setState = (newState: Vars) =>
+    dispatch({ type: "all", payload: newState });
 
-  return { state, dispatch, set };
+  return { state, dispatch, set, setState };
 };

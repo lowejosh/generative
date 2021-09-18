@@ -15,7 +15,8 @@ export const MenuCard = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.default + BACKGROUND_HEX_OPACITY,
   borderRadius: theme.spacing(2),
   boxShadow: theme.shadows[2],
-  padding: theme.spacing(3),
+  padding: theme.spacing(2),
+  position: "relative",
   width: "100%",
   opacity: 0.3,
 }));

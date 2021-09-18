@@ -1,10 +1,11 @@
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu/StandardIconMenu";
 import { formatPixelValue, formatTimesValue } from "utils/menu/formatting";
-import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
+import { MenuWrapper } from "components/menu/MenuWrapper/MenuWrapper";
+import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
+import { BottomMenu } from "components/menu/BottomMenu";
 import React, { Fragment, useCallback } from "react";
-import { MenuSlider } from "components/MenuSlider/MenuSlider";
-import { MenuItemWrapper } from "components/StyledUI";
+import { MenuItemWrapper } from "components/generic";
 import { useGenericReducer } from "utils/data/state";
-import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";
@@ -26,29 +27,26 @@ const sliderParams = {
 
 export const PerlinFieldMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<PerlinFieldVars>(
+  const { state, set, setState } = useGenericReducer<PerlinFieldVars>(
     initialPerlinFieldVars
   );
 
   useUpdateP5<PerlinFieldVars>(p5Instance, state);
 
   return (
-    <Fragment>
-      <StandardIconMenu
-        initialLoopControl={true}
-        show={!isIdle}
-        p5Instance={p5Instance}
-      />
-      <BottomMenu show={!isIdle}>
+    <MenuWrapper setState={setState} p5Instance={p5Instance} show={!isIdle}>
+      <StandardIconMenu initialLoopControl={true} />
+      <BottomMenu>
         <Fragment>
           <MenuItemWrapper>
             <MenuSlider
               title="Vector Padding"
               value={state.vectorPadding}
               labelFormat={formatPixelValue}
-              setValue={useCallback((val: number) => set.vectorPadding(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.vectorPadding(val),
+                [set]
+              )}
               {...sliderParams}
               min={5}
               max={50}
@@ -56,9 +54,10 @@ export const PerlinFieldMenu = ({ p5Instance }: Props) => {
             <MenuSlider
               title="Angle Variation"
               value={state.angleVariation}
-              setValue={useCallback((val: number) => set.angleVariation(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.angleVariation(val),
+                [set]
+              )}
               {...sliderParams}
               min={1}
               max={50}
@@ -99,6 +98,6 @@ export const PerlinFieldMenu = ({ p5Instance }: Props) => {
           </MenuItemWrapper>
         </Fragment>
       </BottomMenu>
-    </Fragment>
+    </MenuWrapper>
   );
 };

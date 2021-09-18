@@ -1,4 +1,4 @@
-import { FlexColumn } from "components/StyledUI";
+import { FlexColumn } from "components/generic";
 import { sketches } from "constants/sketches";
 import { styled, Box, Card } from "@material-ui/core";
 import { Link } from "react-router-dom";

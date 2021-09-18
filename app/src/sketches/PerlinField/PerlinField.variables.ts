@@ -14,7 +14,7 @@ export const initialPerlinFieldVars: PerlinFieldVars = {
   angleVariation: 5,
   perlinXIncrementScale: 1,
   perlinYIncrementScale: 1,
-  perlinZIncrementScale: 1,
+  perlinZIncrementScale: 0.5,
   refresh: (p: p5) => {
     p.setup();
     p.draw();

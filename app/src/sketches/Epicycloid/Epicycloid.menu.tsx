@@ -1,12 +1,12 @@
 import { initialEpicycloidVars, EpicycloidVars } from "./Epicycloid.variables";
-import { StandardIconMenu } from "components/IconMenu/StandardIconMenu";
-import { MenuItemWrapper, FlexRowPadded } from "components/StyledUI";
-import { MenuCheckbox } from "components/MenuCheckbox/MenuCheckbox";
-import { ColorPicker } from "components/ColorPicker/ColorPicker";
-import { MenuSlider } from "components/MenuSlider/MenuSlider";
+import { StandardIconMenu } from "components/menu/IconMenu/StandardIconMenu/StandardIconMenu";
+import { MenuCheckbox } from "components/menu/MenuCheckbox/MenuCheckbox";
+import { ColorPicker } from "components/menu/ColorPicker/ColorPicker";
+import { MenuItemWrapper, FlexRowPadded } from "components/generic";
+import { MenuSlider } from "components/menu/MenuSlider/MenuSlider";
+import { BottomMenu } from "components/menu/BottomMenu";
 import React, { Fragment, useCallback } from "react";
 import { useGenericReducer } from "utils/data/state";
-import { BottomMenu } from "components/BottomMenu";
 import { TIME_TO_IDLE } from "constants/numbers";
 import { useUpdateP5 } from "hooks/useUpdateP5";
 import { P5Instance } from "types/p5";
@@ -16,6 +16,7 @@ import {
   formatTimesValue,
   formatPixelValue,
 } from "utils/menu/formatting";
+import { MenuWrapper } from "components/menu/MenuWrapper/MenuWrapper";
 
 type Props = {
   p5Instance: P5Instance<EpicycloidVars> | null;
@@ -29,21 +30,18 @@ const sliderParams = {
 
 export const EpicycloidMenu = ({ p5Instance }: Props) => {
   const isIdle = useIdle(TIME_TO_IDLE);
-  const { state, set } = useGenericReducer<EpicycloidVars>(
+  const { state, set, setState } = useGenericReducer<EpicycloidVars>(
     initialEpicycloidVars
   );
-
   useUpdateP5<EpicycloidVars>(p5Instance, state);
 
   return (
-    <Fragment>
+    <MenuWrapper setState={setState} p5Instance={p5Instance} show={!isIdle}>
       <StandardIconMenu
-        show={!isIdle}
-        p5Instance={p5Instance}
         disableLoopControl={!state.isAutoplaying}
         initialLoopControl
       />
-      <BottomMenu show={!isIdle}>
+      <BottomMenu>
         <Fragment>
           <MenuItemWrapper>
             <MenuSlider
@@ -58,9 +56,10 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
               title="Stroke Width"
               labelFormat={formatPixelValue}
               value={state.strokeWidth}
-              setValue={useCallback((val: number) => set.strokeWidth(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.strokeWidth(val),
+                [set]
+              )}
               step={1}
               min={1}
               max={5}
@@ -69,9 +68,10 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
               title="Stroke Opacity"
               labelFormat={formatPercentValue}
               value={state.strokeOpacity}
-              setValue={useCallback((val: number) => set.strokeOpacity(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.strokeOpacity(val),
+                [set]
+              )}
               {...sliderParams}
             />
           </MenuItemWrapper>
@@ -79,9 +79,10 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
             <MenuSlider
               title="Total Vertices"
               value={state.totalVertices}
-              setValue={useCallback((val: number) => set.totalVertices(val), [
-                set,
-              ])}
+              setValue={useCallback(
+                (val: number) => set.totalVertices(val),
+                [set]
+              )}
               {...sliderParams}
               min={0}
               max={1000}
@@ -123,9 +124,10 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
             />
             <ColorPicker
               color={state.strokeColor}
-              setColor={useCallback((val: string) => set.strokeColor(val), [
-                set,
-              ])}
+              setColor={useCallback(
+                (val: string) => set.strokeColor(val),
+                [set]
+              )}
               title="Stroke Color"
             />
             <ColorPicker
@@ -136,6 +138,6 @@ export const EpicycloidMenu = ({ p5Instance }: Props) => {
           </FlexRowPadded>
         </Fragment>
       </BottomMenu>
-    </Fragment>
+    </MenuWrapper>
   );
 };
