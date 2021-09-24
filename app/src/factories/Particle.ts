@@ -51,7 +51,7 @@ export function createParticle({
   acceleration = p.createVector(0, 0),
   velocity = p.createVector(0, 0),
   swapSidesAtBorder = false,
-  fill = p.color("FFF"),
+  fill = p.color("#FFF"),
   maxTrailLength = 20,
   drawTrails = false,
   maxVelocity = null,
