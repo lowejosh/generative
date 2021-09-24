@@ -18,7 +18,6 @@ export const PerlinFlowCanvasMenu = ({
       <MenuCheckbox
         checked={state.clearScreen}
         title="Refresh Background"
-        refresh
         setChecked={useCallback(
           (val: boolean) => {
             p5Instance?.background(state.bgColor);
@@ -29,22 +28,22 @@ export const PerlinFlowCanvasMenu = ({
         )}
       />
       <MenuCheckbox
+        checked={state.clearScreen && state.viewForceVectors}
+        disabled={!state.clearScreen}
+        title="Show Force Vectors"
         tooltip={
           !state.clearScreen ? "Disabled when not refreshing screen" : ""
         }
-        checked={state.clearScreen && state.viewForceVectors}
-        disabled={!state.clearScreen}
         setChecked={useCallback(
           (val: boolean) => set.viewForceVectors(val),
           [set]
         )}
-        title="Show Force Vectors"
       />
     </MenuItemWrapper>
     <ColorPicker
+      title="Background Color"
       color={state.bgColor}
       setColor={useCallback((val: string) => set.bgColor(val), [set])}
-      title="Background Color"
     />
   </Box>
 );

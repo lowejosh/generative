@@ -1,6 +1,7 @@
 import { IconButton, styled, Tooltip, Typography } from "@material-ui/core";
+import { useMenuWrapperContext } from "../MenuWrapper/MenuWrapper.provider";
 import { useUpdateLocalStateWhenChanged } from "hooks/useUpdateIfChanged";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FlexRowPadded } from "components/generic";
 import { DEBOUNCE_DELAY } from "constants/numbers";
 import { useDebounce } from "hooks";
@@ -28,6 +29,7 @@ const Input = styled("input")({
 type Props = {
   setColor: Function;
   disabled?: boolean;
+  refresh?: boolean;
   tooltip?: string;
   title?: string;
   color: string;
@@ -39,23 +41,37 @@ type Props = {
 export const ColorPicker = ({
   setColor,
   disabled,
+  refresh,
   tooltip,
   color,
   title,
 }: Props) => {
   const [localColor, setLocalColor] = useState(color);
   const debouncedLocalColor = useDebounce(localColor, DEBOUNCE_DELAY);
+  const { refreshAnimation } = useMenuWrapperContext();
 
   // if the debounce delay triggers, set the higher scoped variable
   useEffect(() => {
-    setColor(debouncedLocalColor);
-  }, [debouncedLocalColor, setColor]);
+    if (debouncedLocalColor !== color) {
+      setColor(debouncedLocalColor);
+      if (refresh) {
+        refreshAnimation();
+      }
+    }
+  }, [debouncedLocalColor, setColor, refresh, refreshAnimation, color]);
 
   useUpdateLocalStateWhenChanged(color, setLocalColor);
 
   // set the state locally upon every change
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setLocalColor(e.target.value);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const val: string = e.target.value;
+      if (val !== color) {
+        setLocalColor(val);
+      }
+    },
+    [color]
+  );
 
   return (
     <Tooltip title={tooltip || ""}>
