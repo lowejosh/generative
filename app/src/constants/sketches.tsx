@@ -1,5 +1,11 @@
-import { RandomWalk, Epicycloid, PerlinField, PerlinFlow } from "sketches";
 import React from "react";
+import {
+  PerlinField,
+  RandomWalk,
+  Epicycloid,
+  PerlinFlow,
+  Cityscape,
+} from "sketches";
 
 export type Tags = "Experiment" | "Noise";
 
@@ -36,7 +42,13 @@ export const sketches: Array<SketchItem> = [
     name: "Perlin Flow",
     slug: "perlin-flow",
     component: <PerlinFlow />,
-    dateCompleted: new Date("2020-11-4"),
+    dateCompleted: new Date("2021-09-24"),
     tags: ["Experiment", "Noise"],
+  },
+  {
+    name: "Cityscape",
+    slug: "cityscape",
+    component: <Cityscape />,
+    dateCompleted: new Date(), // WIP
   },
 ];
