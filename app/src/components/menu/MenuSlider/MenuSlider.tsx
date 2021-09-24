@@ -36,8 +36,13 @@ export const MenuSlider = ({
   const { refreshAnimation } = useMenuWrapperContext();
 
   useEffect(() => {
-    setValue(debouncedLocalValue);
-  }, [debouncedLocalValue, setValue]);
+    if (debouncedLocalValue !== value) {
+      setValue(debouncedLocalValue);
+      if (refresh) {
+        refreshAnimation();
+      }
+    }
+  }, [debouncedLocalValue, setValue, refresh, refreshAnimation, value]);
 
   useUpdateLocalStateWhenChanged(value, setLocalValue);
 
@@ -45,12 +50,9 @@ export const MenuSlider = ({
     (e: React.ChangeEvent<{}>, val: number | number[]) => {
       if (val !== value) {
         setLocalValue(Number(val));
-        if (refresh) {
-          refreshAnimation();
-        }
       }
     },
-    [refresh, refreshAnimation, value]
+    [value]
   );
 
   return (
