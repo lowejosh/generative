@@ -1,7 +1,7 @@
 import { initialCityscapeVars, CityscapeVars } from "./Cityscape.variables";
 import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { P5Instance } from "types/p5";
-import { createBuilding } from "factories/Building";
+import { createBuilding } from "factories/Building/Building";
 
 export const getCityscapeSketch = () => {
   return (p: P5Instance<CityscapeVars>) => {
@@ -28,13 +28,28 @@ export const getCityscapeSketch = () => {
         const { foo, bar } = p.variables;
 
         const building = createBuilding({
-          height: 300,
-          windowColor: p.color("#ABD"),
-          width: 100,
-          location: p.createVector(p.windowWidth / 2, p.windowHeight / 2),
+          height: 150,
+          windowColor: p.color("red"),
+          width: 80,
+          location: p.createVector(p.windowWidth / 2, p.windowHeight - 150),
           color: p.color("#892832"),
+          windowVariation: "vertical",
+          sidePerspectiveRatio: 0.3,
+          windowSpacing: 3,
+          darkenSideAmount: 0.35,
+        });
+        const building2 = createBuilding({
+          height: 300,
+          windowColor: p.color("#FFFAAA"),
+          width: 150,
+          location: p.createVector(
+            p.windowWidth / 2 - 260,
+            p.windowHeight - 300
+          ),
+          color: p.color("#808080"),
         });
         building.display(p);
+        building2.display(p);
         p.noLoop();
 
         // do stuff

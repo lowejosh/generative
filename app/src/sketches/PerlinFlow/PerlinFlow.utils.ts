@@ -1,5 +1,5 @@
 import { PerlinFlowVars } from "./PerlinFlow.variables";
-import { createParticle, Particle } from "factories/Particle";
+import { createParticle, Particle } from "factories/Particle/Particle";
 import { P5Instance } from "types/p5";
 import p5, { Vector } from "p5";
 import {

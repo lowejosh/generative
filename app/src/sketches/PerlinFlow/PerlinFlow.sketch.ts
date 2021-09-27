@@ -1,6 +1,6 @@
 import { initialPerlinFlowVars, PerlinFlowVars } from "./PerlinFlow.variables";
 import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
-import { Particle } from "factories/Particle";
+import { Particle } from "factories/Particle/Particle";
 import { P5Instance } from "types/p5";
 import {
   getForceVectors,
