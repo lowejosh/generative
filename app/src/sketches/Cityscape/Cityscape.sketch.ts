@@ -52,6 +52,22 @@ export const getCityscapeSketch = () => {
         building2.display(p);
         p.noLoop();
 
+        const building3 = createBuilding({
+          height: 250,
+          windowColor: p.color("#F82382"),
+          width: 120,
+          location: p.createVector(
+            p.windowWidth / 2 + 150,
+            p.windowHeight - 250
+          ),
+          color: p.color("#482384"),
+          windowVariation: "horizontal",
+        });
+        building.display(p);
+        building2.display(p);
+        building3.display(p);
+        p.noLoop();
+
         // do stuff
       }
     };

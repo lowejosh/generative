@@ -1,4 +1,4 @@
-import { drawTiledWindows, drawVerticalWindows } from "./Building.utils";
+import { drawWindows } from "./Building.utils";
 import p5, { Color, Vector } from "p5";
 
 // local p5 instance to access p5 utilities and since some of the p5 constructor types are broken
@@ -95,72 +95,38 @@ export function createBuilding({
       p.rect(faceStartX, this.location.y, faceWidth, this.height);
 
       // Windows
-      if (windowVariation === "tiled") {
-        // Side windows
-        drawTiledWindows(
-          p,
-          this.location.x,
-          this.location.y,
-          sidePerspectiveWidth,
-          this.height,
-          this.windowSize,
-          this.windowSpacing,
-          sidePerspectiveColor,
-          p.lerpColor(
-            this.windowColor,
-            p.color("#000"),
-            this.darkenSideWindowAmount
-          ),
-          this.offLightChance
-        );
-
-        // Face
-        drawTiledWindows(
-          p,
-          faceStartX,
-          this.location.y,
-          faceWidth,
-          this.height,
-          this.windowSize,
-          this.windowSpacing,
-          this.color,
+      drawWindows(
+        p,
+        this.windowVariation,
+        this.location.x,
+        this.location.y,
+        sidePerspectiveWidth,
+        this.height,
+        this.windowSize,
+        this.windowSpacing,
+        sidePerspectiveColor,
+        p.lerpColor(
           this.windowColor,
-          this.offLightChance
-        );
-      } else if (windowVariation === "vertical") {
-        // Side windows
-        drawVerticalWindows(
-          p,
-          this.location.x,
-          this.location.y,
-          sidePerspectiveWidth,
-          this.height,
-          this.windowSize,
-          this.windowSpacing,
-          sidePerspectiveColor,
-          p.lerpColor(
-            this.windowColor,
-            p.color("#000"),
-            this.darkenSideWindowAmount
-          ),
-          this.offLightChance
-        );
+          p.color("#000"),
+          this.darkenSideWindowAmount
+        ),
+        this.offLightChance
+      );
 
-        // Face
-        drawVerticalWindows(
-          p,
-          faceStartX,
-          this.location.y,
-          faceWidth,
-          this.height,
-          this.windowSize,
-          this.windowSpacing,
-          this.color,
-          this.windowColor,
-          this.offLightChance
-        );
-      } else {
-      }
+      // Face
+      drawWindows(
+        p,
+        this.windowVariation,
+        faceStartX,
+        this.location.y,
+        faceWidth,
+        this.height,
+        this.windowSize,
+        this.windowSpacing,
+        this.color,
+        this.windowColor,
+        this.offLightChance
+      );
     },
   };
 }
