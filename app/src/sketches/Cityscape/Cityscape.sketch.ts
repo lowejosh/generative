@@ -2,6 +2,7 @@ import { initialCityscapeVars, CityscapeVars } from "./Cityscape.variables";
 import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { P5Instance } from "types/p5";
 import { createBuilding } from "factories/Building/Building";
+import { gradientRect } from "utils/drawing/gradients";
 
 export const getCityscapeSketch = () => {
   return (p: P5Instance<CityscapeVars>) => {
@@ -26,6 +27,18 @@ export const getCityscapeSketch = () => {
       if (p.variables) {
         // get variables
         const { foo, bar } = p.variables;
+        const bgColor1 = "#000000";
+        const bgColor2 = "#191970";
+        gradientRect(
+          p,
+          0,
+          0,
+          p.windowWidth,
+          p.windowHeight,
+          p.color(bgColor1),
+          p.color(bgColor2),
+          "y"
+        );
 
         const building = createBuilding({
           height: 150,
@@ -40,13 +53,14 @@ export const getCityscapeSketch = () => {
         });
         const building2 = createBuilding({
           height: 300,
-          windowColor: p.color("#FFFAAA"),
+          windowColor: p.color("#D1CD9E"),
           width: 150,
           location: p.createVector(
             p.windowWidth / 2 - 260,
             p.windowHeight - 300
           ),
-          color: p.color("#808080"),
+          color: p.color("#5E5E7B"),
+          windowVariation: "horizontal",
         });
         building.display(p);
         building2.display(p);
