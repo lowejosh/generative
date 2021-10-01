@@ -3,6 +3,8 @@ import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { P5Instance } from "types/p5";
 import { createBuilding } from "factories/Building/Building";
 import { gradientRect } from "utils/drawing/gradients";
+import { createRandomBuilding } from "./Cityscape.util";
+import { NIGHT_SKY } from "constants/colors";
 
 export const getCityscapeSketch = () => {
   return (p: P5Instance<CityscapeVars>) => {
@@ -27,7 +29,7 @@ export const getCityscapeSketch = () => {
       if (p.variables) {
         // get variables
         const { foo, bar } = p.variables;
-        const bgColor1 = "#000000";
+        const bgColor1 = NIGHT_SKY;
         const bgColor2 = "#191970";
         gradientRect(
           p,
@@ -40,48 +42,15 @@ export const getCityscapeSketch = () => {
           "y"
         );
 
-        const building = createBuilding({
-          height: 150,
-          windowColor: p.color("red"),
-          width: 80,
-          location: p.createVector(p.windowWidth / 2, p.windowHeight - 150),
-          color: p.color("#892832"),
-          windowVariation: "vertical",
-          sidePerspectiveRatio: 0.3,
-          windowSpacing: 3,
-          darkenSideAmount: 0.35,
-        });
-        const building2 = createBuilding({
-          height: 300,
-          windowColor: p.color("#D1CD9E"),
-          width: 150,
-          location: p.createVector(
-            p.windowWidth / 2 - 260,
-            p.windowHeight - 300
-          ),
-          color: p.color("#5E5E7B"),
-          windowVariation: "horizontal",
-        });
+        const building = createRandomBuilding(p, 0, p.windowHeight);
         building.display(p);
-        building2.display(p);
-        p.noLoop();
 
-        const building3 = createBuilding({
-          height: 250,
-          windowColor: p.color("#F82382"),
-          width: 120,
-          location: p.createVector(
-            p.windowWidth / 2 + 150,
-            p.windowHeight - 250
-          ),
-          color: p.color("#482384"),
-          windowVariation: "horizontal",
-        });
-        building.display(p);
+        const building2 = createRandomBuilding(p, 200, p.windowHeight);
         building2.display(p);
+        const building3 = createRandomBuilding(p, 400, p.windowHeight);
         building3.display(p);
-        p.noLoop();
 
+        p.noLoop();
         // do stuff
       }
     };

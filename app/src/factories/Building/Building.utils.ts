@@ -37,30 +37,32 @@ export const drawWindows = (
       windowAmountY * (windowSize + (isSpacingY ? windowSpacing : 0))) /
     2;
 
-  Array(windowAmountY)
-    .fill(null)
-    .forEach((_, yi) => {
-      Array(windowAmountX)
-        .fill(null)
-        .forEach((_, xi) => {
-          const x =
-            xStart +
-            extraXPaddingToCenter +
-            windowSpacing +
-            xi * (windowSize + (isSpacingX ? windowSpacing : 0));
-          const y =
-            yStart +
-            extraYPaddingToCenter +
-            windowSpacing +
-            yi * (windowSize + (isSpacingY ? windowSpacing : 0));
+  if (windowAmountX > 0 && windowAmountY > 0) {
+    Array(windowAmountY)
+      .fill(null)
+      .forEach((_, yi) => {
+        Array(windowAmountX)
+          .fill(null)
+          .forEach((_, xi) => {
+            const x =
+              xStart +
+              extraXPaddingToCenter +
+              windowSpacing +
+              xi * (windowSize + (isSpacingX ? windowSpacing : 0));
+            const y =
+              yStart +
+              extraYPaddingToCenter +
+              windowSpacing +
+              yi * (windowSize + (isSpacingY ? windowSpacing : 0));
 
-          if (Math.random() < offLightChance) {
-            p.fill(p.lerpColor(buildingColor, p.color("#000"), 0.2));
-          } else {
-            p.fill(windowColor);
-          }
+            if (Math.random() < offLightChance) {
+              p.fill(p.lerpColor(buildingColor, p.color("#000"), 0.2));
+            } else {
+              p.fill(windowColor);
+            }
 
-          p.rect(x, y, windowSize, windowSize);
-        });
-    });
+            p.rect(x, y, windowSize, windowSize);
+          });
+      });
+  }
 };

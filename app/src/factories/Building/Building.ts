@@ -94,7 +94,7 @@ export function createBuilding({
       p.fill(this.color);
       p.rect(faceStartX, this.location.y, faceWidth, this.height);
 
-      // Windows
+      // Side
       drawWindows(
         p,
         this.windowVariation,
