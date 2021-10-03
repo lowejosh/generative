@@ -74,14 +74,13 @@ export function createBuilding({
       const sidePerspectiveWidth = this.width * this.sidePerspectiveRatio;
       const faceStartX = this.location.x + sidePerspectiveWidth;
       const faceWidth = this.width - sidePerspectiveWidth;
-
-      // side perspective
       const sidePerspectiveColor = p.lerpColor(
         this.color,
         p.color("#000"),
         this.darkenSideAmount
       );
-      // p.stroke(sidePerspectiveColor);
+
+      // side perspective
       p.fill(sidePerspectiveColor);
       p.rect(
         this.location.x,

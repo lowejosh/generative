@@ -3,7 +3,12 @@ import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { P5Instance } from "types/p5";
 import { createBuilding } from "factories/Building/Building";
 import { gradientRect } from "utils/drawing/gradients";
-import { createRandomBuilding } from "./Cityscape.util";
+import {
+  createRandomBuilding,
+  createRowOfRandomBuildings,
+  createAllRowsOfRandomBuildings,
+  drawStars,
+} from "./Cityscape.util";
 import { NIGHT_SKY } from "constants/colors";
 
 export const getCityscapeSketch = () => {
@@ -29,8 +34,10 @@ export const getCityscapeSketch = () => {
       if (p.variables) {
         // get variables
         const { foo, bar } = p.variables;
-        const bgColor1 = NIGHT_SKY;
-        const bgColor2 = "#191970";
+
+        // Draw background
+        const bgColor1 = "#000"; // TODO move to vars
+        const bgColor2 = "#191970"; // TODO move to vars
         gradientRect(
           p,
           0,
@@ -42,13 +49,12 @@ export const getCityscapeSketch = () => {
           "y"
         );
 
-        const building = createRandomBuilding(p, 0, p.windowHeight);
-        building.display(p);
+        // Draw stars
+        drawStars(p, 1000);
 
-        const building2 = createRandomBuilding(p, 200, p.windowHeight);
-        building2.display(p);
-        const building3 = createRandomBuilding(p, 400, p.windowHeight);
-        building3.display(p);
+        // Draw buildings
+        const rowMatrix = createAllRowsOfRandomBuildings(p, 5);
+        rowMatrix.flat().forEach((b) => b.display(p));
 
         p.noLoop();
         // do stuff
