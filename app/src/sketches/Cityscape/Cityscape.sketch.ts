@@ -9,7 +9,7 @@ import {
   createAllRowsOfRandomBuildings,
   drawStars,
 } from "./Cityscape.util";
-import { NIGHT_SKY } from "constants/colors";
+import { NEON_BLUE, NEON_PINK, NEON_RED, NIGHT_SKY } from "constants/colors";
 
 export const getCityscapeSketch = () => {
   return (p: P5Instance<CityscapeVars>) => {
@@ -36,8 +36,8 @@ export const getCityscapeSketch = () => {
         const { foo, bar } = p.variables;
 
         // Draw background
+        const bgColor2 = NEON_RED; // TODO move to vars
         const bgColor1 = "#000"; // TODO move to vars
-        const bgColor2 = "#191970"; // TODO move to vars
         gradientRect(
           p,
           0,
@@ -50,7 +50,7 @@ export const getCityscapeSketch = () => {
         );
 
         // Draw stars
-        drawStars(p, 1000);
+        drawStars(p, 3000);
 
         // Draw buildings
         const rowMatrix = createAllRowsOfRandomBuildings(p, 5);
