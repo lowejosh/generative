@@ -2,21 +2,25 @@ import { createBuilding } from "factories/Building/Building";
 import p5, { Color } from "p5";
 import { randomlyVaryColor } from "utils/drawing/colors";
 import {
+  CONCRETE_GREY,
+  LIGHT,
   NEON_BLUE,
   NEON_PINK,
   NEON_RED,
   NEON_YELLOW,
   NIGHT_SKY,
+  SUNSET_ORANGE,
 } from "constants/colors";
 
-const maxHeight = 550; // TODO move to var
+const maxHeight = 350; // TODO move to var
 const maxWidth = 200; // TODO move to var
 const minHeight = 100; // TODO move to var
 const minWidth = 100; // TODO move to var
 const minXIncrement = 15; // TODO move to var
-const maxXIncrement = 50; // TODO move to var
-const fogIncrement = 0.15; // TODO move to var
-const colorVariance = 0.1;
+const maxXIncrement = 40; // TODO move to var
+const fogIncrement = 0.2; // TODO move to var
+const colorVariance = 0.025;
+const increaseMaxHeightAmount = 90;
 
 // If we're gonna have animations might have to convert this to returning an array of stars and rendering them in the draw func
 export const drawStars = (p: p5, starAmount: number) => {
@@ -56,30 +60,15 @@ export const createRowOfRandomBuildings = (
   const row = [];
   let currentStartX = -150; // Maybe turn into a variable? will have to investigate the effects
   let isAddingBuilding = true;
-  const lerpToColor = p.lerpColor(p.color(NEON_RED), p.color("#000"), 0.25); //TODO move to var
 
   while (isAddingBuilding) {
-    // We calculate the colours as a interpolation between the background color and the building colour, depending on the row index
-    // The lower the row index, the closer the building is to the background. Because we need to draw them first.
-    const lerpColorAmount = (rowAmount - (rowIndex + 1)) * fogIncrement;
-    const color = p.lerpColor(
-      randomlyVaryColor(p, p.color("#222222"), colorVariance),
-      lerpToColor,
-      lerpColorAmount
-    ); // TODO move to var
-    const windowColor = p.lerpColor(
-      randomlyVaryColor(p, p.color(NEON_RED), colorVariance),
-      lerpToColor,
-      lerpColorAmount / 1.5
-    ); // TODO move to var
-
     // Add the building and update the startX
     const newBuilding = createRandomBuilding(
       p,
       currentStartX,
       p.windowHeight,
-      color,
-      windowColor
+      rowIndex,
+      rowAmount
     );
     row.push(newBuilding);
     currentStartX = newBuilding.location.x + newBuilding.width;
@@ -97,14 +86,31 @@ export const createRandomBuilding = (
   p: p5,
   startX: number,
   startY: number,
-  color: Color,
-  windowColor: Color
+  rowIndex: number,
+  rowAmount: number
 ) => {
   // Randomize
-  const height = p.random(minHeight, maxHeight);
+  const newMaxHeight =
+    maxHeight + (rowAmount - (rowIndex + 1)) * increaseMaxHeightAmount; // Increase the max height of distant buildings if we can
+  const height = p.random(minHeight, newMaxHeight);
   const width = p.random(minWidth, maxWidth);
   const xIncrement = p.random(minXIncrement, maxXIncrement);
   const windowVariation = p.random(["tiled", "horizontal", "vertical"]);
+  const lerpToColor = p.lerpColor(p.color(SUNSET_ORANGE), p.color("#000"), 0.5); //TODO move to var
+
+  // We calculate the colours as a interpolation between the background color and the building colour, depending on the row index
+  // The lower the row index, the closer the building is to the background. Because we need to draw them first.
+  const lerpColorAmount = (rowAmount - (rowIndex + 1)) * fogIncrement;
+  const color = p.lerpColor(
+    randomlyVaryColor(p, p.color("#606060"), colorVariance),
+    lerpToColor,
+    lerpColorAmount
+  ); // TODO move to var
+  const windowColor = p.lerpColor(
+    randomlyVaryColor(p, p.color(LIGHT), colorVariance),
+    lerpToColor,
+    lerpColorAmount / 1.5
+  ); // TODO move to var
 
   // Finalise
   const x = startX + xIncrement;

@@ -6,3 +6,6 @@ export const NEON_BLUE = "#00F9FF";
 
 // GENERAL
 export const NIGHT_SKY = "#0C1445";
+export const SUNSET_ORANGE = "#FD5E53";
+export const CONCRETE_GREY = "#B9B4AB";
+export const LIGHT = "#EEDD82";
