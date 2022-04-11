@@ -3,7 +3,7 @@ import { useMenuWrapperContext } from "../MenuWrapper/MenuWrapper.provider";
 import { useUpdateLocalStateWhenChanged } from "hooks/useUpdateIfChanged";
 import React, { useState, useEffect, useCallback } from "react";
 import { FlexRowPadded } from "components/generic";
-import { DEBOUNCE_DELAY } from "constants/numbers";
+import { DEFAULT_DEBOUNCE_DELAY } from "constants/numbers";
 import { useDebounce } from "hooks";
 
 const Input = styled("input")({
@@ -47,7 +47,7 @@ export const ColorPicker = ({
   title,
 }: Props) => {
   const [localColor, setLocalColor] = useState(color);
-  const debouncedLocalColor = useDebounce(localColor, DEBOUNCE_DELAY);
+  const debouncedLocalColor = useDebounce(localColor, DEFAULT_DEBOUNCE_DELAY);
   const { refreshAnimation } = useMenuWrapperContext();
 
   // if the debounce delay triggers, set the higher scoped variable

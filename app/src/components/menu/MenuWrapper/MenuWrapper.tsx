@@ -1,7 +1,7 @@
 import { PresetDatum } from "../IconMenu/Presets/Presets.types";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MenuWrapperContext } from "./MenuWrapper.provider";
-import { DEBOUNCE_DELAY } from "constants/numbers";
+import { DEFAULT_DEBOUNCE_DELAY } from "constants/numbers";
 import { P5Instance } from "types/p5";
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
   p5Instance: P5Instance<any> | null;
   setState: (newState: any) => void;
   show: boolean;
+  debounceDelay?: number;
 };
 
 export const MenuWrapper = ({
@@ -16,6 +17,7 @@ export const MenuWrapper = ({
   setState,
   children,
   show,
+  debounceDelay,
 }: Props) => {
   const [updateLocalStates, setUpdateLocalStates] = useState(false);
 
@@ -29,7 +31,7 @@ export const MenuWrapper = ({
     () =>
       setTimeout(
         () => p5Instance?.variables?.refresh(p5Instance),
-        DEBOUNCE_DELAY * 15
+        debounceDelay || DEFAULT_DEBOUNCE_DELAY * 15
       ), // timeout removes a bug
     [p5Instance]
   );
@@ -51,6 +53,7 @@ export const MenuWrapper = ({
       refreshAnimation,
       p5Instance,
       show,
+      debounceDelay,
     }),
     [handlePresetClick, refreshAnimation, p5Instance, show, updateLocalStates]
   );

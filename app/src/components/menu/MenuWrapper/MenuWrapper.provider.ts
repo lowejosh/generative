@@ -9,10 +9,12 @@ export type MenuWrapperContext = {
   refreshAnimation: () => void;
   updateLocalStates: boolean;
   show: boolean;
+  debounceDelay?: number;
 };
 
-export const MenuWrapperContext =
-  createContext<MenuWrapperContext | undefined>(undefined);
+export const MenuWrapperContext = createContext<MenuWrapperContext | undefined>(
+  undefined
+);
 
 export const useMenuWrapperContext = () => {
   const ctx = useContext(MenuWrapperContext);

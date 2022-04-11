@@ -1,7 +1,7 @@
 import { useMenuWrapperContext } from "../MenuWrapper/MenuWrapper.provider";
 import { Slider, Tooltip, Typography } from "@material-ui/core";
 import React, { useState, useEffect, useCallback } from "react";
-import { DEBOUNCE_DELAY } from "constants/numbers";
+import { DEFAULT_DEBOUNCE_DELAY } from "constants/numbers";
 import { FlexColumn } from "components/generic";
 import { useDebounce } from "hooks";
 import { useUpdateLocalStateWhenChanged } from "hooks/useUpdateIfChanged";
@@ -32,8 +32,11 @@ export const MenuSlider = ({
   step,
 }: Props) => {
   const [localValue, setLocalValue] = useState(value);
-  const debouncedLocalValue = useDebounce(localValue, DEBOUNCE_DELAY);
-  const { refreshAnimation } = useMenuWrapperContext();
+  const { refreshAnimation, debounceDelay } = useMenuWrapperContext();
+  const debouncedLocalValue = useDebounce(
+    localValue,
+    debounceDelay || DEFAULT_DEBOUNCE_DELAY
+  );
 
   useEffect(() => {
     if (debouncedLocalValue !== value) {

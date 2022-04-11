@@ -11,19 +11,14 @@ import {
   NIGHT_SKY,
   SUNSET_ORANGE,
 } from "constants/colors";
-
-const maxHeight = 350; // TODO move to var
-const maxWidth = 200; // TODO move to var
-const minHeight = 100; // TODO move to var
-const minWidth = 100; // TODO move to var
-const minXIncrement = 15; // TODO move to var
-const maxXIncrement = 40; // TODO move to var
-const fogIncrement = 0.2; // TODO move to var
-const colorVariance = 0.025;
-const increaseMaxHeightAmount = 90;
+import { P5Instance, P5InstanceInitialized } from "types/p5";
+import { CityscapeVars } from "./Cityscape.variables";
 
 // If we're gonna have animations might have to convert this to returning an array of stars and rendering them in the draw func
-export const drawStars = (p: p5, starAmount: number) => {
+export const drawStars = (
+  p: P5InstanceInitialized<CityscapeVars>,
+  starAmount: number
+) => {
   const maxY = p.windowHeight; // Note: maybe add a fadeout max height?
   const minY = 0;
   const minX = 0;
@@ -41,7 +36,10 @@ export const drawStars = (p: p5, starAmount: number) => {
   }
 };
 
-export const createAllRowsOfRandomBuildings = (p: p5, rowAmount: number) => {
+export const createAllRowsOfRandomBuildings = (
+  p: P5InstanceInitialized<CityscapeVars>,
+  rowAmount: number
+) => {
   const matrix = [];
 
   for (let i = 0; i < rowAmount; i++) {
@@ -53,10 +51,11 @@ export const createAllRowsOfRandomBuildings = (p: p5, rowAmount: number) => {
 };
 
 export const createRowOfRandomBuildings = (
-  p: p5,
+  p: P5InstanceInitialized<CityscapeVars>,
   rowIndex: number,
   rowAmount: number
-) => {
+): import("d:/projects/generative/app/src/factories/Building/Building").Building[] => {
+  const { maxXIncrement } = p.variables;
   const row = [];
   let currentStartX = -150; // Maybe turn into a variable? will have to investigate the effects
   let isAddingBuilding = true;
@@ -83,12 +82,24 @@ export const createRowOfRandomBuildings = (
 };
 
 export const createRandomBuilding = (
-  p: p5,
+  p: P5InstanceInitialized<CityscapeVars>,
   startX: number,
   startY: number,
   rowIndex: number,
   rowAmount: number
 ) => {
+  const {
+    increaseMaxHeightAmount,
+    minXIncrement,
+    maxXIncrement,
+    colorVariance,
+    fogIncrement,
+    maxHeight,
+    minHeight,
+    minWidth,
+    maxWidth,
+  } = p.variables;
+
   // Randomize
   const newMaxHeight =
     maxHeight + (rowAmount - (rowIndex + 1)) * increaseMaxHeightAmount; // Increase the max height of distant buildings if we can
