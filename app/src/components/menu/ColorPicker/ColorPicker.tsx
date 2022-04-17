@@ -47,8 +47,11 @@ export const ColorPicker = ({
   title,
 }: Props) => {
   const [localColor, setLocalColor] = useState(color);
-  const debouncedLocalColor = useDebounce(localColor, DEFAULT_DEBOUNCE_DELAY);
-  const { refreshAnimation } = useMenuWrapperContext();
+  const { refreshAnimation, debounceDelay } = useMenuWrapperContext();
+  const debouncedLocalColor = useDebounce(
+    localColor,
+    debounceDelay || DEFAULT_DEBOUNCE_DELAY
+  );
 
   // if the debounce delay triggers, set the higher scoped variable
   useEffect(() => {

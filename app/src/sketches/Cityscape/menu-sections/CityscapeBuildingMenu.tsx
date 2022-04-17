@@ -7,12 +7,12 @@ import { MenuItemWrapper } from "components/generic";
 import { CityscapeMenuSectionProps } from "../Cityscape.types";
 
 const sliderParams = {
-  min: 0,
+  min: 10,
   max: 750,
   step: 1,
 };
 
-export const CityScapeBuildingMenu = ({
+export const CityscapeBuildingMenu = ({
   state,
   set,
 }: CityscapeMenuSectionProps) => {
@@ -20,15 +20,15 @@ export const CityScapeBuildingMenu = ({
     <Box>
       <MenuItemWrapper>
         <MenuSlider
-          setValue={useCallback((val: number) => set.fogIncrement(val), [set])}
+          setValue={useCallback((val: number) => set.minHeight(val), [set])}
           value={state.minHeight}
           title="Min height"
           {...sliderParams}
-          step={0.01}
+          max={state.maxHeight}
           refresh
         />
         <MenuSlider
-          setValue={useCallback((val: number) => set.colorVariance(val), [set])}
+          setValue={useCallback((val: number) => set.maxHeight(val), [set])}
           value={state.maxHeight}
           title="Max height"
           {...sliderParams}
@@ -41,6 +41,7 @@ export const CityScapeBuildingMenu = ({
           value={state.minWidth}
           title="Min width"
           {...sliderParams}
+          max={state.maxWidth}
           refresh
         />
         <MenuSlider
@@ -48,6 +49,7 @@ export const CityScapeBuildingMenu = ({
           value={state.maxWidth}
           title="Max width"
           {...sliderParams}
+          refresh
         />
       </MenuItemWrapper>
       <MenuItemWrapper>
@@ -65,11 +67,12 @@ export const CityScapeBuildingMenu = ({
           title="Max height increase from new row"
           {...sliderParams}
           max={200}
-          refresh
+          min={0}
           setValue={useCallback(
             (val: number) => set.increaseMaxHeightAmount(val),
             [set]
           )}
+          refresh
         />
       </MenuItemWrapper>
     </Box>

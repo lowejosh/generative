@@ -1,4 +1,4 @@
-import p5, { Renderer } from "p5";
+import p5 from "p5";
 
 export type P5Instance<T> = p5 & { variables?: T & P5Defaults };
 

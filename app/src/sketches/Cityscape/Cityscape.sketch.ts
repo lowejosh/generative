@@ -1,22 +1,8 @@
+import { createAllRowsOfRandomBuildings, drawStars } from "./Cityscape.util";
 import { initialCityscapeVars, CityscapeVars } from "./Cityscape.variables";
 import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { isP5InstanceInitialized, P5Instance } from "types/p5";
-import { createBuilding } from "factories/Building/Building";
 import { gradientRect } from "utils/drawing/gradients";
-import {
-  createRandomBuilding,
-  createRowOfRandomBuildings,
-  createAllRowsOfRandomBuildings,
-  drawStars,
-} from "./Cityscape.util";
-import {
-  NEON_BLUE,
-  NEON_PINK,
-  NEON_RED,
-  NEON_YELLOW,
-  NIGHT_SKY,
-  SUNSET_ORANGE,
-} from "constants/colors";
 
 export const getCityscapeSketch = () => {
   return (p: P5Instance<CityscapeVars>) => {
@@ -24,20 +10,20 @@ export const getCityscapeSketch = () => {
 
     const drawBackground = () => {
       if (isP5InstanceInitialized(p)) {
-        const bgColor2 = SUNSET_ORANGE; // TODO move to vars
-        const bgColor1 = NIGHT_SKY; // TODO move to vars
+        const { topSkyColor, bottomSkyColor, starAmount } = p.variables;
+
         gradientRect(
           p,
           0,
           0,
           p.windowWidth,
           p.windowHeight,
-          p.color(bgColor1),
-          p.color(bgColor2),
+          p.color(topSkyColor),
+          p.color(bottomSkyColor),
           "y"
         );
         // Draw stars
-        drawStars(p, 3000);
+        drawStars(p, starAmount);
       }
     };
 

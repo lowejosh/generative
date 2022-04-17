@@ -5,8 +5,8 @@ import { MenuTabsWrapper, StyledTab } from "./MenuTabs.styled";
 const TOP_MARGIN = "48px";
 
 export type MenuTabsProps = {
-  labels: Array<string>;
   children: Array<JSX.Element>;
+  labels: Array<string>;
 };
 
 /**

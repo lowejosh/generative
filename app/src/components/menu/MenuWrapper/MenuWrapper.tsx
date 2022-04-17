@@ -1,23 +1,26 @@
-import { PresetDatum } from "../IconMenu/Presets/Presets.types";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { MenuWrapperContext } from "./MenuWrapper.provider";
-import { DEFAULT_DEBOUNCE_DELAY } from "constants/numbers";
+
 import { P5Instance } from "types/p5";
 
+import { PresetDatum } from "../IconMenu/Presets/Presets.types";
+import { MenuWrapperContext } from "./MenuWrapper.provider";
+
 type Props = {
+  debounceDelay?: number;
   children: JSX.Element | JSX.Element[];
   p5Instance: P5Instance<any> | null;
   setState: (newState: any) => void;
   show: boolean;
-  debounceDelay?: number;
 };
 
+const REFRESH_DELAY = 75;
+
 export const MenuWrapper = ({
+  debounceDelay,
   p5Instance,
   setState,
   children,
   show,
-  debounceDelay,
 }: Props) => {
   const [updateLocalStates, setUpdateLocalStates] = useState(false);
 
@@ -31,7 +34,7 @@ export const MenuWrapper = ({
     () =>
       setTimeout(
         () => p5Instance?.variables?.refresh(p5Instance),
-        debounceDelay || DEFAULT_DEBOUNCE_DELAY * 15
+        REFRESH_DELAY
       ), // timeout removes a bug
     [p5Instance]
   );
@@ -51,11 +54,18 @@ export const MenuWrapper = ({
       updateLocalStates,
       handlePresetClick,
       refreshAnimation,
+      debounceDelay,
       p5Instance,
       show,
-      debounceDelay,
     }),
-    [handlePresetClick, refreshAnimation, p5Instance, show, updateLocalStates]
+    [
+      handlePresetClick,
+      updateLocalStates,
+      refreshAnimation,
+      debounceDelay,
+      p5Instance,
+      show,
+    ]
   );
 
   return (
