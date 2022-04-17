@@ -1,11 +1,17 @@
-import { styled, Tab } from "@material-ui/core";
+import { styled, Tab, Theme } from "@material-ui/core";
 
-export const StyledTab = styled(Tab)(({ theme }) => ({
-  //   backgroundColor: rgbToHex(lighten(theme.palette.background.default, 0.1)),
-  "&:first-child": {
-    borderTopLeftRadius: theme.spacing(2),
-  },
-}));
+export const StyledTab = styled(Tab)<Theme, { selected?: boolean }>(
+  ({ theme, selected }) => ({
+    ...(!selected
+      ? {
+          color: theme.palette.text.disabled,
+        }
+      : {}),
+    "&:first-child": {
+      borderTopLeftRadius: theme.spacing(2),
+    },
+  })
+);
 
 export const MenuTabsWrapper = styled("div")(({ theme }) => ({
   position: "absolute",
