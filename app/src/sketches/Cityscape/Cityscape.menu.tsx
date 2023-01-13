@@ -33,8 +33,6 @@ export const CityscapeMenu = ({ p5Instance }: Props) => {
 
   useUpdateP5<CityscapeVars>(p5Instance, state);
 
-  console.log(state);
-
   return (
     <MenuWrapper
       debounceDelay={DEBOUNCE_DELAY}

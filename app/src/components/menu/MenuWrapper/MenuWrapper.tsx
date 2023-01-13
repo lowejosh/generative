@@ -7,6 +7,7 @@ import { MenuWrapperContext } from "./MenuWrapper.provider";
 
 type Props = {
   debounceDelay?: number;
+  disableMenu?: boolean;
   children: JSX.Element | JSX.Element[];
   p5Instance: P5Instance<any> | null;
   setState: (newState: any) => void;
@@ -17,6 +18,7 @@ const REFRESH_DELAY = 75;
 
 export const MenuWrapper = ({
   debounceDelay,
+  disableMenu,
   p5Instance,
   setState,
   children,
@@ -67,6 +69,10 @@ export const MenuWrapper = ({
       show,
     ]
   );
+
+  if (disableMenu) {
+    return null;
+  }
 
   return (
     <MenuWrapperContext.Provider value={store}>

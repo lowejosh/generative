@@ -24,7 +24,7 @@ export const createGenericActions = <Vars>(
   dispatch: React.Dispatch<Action<Vars>>
 ) =>
   // create a set object that holds the dispatch events
-  (Object.keys(initialVars) as Array<keyof Vars>).reduce<
+  (Object.keys(initialVars as any) as Array<keyof Vars>).reduce<
     Record<keyof Vars, Function>
   >((set: Record<string, Function>, varKey) => {
     set[varKey.toString()] = (value: Vars[keyof Vars]) =>

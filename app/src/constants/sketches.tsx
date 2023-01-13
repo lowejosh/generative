@@ -5,6 +5,7 @@ import {
   Epicycloid,
   PerlinFlow,
   Cityscape,
+  Drift,
 } from "sketches";
 
 export type Tags = "Experiment" | "Noise";
@@ -49,6 +50,12 @@ export const sketches: Array<SketchItem> = [
     name: "Cityscape",
     slug: "cityscape",
     component: <Cityscape />,
-    dateCompleted: new Date(), // WIP
+    dateCompleted: new Date("2022-10-15"), // WIP
+  },
+  {
+    name: "Drift",
+    slug: "drift",
+    component: <Drift />,
+    dateCompleted: new Date("2023-01-12"), // WIP
   },
 ];

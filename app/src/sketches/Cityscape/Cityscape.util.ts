@@ -1,4 +1,4 @@
-import { createBuilding } from "factories/Building/Building";
+import { Building, createBuilding } from "factories/Building/Building";
 import { randomlyVaryColor } from "utils/drawing/colors";
 import { P5InstanceInitialized } from "types/p5";
 
@@ -46,7 +46,7 @@ export const createRowOfRandomBuildings = (
   p: P5InstanceInitialized<CityscapeVars>,
   rowIndex: number,
   rowAmount: number
-): import("d:/projects/generative/app/src/factories/Building/Building").Building[] => {
+): Building[] => {
   const { maxXIncrement } = p.variables;
   const row = [];
   let currentStartX = -150; // Maybe turn into a variable? will have to investigate the effects

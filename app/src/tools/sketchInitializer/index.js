@@ -5,19 +5,12 @@ const getMenuTemplate = require("./templates/template.menu.js");
 const getSketchTemplate = require("./templates/template.sketch.js");
 const getVariablesTemplate = require("./templates/template.variables.js");
 
-const init = (path) => {
-  if (!path) {
-    console.log("Please supply a pathway");
+const init = (sketchName) => {
+  if (!sketchName) {
+    console.log("Please supply a name");
   } else {
-    let sketchName = path;
-    let folder = "";
-
-    // if a folder path is specified
-    if (path.includes("/")) {
-      sketchName = path.substr(path.lastIndexOf("/") + 1, path.length);
-      folder = path.substr(0, path.lastIndexOf("/"));
-      fs.ensureDirSync(`./${folder}`);
-    }
+    const path = `src/sketches/${sketchName}`;
+    fs.ensureDirSync(`./${path}`);
 
     // file suffix : content
     const inputs = {
@@ -29,23 +22,25 @@ const init = (path) => {
     };
 
     // read/write files
-    Object.entries(inputs).forEach(([name, content]) => {
-      const suffix = name === "component" || name === "menu" ? "tsx" : "ts";
+    Object.entries(inputs).forEach(([type, content]) => {
+      const suffix = type === "component" || type === "menu" ? "tsx" : "ts";
       fs.writeFile(
-        name === "index"
-          ? folder.length
-            ? `${folder}/index.ts`
+        type === "index"
+          ? path.length
+            ? `${path}/index.ts`
             : "index.ts"
-          : `${path}${name !== "component" ? `.${name}` : ""}.${suffix}`,
+          : `${path}/${sketchName}${
+              type !== "component" ? `.${type}` : ""
+            }.${suffix}`,
         content,
         (err) => {
           return err
             ? console.log(err)
             : console.log(
-                name === "index"
-                  ? `successfully created ${folder}/index.ts`
+                type === "index"
+                  ? `successfully created ${path}/index.ts`
                   : `successfully created ${path}${
-                      name !== "component" ? `.${name}` : ""
+                      type !== "component" ? `.${type}` : ""
                     }.${suffix}`
               );
         }

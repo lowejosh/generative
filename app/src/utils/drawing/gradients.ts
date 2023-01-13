@@ -118,3 +118,15 @@ export const gradientCircleRadial = (
   p.noFill();
   p.noStroke();
 };
+
+export const gradientLine = (
+  p: p5,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  color1: string,
+  color2: string
+) => {
+  // TODO
+};

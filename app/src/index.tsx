@@ -1,18 +1,17 @@
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import * as serviceWorker from "./serviceWorker";
 import { theme } from "constants/theme";
-import ReactDOM from "react-dom";
+import * as ReactDOMClient from "react-dom/client";
 import { App } from "./App";
 import React from "react";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+const domNode = document.getElementById("root") as Element;
+const root = ReactDOMClient.createRoot(domNode);
+root.render(
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App />
+  </ThemeProvider>
 );
 
 serviceWorker.unregister();
