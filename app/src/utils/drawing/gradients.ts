@@ -126,7 +126,23 @@ export const gradientLine = (
   x2: number,
   y2: number,
   color1: string,
-  color2: string
+  color2: string,
+  steps = 10,
+  size = 1
 ) => {
-  // TODO
+  const initialVector = p.createVector(x1, y1);
+  const pColor1 = p.color(color1);
+  const pColor2 = p.color(color2);
+  p.stroke(pColor1);
+  p.ellipse(initialVector.x, initialVector.y, size, size);
+
+  const d = p.dist(x1, y2, x2, y2);
+
+  for (let i = 0; i < d; i++) {
+    const step = p.map(i, 0, d, 0, 1);
+    const vector = initialVector.lerp(x2, y2, 0, step);
+    const color = p.lerpColor(pColor1, pColor2, step);
+    p.stroke(color);
+    p.ellipse(vector.x, vector.y, 1, 1);
+  }
 };

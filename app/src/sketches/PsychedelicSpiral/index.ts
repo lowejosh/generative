@@ -1,0 +1,1 @@
+export { PsychedelicSpiral } from "./PsychedelicSpiral";

@@ -33,7 +33,7 @@ export const getPerlinFieldSketch = () => {
     };
 
     p.draw = () => {
-      drawBackground();
+      drawBackground()
       checkForMismatchedSize(p);
       if (p.variables) {
         // get variables

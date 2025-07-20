@@ -1,11 +1,11 @@
 import React from "react";
 import {
+  PsychedelicSpiral,
   PerlinField,
   RandomWalk,
   Epicycloid,
   PerlinFlow,
   Cityscape,
-  Drift,
 } from "sketches";
 
 export type Tags = "Experiment" | "Noise";
@@ -50,12 +50,13 @@ export const sketches: Array<SketchItem> = [
     name: "Cityscape",
     slug: "cityscape",
     component: <Cityscape />,
-    dateCompleted: new Date("2022-10-15"), // WIP
+    dateCompleted: new Date("2022-10-15"),
   },
   {
-    name: "Drift",
-    slug: "drift",
-    component: <Drift />,
-    dateCompleted: new Date("2023-01-12"), // WIP
+    name: "Psychedelic Spiral",
+    slug: "psychedelic-spiral",
+    component: <PsychedelicSpiral />,
+    dateCompleted: new Date("2025-06-24"),
+    tags: ["Experiment", "Noise"],
   },
 ];
