@@ -6,7 +6,7 @@ import { Fade } from "@material-ui/core";
 import React from "react";
 
 export const Routes = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Switch>
       {/* Home */}
       <Route exact path="/">

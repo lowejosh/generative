@@ -25,13 +25,6 @@ const SketchCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-const ThumbnailImage = styled(CardMedia)(({ theme }) => ({
-  height: 200,
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundColor: theme.palette.grey[200],
-}));
-
 const ThumbnailFallback = styled(Box)(({ theme }) => ({
   height: 200,
   background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
@@ -51,7 +44,7 @@ const TagChip = styled(Chip)(({ theme }) => ({
 // Component for handling thumbnail with fallback
 const SketchThumbnail = ({ sketch }: { sketch: any }) => {
   const [imageError, setImageError] = useState(false);
-  const thumbnailPath = `/thumbnails/${sketch.slug}.png`;
+  const thumbnailPath = `${process.env.PUBLIC_URL}/thumbnails/${sketch.slug}.png`;
 
   if (imageError) {
     return (
