@@ -1,12 +1,12 @@
-# Generative Art Gallery 🎨
+# Generative Art Gallery
 
 A collection of interactive generative art pieces built with React, TypeScript, and p5.js.
 
-## 🚀 Live Demo
+## Live Demo
 
 [View Gallery](https://lowejosh.github.io/generative)
 
-## ✨ Featured
+## Featured
 
 <div align="center">
   <img src="./public/thumbnails/psychedelic-spiral.png" width="200" alt="Psychedelic Spiral" />
@@ -43,19 +43,7 @@ yarn start
 
 Open [http://localhost:3000](http://localhost:3000) to view the gallery.
 
-### Build for Production
-
-```bash
-yarn build
-```
-
-### Deploy to GitHub Pages
-
-```bash
-yarn deploy
-```
-
-## 🎯 Creating New Sketches
+## Creating New Sketches
 
 Use the built-in sketch generator to quickly create new artworks:
 
@@ -70,23 +58,13 @@ This command automatically generates:
 - TypeScript type definitions
 - Proper file structure and imports
 
-## 🎨 Sketch Categories
-
-- **Noise**: Perlin noise-based organic patterns
-- **Geometry**: Mathematical shapes and transformations
-- **Particles**: Dynamic particle system simulations
-- **Animation**: Time-based generative animations
-- **Interactive**: User-controllable parameters and real-time interaction
-- **Mathematical**: Algorithm-driven mathematical visualizations
-
-## 🧰 Built With
+## Built With
 
 - **React** - UI framework
 - **TypeScript** - Type safety and better development experience
 - **p5.js** - Creative coding and graphics library
 - **Material-UI** - Component library and design system
 - **React Router** - Client-side routing
-- **GitHub Pages** - Hosting and deployment
 
 ## 📁 Project Structure
 
@@ -99,15 +77,3 @@ src/
 ├── constants/      # Configuration and sketch registry
 └── utils/          # Helper functions and utilities
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a new sketch using `yarn makeSketch YourSketchName`
-3. Implement your generative art piece
-4. Add a thumbnail to `public/thumbnails/`
-5. Submit a pull request
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
