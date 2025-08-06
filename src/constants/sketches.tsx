@@ -6,6 +6,7 @@ import {
   Epicycloid,
   PerlinFlow,
   Cityscape,
+  QuantumHarmonics,
 } from "sketches";
 
 export type Tags =
@@ -69,5 +70,12 @@ export const sketches: Array<SketchItem> = [
     component: <PsychedelicSpiral />,
     dateCompleted: new Date("2025-06-24"),
     tags: ["Noise", "Particles", "Animation", "Fractals"],
+  },
+  {
+    name: "Quantum Harmonics",
+    slug: "quantum-harmonics",
+    component: <QuantumHarmonics />,
+    dateCompleted: new Date("2025-08-06"),
+    tags: ["Mathematical", "Particles", "Animation", "Interactive"],
   },
 ];

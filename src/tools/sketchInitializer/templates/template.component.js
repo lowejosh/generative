@@ -1,9 +1,10 @@
-const getComponentTemplate = (sketchName) => `
+const getComponentTemplate = (sketchName) => `import React, { Fragment } from "react";
+import { useP5 } from "hooks";
+
+import { SketchDiv } from "components/generic";
+
 import { get${sketchName}Sketch } from "./${sketchName}.sketch";
 import { ${sketchName}Menu } from "./${sketchName}.menu";
-import { SketchDiv } from "components/StyledUI";
-import React, { Fragment } from "react";
-import { useP5 } from "hooks";
 
 export const ${sketchName} = () => {
   const sketch = get${sketchName}Sketch();
@@ -12,13 +13,10 @@ export const ${sketchName} = () => {
   return (
     <Fragment>
       <SketchDiv ref={ref} />
-      <${sketchName}Menu
-        p5Instance={p5Instance}
-      />
+      <${sketchName}Menu p5Instance={p5Instance} />
     </Fragment>
   );
 };
-
 `;
 
 module.exports = getComponentTemplate;

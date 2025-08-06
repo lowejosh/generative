@@ -1,5 +1,4 @@
-const getSketchTemplate = (sketchName) => `
-import { checkForMismatchedSize } from "sketches/sketch-utils/funcs/checkForMismatchedSize";
+const getSketchTemplate = (sketchName) => `import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { initial${sketchName}Vars, ${sketchName}Vars } from "./${sketchName}.variables";
 import { P5Instance } from "types/p5";
 
@@ -30,11 +29,11 @@ export const get${sketchName}Sketch = () => {
           bar,
         } = p.variables;
 
-        // do stuff
+        // do stuff with variables here
+        drawBackground();
       }
     };
   };
-};
-`;
+};`;
 
 module.exports = getSketchTemplate;
