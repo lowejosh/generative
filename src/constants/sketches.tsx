@@ -7,6 +7,7 @@ import {
   PerlinFlow,
   Cityscape,
   QuantumHarmonics,
+  RecursiveDivisions,
 } from "sketches";
 
 export type Tags =
@@ -81,5 +82,12 @@ export const sketches: Array<SketchItem> = [
     component: <QuantumHarmonics />,
     description: "Wave interference patterns from draggable sources.",
     tags: ["Mathematical", "Animation", "Interactive"],
+  },
+  {
+    name: "Recursive Divisions",
+    slug: "recursive-divisions",
+    component: <RecursiveDivisions />,
+    description: "Recursive geometric subdivision.",
+    tags: ["Geometry", "Mathematical"],
   },
 ];

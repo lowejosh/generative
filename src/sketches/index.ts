@@ -5,3 +5,4 @@ export { RandomWalk } from "./RandomWalk";
 export { PerlinFlow } from "./PerlinFlow";
 export { Cityscape } from "./Cityscape";
 export { QuantumHarmonics } from "./QuantumHarmonics";
+export { RecursiveDivisions } from "./RecursiveDivisions";

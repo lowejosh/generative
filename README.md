@@ -1,6 +1,6 @@
-# Generative Art Gallery
+# Generative Gallery
 
-A collection of interactive generative art pieces built with React, TypeScript, and p5.js.
+A collection of interactive generative pieces built with React, TypeScript, and p5.js.
 
 ## Live Demo
 
@@ -73,7 +73,7 @@ Generates boilerplate for:
 ```
 src/
 ├── components/     # Reusable UI components
-├── sketches/       # Individual art pieces
+├── sketches/       # Individual sketches
 ├── hooks/          # Custom React hooks for p5.js integration
 ├── factories/      # Reusable generative algorithms
 ├── constants/      # Configuration and sketch registry
