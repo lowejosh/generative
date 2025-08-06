@@ -20,8 +20,8 @@ A collection of interactive generative pieces built with React, TypeScript, and 
 
 <div align="center">
   <img src="./public/thumbnails/quantum-harmonics.png" width="200" alt="Quantum Harmonics" />
-  <img src="./public/thumbnails/recursive-subdivisions.png" width="200" alt="Recursive Subdivisions" />
-</div>
+  <img src="./public/thumbnails/recursive-divisions.png" width="200" alt="Recursive Subdivisions" />
+  </div>
 
 ## Getting Started
 
