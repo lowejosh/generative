@@ -7,21 +7,21 @@ A collection of interactive generative pieces built with React, TypeScript, and 
 [View Gallery](https://lowejosh.github.io/generative)
 
 <div align="center">
-  <img src="./public/thumbnails/psychedelic-spiral.png" width="200" alt="Psychedelic Spiral" />
-  <img src="./public/thumbnails/perlin-field.png" width="200" alt="Perlin Field" />
-  <img src="./public/thumbnails/cityscape.png" width="200" alt="Cityscape" />
+  <img src="./public/thumbnails/psychedelic-spiral.png" width="200" height="134" alt="Psychedelic Spiral" />
+  <img src="./public/thumbnails/perlin-field.png" width="200" height="134" alt="Perlin Field" />
+  <img src="./public/thumbnails/cityscape.png" width="200" height="134" alt="Cityscape" />
 </div>
 
 <div align="center">
-  <img src="./public/thumbnails/multiplicative-epicycloid.png" width="200" alt="Multiplicative Epicycloid" />
-  <img src="./public/thumbnails/perlin-flow.png" width="200" alt="Perlin Flow" />
-  <img src="./public/thumbnails/random-walk.png" width="200" alt="Random Walk" />
+  <img src="./public/thumbnails/multiplicative-epicycloid.png" width="200" height="134" alt="Multiplicative Epicycloid" />
+  <img src="./public/thumbnails/perlin-flow.png" width="200" height="134" alt="Perlin Flow" />
+  <img src="./public/thumbnails/random-walk.png" width="200" height="134" alt="Random Walk" />
 </div>
 
 <div align="center">
-  <img src="./public/thumbnails/quantum-harmonics.png" width="200" alt="Quantum Harmonics" />
-  <img src="./public/thumbnails/recursive-divisions.png" width="200" alt="Recursive Subdivisions" />
-  </div>
+  <img src="./public/thumbnails/quantum-harmonics.png" width="200" height="134" alt="Quantum Harmonics" />
+  <img src="./public/thumbnails/recursive-divisions.png" width="200" height="134" alt="Recursive Subdivisions" />
+</div>
 
 ## Getting Started
 
