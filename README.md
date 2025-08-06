@@ -20,7 +20,7 @@ A collection of interactive generative art pieces built with React, TypeScript, 
   <img src="./public/thumbnails/random-walk.png" width="200" alt="Random Walk" />
 </div>
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -45,20 +45,20 @@ Open [http://localhost:3000](http://localhost:3000) to view the gallery.
 
 ## Creating New Sketches
 
-Use the built-in sketch generator to quickly create new artworks:
+Quickly create new artworks:
 
 ```bash
 yarn makeSketch SketchName
 ```
 
-This command automatically generates:
+Generates boilerplate for:
 
-- Component boilerplate with p5.js integration
-- Menu system for interactive controls
-- TypeScript type definitions
-- Proper file structure and imports
+- Components
+- Menu system
+- Types
+- File structure and imports
 
-## Built With
+## Stack
 
 - **React** - UI framework
 - **TypeScript** - Type safety and better development experience
@@ -66,7 +66,7 @@ This command automatically generates:
 - **Material-UI** - Component library and design system
 - **React Router** - Client-side routing
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
