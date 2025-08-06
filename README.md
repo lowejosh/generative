@@ -6,8 +6,6 @@ A collection of interactive generative art pieces built with React, TypeScript, 
 
 [View Gallery](https://lowejosh.github.io/generative)
 
-## Featured
-
 <div align="center">
   <img src="./public/thumbnails/psychedelic-spiral.png" width="200" alt="Psychedelic Spiral" />
   <img src="./public/thumbnails/perlin-field.png" width="200" alt="Perlin Field" />
@@ -18,6 +16,10 @@ A collection of interactive generative art pieces built with React, TypeScript, 
   <img src="./public/thumbnails/multiplicative-epicycloid.png" width="200" alt="Multiplicative Epicycloid" />
   <img src="./public/thumbnails/perlin-flow.png" width="200" alt="Perlin Flow" />
   <img src="./public/thumbnails/random-walk.png" width="200" alt="Random Walk" />
+</div>
+
+<div align="center">
+  <img src="./public/thumbnails/quantum-harmonics.png" width="200" alt="Quantum Harmonics" />
 </div>
 
 ## Getting Started

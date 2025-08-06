@@ -30,26 +30,26 @@ export interface PerlinFlowVars extends P5Defaults {
 /*                                  DEFAULTS                                  */
 /* -------------------------------------------------------------------------- */
 export const initialPerlinFlowVars: PerlinFlowVars = {
-  perlinZIncrementScale: 0.4,
+  swapSidesAtBorder: false,
+  perlinZIncrementScale: 0,
   perlinXIncrementScale: 1,
   perlinYIncrementScale: 1,
-  particleColor: NEON_BLUE,
-  swapSidesAtBorder: true,
+  particleColor: "#FFFFFF",
   viewForceVectors: false,
-  particleOpacity: 25,
-  particleAmount: 500,
+  particleOpacity: 1.5,
+  particleAmount: 5000,
   randomColor: false,
-  avoidBorders: true,
+  avoidBorders: false,
   bgColor: "#000000",
-  angleVariation: 20,
+  angleVariation: 5,
   fillTrails: false,
-  vectorPadding: 15,
-  clearScreen: true,
-  drawTrails: true,
+  vectorPadding: 25,
+  clearScreen: false,
+  drawTrails: false,
   particleSize: 1,
-  trailLength: 3,
-  maxVelocity: 5,
-  mass: 2,
+  trailLength: 0,
+  maxVelocity: 2,
+  mass: 5,
   refresh: (p: p5) => {
     p.setup();
     p.draw();
@@ -59,24 +59,22 @@ export const initialPerlinFlowVars: PerlinFlowVars = {
 /* -------------------------------------------------------------------------- */
 /*                                   PRESETS                                  */
 /* -------------------------------------------------------------------------- */
-const classicalPerlinFlow: PerlinFlowVars = {
+const floaters: PerlinFlowVars = {
   ...initialPerlinFlowVars,
   ...{
-    swapSidesAtBorder: false,
-    perlinZIncrementScale: 0,
-    particleColor: "#FFFFFF",
-    particleOpacity: 1.5,
-    particleAmount: 5000,
-    vectorPadding: 25,
-    avoidBorders: false,
-    clearScreen: false,
-    bgColor: "#000000",
-    drawTrails: false,
-    angleVariation: 5,
-    particleSize: 1,
-    trailLength: 0,
-    maxVelocity: 2,
-    mass: 5,
+    perlinZIncrementScale: 0.4,
+    particleColor: NEON_BLUE,
+    swapSidesAtBorder: true,
+    particleOpacity: 25,
+    particleAmount: 500,
+    avoidBorders: true,
+    angleVariation: 20,
+    vectorPadding: 15,
+    clearScreen: true,
+    drawTrails: true,
+    trailLength: 3,
+    maxVelocity: 5,
+    mass: 2,
   },
 };
 
@@ -128,8 +126,8 @@ export const perlinFlowPresets: PresetData<PerlinFlowVars> = [
     vars: initialPerlinFlowVars,
   },
   {
-    name: "Classical Flow",
-    vars: classicalPerlinFlow,
+    name: "Floaters",
+    vars: floaters,
   },
   {
     name: "Plasma",

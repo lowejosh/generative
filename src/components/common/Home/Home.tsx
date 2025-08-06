@@ -99,7 +99,7 @@ export const Home = () => {
                   </Typography>
 
                   <Typography variant="body2" color="textSecondary" paragraph>
-                    {sketch.dateCompleted.toLocaleDateString()}
+                    {sketch.description}
                   </Typography>
 
                   {sketch.tags && (
