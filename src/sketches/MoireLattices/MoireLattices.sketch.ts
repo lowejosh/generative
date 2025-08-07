@@ -1,4 +1,7 @@
-import { initialMoireLatticesVars, MoireLatticesVars } from "./MoireLattices.variables";
+import {
+  initialMoireLatticesVars,
+  MoireLatticesVars,
+} from "./MoireLattices.variables";
 import { checkForMismatchedSize } from "utils/misc/checkForMismatchedSize";
 import { P5Instance } from "types/p5";
 
@@ -7,7 +10,7 @@ const DEG2RAD = Math.PI / 180;
 export const moireLatticesSketch = (p: P5Instance<MoireLatticesVars>) => {
   p.variables = initialMoireLatticesVars;
 
-  let timeAngle = 0; // radians accumulated over time
+  let timeAngle = 0;
 
   const drawBackground = () => {
     if (p.variables) {
@@ -40,7 +43,6 @@ export const moireLatticesSketch = (p: P5Instance<MoireLatticesVars>) => {
     const diag = Math.sqrt(p.width * p.width + p.height * p.height);
     const half = diag / 2;
 
-    // draw parallel lines across a bounding square that fully covers the canvas when rotated
     for (let y = -half; y <= half; y += lineSpacing) {
       p.line(-half, y, half, y);
     }
@@ -52,9 +54,9 @@ export const moireLatticesSketch = (p: P5Instance<MoireLatticesVars>) => {
     checkForMismatchedSize(p);
     if (!p.variables) return;
 
-    const { angleOffsetDeg, layerCount, animate, rotationSpeedDeg } = p.variables;
+    const { angleOffsetDeg, layerCount, animate, rotationSpeedDeg } =
+      p.variables;
 
-    // update animation angle using deltaTime for consistent speed
     if (animate) {
       timeAngle += rotationSpeedDeg * DEG2RAD * (p.deltaTime / 1000);
     }

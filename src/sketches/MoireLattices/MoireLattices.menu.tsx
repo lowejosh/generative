@@ -65,7 +65,10 @@ export const MoireLatticesMenu = ({ p5Instance }: Props) => {
             <MenuSlider
               title="Angle Offset (deg)"
               value={state.angleOffsetDeg}
-              setValue={useCallback((v: number) => set.angleOffsetDeg(v), [set])}
+              setValue={useCallback(
+                (v: number) => set.angleOffsetDeg(v),
+                [set]
+              )}
               {...sliderParams}
               min={0}
               max={45}
@@ -83,7 +86,10 @@ export const MoireLatticesMenu = ({ p5Instance }: Props) => {
             <MenuSlider
               title="Rotation Speed (deg/s)"
               value={state.rotationSpeedDeg}
-              setValue={useCallback((v: number) => set.rotationSpeedDeg(v), [set])}
+              setValue={useCallback(
+                (v: number) => set.rotationSpeedDeg(v),
+                [set]
+              )}
               {...sliderParams}
               min={0}
               max={60}

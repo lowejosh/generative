@@ -2,11 +2,11 @@ import { P5Defaults } from "types/p5";
 import p5 from "p5";
 
 export interface MoireLatticesVars extends P5Defaults {
-  lineSpacing: number; // px between lines
-  lineWidth: number; // stroke weight
-  angleOffsetDeg: number; // degrees between layers
-  layerCount: number; // number of layered lattices
-  rotationSpeedDeg: number; // deg/sec when animated
+  lineSpacing: number;
+  lineWidth: number;
+  angleOffsetDeg: number;
+  layerCount: number;
+  rotationSpeedDeg: number;
   animate: boolean;
   fgColor: string;
   bgColor: string;
