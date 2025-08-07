@@ -6,3 +6,4 @@ export { PerlinFlow } from "./PerlinFlow";
 export { Cityscape } from "./Cityscape";
 export { QuantumHarmonics } from "./QuantumHarmonics";
 export { RecursiveDivisions } from "./RecursiveDivisions";
+export { MoireLattices } from "./MoireLattices";

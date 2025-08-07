@@ -8,6 +8,7 @@ import {
   Cityscape,
   QuantumHarmonics,
   RecursiveDivisions,
+  MoireLattices,
 } from "sketches";
 
 export type Tags =
@@ -89,5 +90,12 @@ export const sketches: Array<SketchItem> = [
     component: <RecursiveDivisions />,
     description: "Recursive geometric subdivision.",
     tags: ["Geometry", "Mathematical"],
+  },
+  {
+    name: "Moiré Lattices",
+    slug: "moire-lattices",
+    component: <MoireLattices />,
+    description: "Layered line lattices with slight angular offsets.",
+    tags: ["Geometry", "Animation"],
   },
 ];

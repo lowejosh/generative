@@ -21,6 +21,7 @@ A collection of interactive generative pieces built with React, TypeScript, and 
 <div align="center">
   <img src="./public/thumbnails/quantum-harmonics.png" width="200" height="134" alt="Quantum Harmonics" />
   <img src="./public/thumbnails/recursive-divisions.png" width="200" height="134" alt="Recursive Subdivisions" />
+  <img src="./public/thumbnails/moire-lattices.png" width="200" height="134" alt="Moiré Lattices" />
 </div>
 
 ## Getting Started
