@@ -9,6 +9,7 @@ import {
   QuantumHarmonics,
   RecursiveDivisions,
   MoireLattices,
+  KaleidoscopeCaustics,
 } from "sketches";
 
 export type Tags =
@@ -97,5 +98,13 @@ export const sketches: Array<SketchItem> = [
     component: <MoireLattices />,
     description: "Layered line lattices with slight angular offsets.",
     tags: ["Geometry", "Animation"],
+  },
+  {
+    name: "Kaleidoscope Caustics",
+    slug: "kaleidoscope-caustics",
+    component: <KaleidoscopeCaustics />,
+    description:
+      "Domain-warped noise caustics mirrored into kaleidoscopic wedges.",
+    tags: ["Noise", "Animation", "Fractals", "Organic"],
   },
 ];

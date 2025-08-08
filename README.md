@@ -21,7 +21,11 @@ A collection of interactive generative pieces built with React, TypeScript, and 
 <div align="center">
   <img src="./public/thumbnails/quantum-harmonics.png" width="200" height="134" alt="Quantum Harmonics" />
   <img src="./public/thumbnails/recursive-divisions.png" width="200" height="134" alt="Recursive Subdivisions" />
-  <img src="./public/thumbnails/moire-lattices.png" width="200" height="134" alt="Moiré Lattices" />
+  <img src="./public/thumbnails/moire-lattices.png" height="134" alt="Moiré Lattices" />
+</div>
+
+<div align="center">
+  <img src="./public/thumbnails/kaleidoscope-caustics.png" height="134" alt="Kaleidoscope Caustics" />
 </div>
 
 ## Getting Started
@@ -64,11 +68,11 @@ Generates boilerplate for:
 
 ## Stack
 
-- **React** - UI framework
-- **TypeScript** - Type safety and better development experience
-- **p5.js** - Creative coding and graphics library
-- **Material-UI** - Component library and design system
-- **React Router** - Client-side routing
+- **React** 
+- **TypeScript** 
+- **p5.js** 
+- **Material-UI** 
+- **React Router** 
 
 ## Project Structure
 
