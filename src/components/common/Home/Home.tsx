@@ -7,7 +7,6 @@ import {
   styled,
   Card,
   Grid,
-  Chip,
   Box,
 } from "@material-ui/core";
 
@@ -34,11 +33,6 @@ const ThumbnailFallback = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   fontSize: "2rem",
   fontWeight: "bold",
-}));
-
-const TagChip = styled(Chip)(({ theme }) => ({
-  margin: theme.spacing(0.25),
-  fontSize: "0.75rem",
 }));
 
 // Component for handling thumbnail with fallback
@@ -93,28 +87,10 @@ export const Home = () => {
               <SketchCard>
                 <SketchThumbnail sketch={sketch} />
 
-                <CardContent style={{ flexGrow: 1 }}>
+                <CardContent style={{ flexGrow: 1, paddingBottom: 16 }}>
                   <Typography variant="h6" component="h2" gutterBottom>
                     {sketch.name}
                   </Typography>
-
-                  <Typography variant="body2" color="textSecondary" paragraph>
-                    {sketch.description}
-                  </Typography>
-
-                  {sketch.tags && (
-                    <Box>
-                      {sketch.tags.map((tag, tagIndex) => (
-                        <TagChip
-                          key={tagIndex}
-                          label={tag}
-                          size="small"
-                          color="primary"
-                          variant="outlined"
-                        />
-                      ))}
-                    </Box>
-                  )}
                 </CardContent>
               </SketchCard>
             </Link>
